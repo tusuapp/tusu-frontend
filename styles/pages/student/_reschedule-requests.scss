@@ -1,0 +1,28 @@
+.reschedule-request {
+  &__card {
+    padding: 12px 15px;
+    background: #f7f7f7 0% 0% no-repeat padding-box;
+    border-radius: 15px;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: flex;
+    margin-bottom: 50px;
+    .class-img-box{
+      border: 3px solid #ffffff;
+    }
+    .time-sub-box {
+      font-size: 14px;
+      color: #b4b2b5;
+  }
+  &:hover{
+      background: rgba(146, 71, 129, 0.13);
+  }
+ button{
+   color: #ffffff;
+    border: none;
+    font-size: 11px;
+    padding: 2px 13px;
+    border-radius: 15px;
+  }
+}
+}

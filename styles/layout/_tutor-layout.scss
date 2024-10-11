@@ -1,0 +1,66 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the home page.
+// -----------------------------------------------------------------------------
+
+.tutor__container {
+  display: flex;
+  width: 100%;
+  min-height: 70vh;
+  // max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tutor__dashboard {
+  &__content {
+    width: 100%;
+    padding-bottom: 100px;
+    padding-top: 56px;
+    padding-left: 50px;
+    padding-right: 100px;
+    margin-left: 324px;
+    width: 75%;
+    position: fixed;
+    top: 80px;
+    right: 0;
+    overflow-y: scroll;
+    height: 100%;
+  }
+
+  &__title {
+    font-size: 22px;
+    color: #686868;
+    font-weight: 400;
+    letter-spacing: 0.62px;
+  }
+}
+
+.tutor__profile {
+  &__content {
+    width: 100%;
+    padding-bottom: 100px;
+    padding-top: 56px;
+    padding-left: 50px;
+    padding-right: 100px;
+    margin-left: 180px;
+    margin-right: 180px;
+  }
+
+  &__title {
+    font-size: 22px;
+    color: #686868;
+    font-weight: 400;
+    letter-spacing: 0.62px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .tutor__dashboard {
+    &__content {
+      margin-left: 0px;
+      padding-left: 1.3rem;
+      padding-right: 1.3rem;
+      width: 100%;
+    }
+  }
+}

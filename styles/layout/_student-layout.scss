@@ -1,0 +1,17 @@
+.student__profile {
+  &__content {
+    width: 100%;
+    padding-bottom: 100px;
+    padding-top: 56px;
+    padding-left: 50px;
+    padding-right: 100px;
+    margin-left: 324px;
+  }
+
+  &__title {
+    font-size: 22px;
+    color: #686868;
+    font-weight: 400;
+    letter-spacing: 0.62px;
+  }
+}

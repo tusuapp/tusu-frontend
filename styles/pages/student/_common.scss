@@ -1,0 +1,27 @@
+.student__page {
+  &__header {
+    &__title {
+      color: #222222;
+      font-size: 20px;
+    }
+
+    &__search {
+      &__container {
+        display: flex;
+
+        input {
+          top: 176px;
+          left: 189px;
+          width: 344px;
+          height: 38px;
+          background: var(--unnamed-color-f6f6f6) 0% 0% no-repeat padding-box;
+          background: #f6f6f6 0% 0% no-repeat padding-box;
+          border-radius: 25px;
+          opacity: 1;
+          border: none;
+          padding: 20px;
+        }
+      }
+    }
+  }
+}

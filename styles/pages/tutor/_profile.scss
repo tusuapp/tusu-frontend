@@ -1,0 +1,70 @@
+.profile__wrapper {
+  background: #f8f8f8 0% 0% no-repeat padding-box;
+  box-shadow: 0px 15px 30px #d3d1d840;
+}
+
+.profile {
+  &__border__right {
+    border-right: 0.5px solid #bdb9b9;
+    height: 100%;
+  }
+
+  &__field {
+    &__label {
+      color: #808080;
+      font-size: 12px;
+    }
+
+    &__value {
+      color: #82296e;
+      font-size: 14px;
+    }
+  }
+}
+
+.edit-profile {
+  &__profile__image {
+    top: 129px;
+    left: 180px;
+    width: 75px;
+    height: 75px;
+    border-radius: 8px;
+  }
+
+  &__field__input__text {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #671a5629;
+    border-radius: 12px;
+    width: 308px;
+    height: 48px;
+    box-shadow: 0px 3px 6px #00000012;
+    padding: 7px 15px;
+  }
+}
+.image_upload {
+  background-color: aqua;
+  position: absolute;
+  margin-right: "100px";
+}
+.react-tel-input {
+  width: 100% !important;
+  display: flex;
+  // pointer-events: none;
+} 
+.react-tel-input input{
+  height: 48px !important;
+}
+
+//edit profile page >> video upload button
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fa-spinner{
+  animation: spin infinite 3s linear;
+}

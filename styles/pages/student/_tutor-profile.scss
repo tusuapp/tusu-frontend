@@ -1,0 +1,81 @@
+.tutor__timeslot {
+  //   background-color: red;
+  position: relative;
+  align-items: center;
+  padding: 10px;
+  font-weight: 500;
+  //   border: 1px solid;
+  padding-left: 2rem;
+
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    background-color: #fff2cf;
+    height: 35px;
+    width: 5px;
+    position: absolute;
+    border-radius: 3px;
+    left: 0;
+    top: 5px;
+  }
+
+  &::after {
+    content: "";
+    background-color: #fff2cf;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    top: 25%;
+  }
+
+  &--active {
+    padding: 10px;
+    position: relative;
+    align-items: center;
+    font-weight: 500;
+    padding: 10px;
+    padding-left: 2rem;
+    // border: 1px solid;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      background-color: #fbb017;
+      height: 35px;
+      width: 5px;
+      position: absolute;
+      border-radius: 3px;
+      left: 0;
+      top: 5px;
+    }
+
+    &::after {
+      content: "";
+      background-color: #ffffff;
+      height: 25px;
+      width: 25px;
+      border: 6px solid #fbb017;
+      border-radius: 25px;
+      position: absolute;
+      right: 0;
+      top: 25%;
+    }
+  }
+
+  &--disabled {
+    @extend .tutor__timeslot;
+    border: 6px solid #afaeac;
+  }
+}
+
+.reviews {
+  &__title {
+    color: #080808;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+}

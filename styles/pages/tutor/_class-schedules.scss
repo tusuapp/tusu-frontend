@@ -1,0 +1,221 @@
+.timeslot__container {
+  margin-top: 20px;
+}
+
+.timeslot {
+  padding: 20px 20px;
+  background: #fcfcfc 0% 0% no-repeat padding-box;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  position: relative;
+  background: #fcfdff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #0000000d;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    width: 4px;
+    background-color: #d4dbe1;
+    border-radius: 3px;
+    position: absolute;
+    left: 0;
+    height: 44px;
+    margin-top: 5px;
+  }
+
+  &__right__column {
+    width: 50%;
+    border-right: 0.5px solid rgb(112, 112, 112, 0.55);
+  }
+
+  .time {
+    color: #5d5e6a;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .subject {
+    color: #924781;
+    font-size: 12px;
+  }
+
+  .status {
+    padding-left: 30px;
+
+    .title {
+      color: #5d5e6a;
+      font-size: 12px;
+    }
+
+    .description {
+      color: #5d5e6a;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  .eye__button {
+    color: #924781;
+    display: grid;
+    display: grid;
+    font-size: 20px;
+    place-content: center;
+
+    &--disabled {
+      color: #d4dbe1;
+    }
+  }
+
+  &--disabled {
+    @extend .timeslot;
+
+    &::before {
+      background-color: #e9e0ce;
+    }
+  }
+
+  &--active {
+    @extend .timeslot;
+
+    &::before {
+      background-color: #e9e0ce;
+    }
+  }
+}
+
+.timeslot.active::before{
+  background-color: #ffda5e;
+}
+
+.reschedule-modal {
+  &__timeslots {
+    background-color: antiquewhite;
+    width: 100%;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 7px;
+  }
+}
+
+.reschedule-modal__fields {
+  .field__date {
+    width: 100% !important;
+    border: 1px solid #707070;
+    width: 316px;
+    height: 48px;
+    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+    border: 1px solid var(--unnamed-color-707070);
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid rgb(112, 112, 112, 0.3);
+    border-radius: 7px;
+    padding: 0px 20px;
+  }
+
+  .field__time {
+    width: 100% !important;
+    border: 1px solid #707070;
+    width: 316px;
+    height: 48px;
+    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+    border: 1px solid var(--unnamed-color-707070);
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid rgb(112, 112, 112, 0.3);
+    border-radius: 7px;
+    padding: 0px 20px;
+  }
+}
+
+.reschedule__timeslot {
+  //   background-color: red;
+  position: relative;
+  align-items: center;
+  padding: 10px;
+  font-weight: 500;
+  //   border: 1px solid;
+  padding-left: 2rem;
+
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    background-color: #fff2cf;
+    height: 35px;
+    width: 5px;
+    position: absolute;
+    border-radius: 3px;
+    left: 0;
+    top: 5px;
+  }
+
+  &::after {
+    content: "";
+    background-color: #fff2cf;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    top: 25%;
+  }
+
+  &--active {
+    padding: 10px;
+    position: relative;
+    align-items: center;
+    font-weight: 500;
+    padding: 10px;
+    padding-left: 2rem;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      background-color: #fbb017;
+      height: 35px;
+      width: 5px;
+      position: absolute;
+      border-radius: 3px;
+      left: 0;
+      top: 5px;
+    }
+
+    &::after {
+      content: "";
+      background-color: #ffffff;
+      height: 25px;
+      width: 25px;
+      border: 6px solid #fbb017;
+      border-radius: 25px;
+      position: absolute;
+      right: 0;
+      top: 25%;
+    }
+  }
+
+  &--disabled {
+    @extend .tutor__timeslot;
+    border: 6px solid #afaeac;
+  }
+}
+@media screen and (max-height: 768px) {
+  .modal-wrap {
+    .ReactModal__Overlay {
+      .ReactModal__Content {
+        height: 400px !important;
+        overflow-y: auto !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-height: 451px) {
+  .modal-wrap {
+    .ReactModal__Overlay {
+      .ReactModal__Content {
+        height: 250px !important;
+        overflow-y: auto !important;
+      }
+    }
+  }
+}

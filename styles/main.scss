@@ -1,0 +1,46 @@
+@charset 'UTF-8';
+
+// 1. Configuration and helpers
+@import "abstracts/variables", "abstracts/functions", "abstracts/mixins";
+
+// 2. Vendors
+// @import "vendors/...";
+
+// 3. Base stuff
+@import "base/base", "base/fonts", "base/typography", "base/helpers";
+
+// 4. Layout-related sections
+@import "layout/header", "layout/footer";
+@import "layout/tutor-grid";
+@import "layout/tutor-layout";
+
+// 5. Components
+@import "components/button";
+@import "components/dot-flashing";
+@import "components/sidebar";
+@import "components/dashboard_filter";
+@import "components/calendar";
+@import "components/time-picker";
+@import "components/notification-item";
+@import "components/date-picker";
+@import "components/earnings_chart";
+@import "components/header";
+
+// 6. Page-specific styles
+@import "pages/landing/home";
+@import "pages/tutor/complete-profile";
+@import "pages/tutor/class-schedules";
+@import "pages/tutor/my-booking";
+@import "pages/tutor/profile";
+@import "pages/tutor/chat";
+
+@import "pages/student/common";
+@import "pages/student/system-check";
+@import "pages/student/credit-points";
+@import "pages/student/tutor-profile";
+@import "pages/student/reschedule-requests";
+@import "pages/auth/common";
+@import "pages/common";
+
+// 7. Themes
+@import "themes/default";

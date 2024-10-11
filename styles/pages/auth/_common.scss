@@ -1,0 +1,27 @@
+.auth-page {
+  &__title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+}
+.otp {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  width: 380px;
+  height: 100px;
+  align-items: center;
+}
+.otp__field input {
+  width: 54px;
+  height: 48px;
+  display: flex;
+  justify-content: end;
+  margin: 15px;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 28px;
+  opacity: 1;
+}

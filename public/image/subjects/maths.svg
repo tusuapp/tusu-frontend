@@ -1,0 +1,11 @@
+<svg id="calculator" xmlns="http://www.w3.org/2000/svg" width="56.944" height="56.538" viewBox="0 0 56.944 56.538">
+  <path id="Path_24398" data-name="Path 24398" d="M19.636,6.873H12.763V0H6.873V6.873H0v5.891H6.873v6.873h5.891V12.763h6.873Z" fill="#e7cacb"/>
+  <path id="Path_24399" data-name="Path 24399" d="M323.636,56v5.891H304V56Z" transform="translate(-266.692 -49.127)" fill="#32b1cc"/>
+  <g id="Group_36120" data-name="Group 36120" transform="translate(37.308 33)">
+    <path id="Path_24400" data-name="Path 24400" d="M323.636,344v5.891H304V344Z" transform="translate(-304 -334.783)" fill="#55b56a"/>
+    <ellipse id="Ellipse_3265" data-name="Ellipse 3265" cx="2.5" cy="3" rx="2.5" ry="3" transform="translate(7.361 -0.462)" fill="#55b56a"/>
+    <ellipse id="Ellipse_3266" data-name="Ellipse 3266" cx="2.5" cy="3" rx="2.5" ry="3" transform="translate(7.361 17.538)" fill="#55b56a"/>
+  </g>
+  <path id="Path_24401" data-name="Path 24401" d="M117.308,97.672H99.636V80H97.672V97.672H80v1.964H97.672v17.672h1.964V99.636h17.672Z" transform="translate(-70.182 -70.182)" fill="#195c85"/>
+  <path id="Path_24402" data-name="Path 24402" d="M27.636,284.909,22.727,280l-4.909,4.909L12.909,280,8,284.8l4.909,5.019L8,294.727l4.909,4.909,4.909-4.909,4.909,4.909,4.909-4.909-4.909-4.909Z" transform="translate(-7.018 -245.637)" fill="#f49e21"/>
+</svg>

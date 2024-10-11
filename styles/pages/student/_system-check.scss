@@ -1,0 +1,24 @@
+.system-check {
+  &__container {
+    top: 317px;
+    left: 187px;
+    height: 395px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 15px;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__component {
+    width: 250px;
+    height: 88px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

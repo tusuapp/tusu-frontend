@@ -1,0 +1,58 @@
+.student__dropdown {
+  &__menu__items {
+    position: absolute;
+    top: 100%;
+    padding: 10px;
+    width: 324px;
+    background: #f6f6f6 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    right: 3rem;
+  }
+
+  &__menu__item {
+    padding: 10px 15px;
+
+    a {
+      text-decoration: none;
+      color: #655965;
+    }
+  }
+
+  &__menu__item:hover {
+    background-color: #f2f4f9;
+  }
+}
+
+.student__filters {
+  &__wrapper {
+    background-color: rgb(226, 211, 211);
+    position: absolute;
+    top: 100%;
+    padding: 10px;
+    width: 100%;
+    padding: 2rem 3rem;
+    left: 0;
+    height: 374px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+  }
+}
+
+.filter_wrapper {
+  margin-right: 176px;
+  margin-left: 176px;
+}
+.filter__field__label {
+  color: #77798c;
+  background-color: burlywood;
+}
+
+.PhoneInputCountrySelect {
+  width: "20px";
+}
+
+// .phone__input {
+//   background-color: aquamarine;
+//   width: 50px;
+//   height: 50px;
+// }
