@@ -21,7 +21,6 @@ function Home() {
   );
 
   const onSubmit = (data: any) => {
-    // console.log(data)
     router.push(`/student/contact/success`);
   };
 
