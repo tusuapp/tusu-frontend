@@ -66,7 +66,7 @@ function Profile() {
     api.get("/countries").then((res) => res.data)
   );
 
-  console.log("profile data edit page =====>", userProfile)
+  // console.log("profile data edit page =====>", userProfile);
 
   useEffect(() => {
     getInitialFormData();
@@ -80,7 +80,7 @@ function Profile() {
       address: data?.tutor_details.address,
       description: data?.tutor_details.description,
       email: data?.email,
-      phone: data?.phone,
+      phone: data?.phone || "9102322",
       country: { label: data?.country?.name, value: data?.country?.id },
       timezone: { label: data?.timezone, value: data?.timezone },
       gender: {
@@ -299,10 +299,9 @@ function Profile() {
                             style={{
                               backgroundColor: "#FBB017",
                               borderColor: "#FBB017",
-                              padding: "4px 11px"
+                              padding: "4px 11px",
                             }}
                           >
-                            {/* onClick={() => router.back() */}
                             <span style={{ color: "white" }}>Save</span>
                             <DoneIcon
                               sx={{
@@ -317,13 +316,13 @@ function Profile() {
                     </div>
 
                     <div className=" py-4 px-4 ">
-                    <ReactPlayer
-                    width="50%"
-                    height="50%"
-                    controls
-                     url={userProfile ? userProfile?.data.video: ""}
-                   // url="https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
-                  />
+                      <ReactPlayer
+                        width="50%"
+                        height="50%"
+                        controls
+                        url={userProfile ? userProfile?.data.video : ""}
+                        // url="https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
+                      />
                     </div>
 
                     <div className="row">
@@ -387,7 +386,7 @@ function Profile() {
                               style={{
                                 width: "330px",
                                 height: "100px",
-                                pointerEvents: "none"
+                                pointerEvents: "none",
                               }}
                             >
                               <div className="profile__field__label">
@@ -407,9 +406,9 @@ function Profile() {
                                 {({ field, form: { setFieldValue } }: any) => (
                                   <PhoneInput
                                     country={"us"}
-                                    value={field.value}
+                                    value={field.value.toString()}
                                     onChange={(val) => {
-                                      setFieldValue(field.name, val);
+                                      setFieldValue(field.name, val || "");
                                     }}
                                     onBlur={field.onBlur}
                                     inputStyle={{

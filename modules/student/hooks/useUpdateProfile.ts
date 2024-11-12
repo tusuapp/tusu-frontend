@@ -2,20 +2,21 @@ import { api } from "api";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { convertErrorsToArray } from "../../../utils";
-
+import { useRouter } from "next/router";
 const updateProfile = async (schedule: any) => {
   const { data } = await api.put("/student/profile", schedule);
   // console.log(data);
-  
+
   return data.result;
 };
 
 const useUpdateProfile = () => {
   const queryClient = useQueryClient();
-
+  const router = useRouter();
   return useMutation((data: any) => updateProfile(data), {
     onSuccess: () => {
       toast.success("Profile updated successfully");
+      router.push("/student/profile");
     },
 
     onMutate: async (newTodo) => {
@@ -41,20 +42,19 @@ const useUpdateProfile = () => {
     onError: async (err: any, newTodo, context: any) => {
       const errorMessage = err.response.data.message;
 
-      if(err.response.status === 422) {
+      if (err.response.status === 422) {
         const errorMessages = convertErrorsToArray(err?.response?.data?.error);
-        let message = errorMessages.map((key)=> { 
+        let message = errorMessages.map((key) => {
           return key;
-        })
+        });
         toast.error(message.join(","));
-      }
-      else {
+      } else {
         if (errorMessage) {
           toast.error(err.response.data.message);
         } else {
           toast.error("Unknown error occured");
         }
-    }
+      }
 
       if (
         Object.keys(errorMessage).length === 0 &&
@@ -62,8 +62,6 @@ const useUpdateProfile = () => {
       ) {
         toast.error("Empty message from server");
       }
-
-      
 
       queryClient.setQueryData("tutorSlots", context.previousTodos);
     },

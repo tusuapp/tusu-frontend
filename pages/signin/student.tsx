@@ -55,7 +55,7 @@ const SignIn = () => {
         Router.replace("/student");
       })
       .catch((error: any) => {
-        appendInputError("email", error.response.data.message);
+        appendInputError("email", error);
         setIsLoading(false);
       });
   };

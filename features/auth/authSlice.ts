@@ -57,9 +57,6 @@ export const authSlice = createSlice({
 export const fetchUser = (): AppThunk => async (dispatch) => {
   try {
     const response = await api.get("/auth/user");
-  //console.log("response----------",response);
-  
-
     dispatch(getUser(response.data.result.user));
   } catch (e: any) {
     await localStorage.removeItem("accessToken");
@@ -92,7 +89,10 @@ export const signInTutor =
           dispatch(getUser(response.data.result.user));
 
           localStorage.setItem("accessToken", response.data.result.jwt);
-            localStorage.setItem("currentUser", JSON.stringify(response.data.result));
+          localStorage.setItem(
+            "currentUser",
+            JSON.stringify(response.data.result)
+          );
 
           setIsLoading(false);
         })
@@ -122,7 +122,6 @@ export const signIn =
       dispatch(getUser(response.data.result.user));
       localStorage.setItem("accessToken", response.data.result.jwt);
       localStorage.setItem("currentUser", JSON.stringify(response.data.result));
-
     });
   };
 
@@ -176,9 +175,6 @@ export const signUpTutor =
       .post("/auth/local/register", data)
       .then((res) => {
         toast.success("Account created successfully");
-
-        console.log(res);
-        // return "success";
         return res;
       })
       .catch((error) => {
@@ -207,9 +203,10 @@ export const updateProfile =
 
       const response = await api.put("/tutor/edit-profile", data);
 
-      toast.success("Profile updated successfully");
+      toast.success("Profile updated successfully1");
 
       dispatch(getUser(response.data.result));
+      router.push("/tutor/profile");
     } catch (e: any) {
       const errorMessages = convertErrorsToArray(e?.response?.data?.error);
 

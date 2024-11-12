@@ -1,4 +1,6 @@
 import { api } from "api";
+import { useRouter } from "next/router";
+
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
@@ -10,10 +12,11 @@ const updateProfile = async (schedule: any) => {
 
 const useUpdateProfile = () => {
   const queryClient = useQueryClient();
-
+  const router = useRouter();
   return useMutation((data: any) => updateProfile(data), {
     onSuccess: () => {
       toast.success("Profile updated successfully");
+      router.push("/tutor/profile");
     },
 
     onMutate: async (newTodo) => {
