@@ -138,7 +138,7 @@ const StatusButton: React.FC<IButton> = ({
   //Improved readability from inline conditions
   let buttonStyle = "";
   if (status === "completed") {
-    buttonStyle = `button button--success f` + styles.playButton;
+    buttonStyle = `button button--success ` + styles.playButton;
   } else if (whatLeft.asDays() > 0) {
     buttonStyle = `button button--${xstatus}`;
   } else {
