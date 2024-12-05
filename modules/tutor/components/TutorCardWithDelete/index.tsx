@@ -32,6 +32,9 @@ const TutorCardWithDelete: React.FC<TutorCardWithDeleteProps> = ({
     </>
   );
 
+  if (profilePicture && profilePicture.endsWith(".mp4")) {
+    profilePicture = "";
+  }
   return (
     <div className={styles.tutor__card}>
       <div

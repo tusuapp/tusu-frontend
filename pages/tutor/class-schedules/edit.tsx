@@ -145,7 +145,7 @@ const ChooseSchedulePage = () => {
                         type="primary"
                         className="btn-brand w-100 btn-lg mt-auto  "
                         onClick={() => {
-                          router.push("/tutor");
+                          router.push("/tutor/class-schedules");
                         }}
                         disabled={!isScheduleCreated}
                       >

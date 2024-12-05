@@ -19,7 +19,6 @@ function ClassSchedules() {
   // const [scheduleId, setScheduleId] = useState<any>(null);
 
   // console.log("selectedSlotId ====> :", selectedSlotId, selectedDate);
-  
 
   const { data, isLoading, isFetching } = useScheduledClasses(
     formatYYYYMMDD(selectedDate, "-")
@@ -46,7 +45,7 @@ function ClassSchedules() {
                     {/* {isTutorSlots.data.result.total_slots === 0
                       ? "Add schedule"
                       : "Edit Schedule"} */}
-                      Add/Edit Week schedule
+                    Add/Edit Schedule
                   </button>
                 </Link>
               </div>
@@ -65,7 +64,9 @@ function ClassSchedules() {
               next2Label={null}
               prev2Label={null}
             />
-            <p className="mt-5 h6">Note : The Schedule may change during day-light-savings!.</p>
+            <p className="mt-5 h6">
+              Note : The Schedule may change during day-light-savings!.
+            </p>
           </div>
           <div className="col-md-1"></div>
           <div className="col-md-5 col-sm-12">

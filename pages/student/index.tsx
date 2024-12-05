@@ -21,23 +21,21 @@ const StudentHome = () => {
   const dispatch = useDispatch();
   const { user } = useSelector(selectAuth);
   const { dashboard, all_tutors } = useSelector(selectStudentDashboard);
-  const [classesData, setclassesData] = useState([])
+  const [classesData, setclassesData] = useState([]);
 
- // console.log("classData ======>", classesData);
-  
+  // console.log("classData ======>", classesData);
 
-  const fetchClasses = async() => {
+  const fetchClasses = async () => {
     const response = await api.get("student/my-bookings?page=1&limit=3");
     // setclassesData(response);
     setclassesData(response.data.result.data);
-  }
-  
+  };
 
-   useEffect(() => {
+  useEffect(() => {
     dispatch(fetchDashboard());
     dispatch(fetchAllTutors());
     fetchClasses();
-    }, []);
+  }, []);
 
   return (
     <>
@@ -72,22 +70,20 @@ const StudentHome = () => {
             </div>
 
             <div className="row">
-                {classesData?.map((myClass: any, index: number) => {
-                  return (
-                    <>
-                      <div
-                        className="col-lg-4 col-md-6 col-sm-12 col-12 my-classes"
-                        key={index}
-                      >
-                        <MyClass
-                            myclass={myClass}
-                        />
-                      </div>
-                    </>
-                  );
-                })}
-              </div>
-            
+              {classesData?.map((myClass: any, index: number) => {
+                return (
+                  <>
+                    <div
+                      className="col-lg-4 col-md-6 col-sm-12 col-12 my-classes"
+                      key={index}
+                    >
+                      <MyClass myclass={myClass} />
+                    </div>
+                  </>
+                );
+              })}
+            </div>
+
             <div className="d-flex justify-content-between align-items-center mb-5">
               <h2
                 className="discipline-head mb-5"
@@ -108,22 +104,24 @@ const StudentHome = () => {
               </a>
             </div>
             <div className="row row-cols-2 row-cols-lg-5">
-              {dashboard.subjects.filter((item: any) => item.type == "subject").map((descipline: any, index: number) => (
-                <Link
-                  href={`/student/subjects/tutors/${descipline.id}?subject=${descipline?.name}`}
-                  key={index}
-                >
-                  <div className="col mb-5 square mouse">
-                    <Discipline
-                      name={descipline.name}
-                      icon={descipline.image}
-                      href="#"
-                      backgroundColor={descipline.background_color}
-                      fontColor={descipline.text_color}
-                    />
-                  </div>
-                </Link>
-              ))}
+              {dashboard.subjects
+                .filter((item: any) => item.type == "subject")
+                .map((descipline: any, index: number) => (
+                  <Link
+                    href={`/student/subjects/tutors/${descipline.id}?subject=${descipline?.name}`}
+                    key={index}
+                  >
+                    <div className="col mb-5 square mouse">
+                      <Discipline
+                        name={descipline.name}
+                        icon={descipline.image}
+                        href="#"
+                        backgroundColor={descipline.background_color}
+                        fontColor={descipline.text_color}
+                      />
+                    </div>
+                  </Link>
+                ))}
             </div>
           </section>
           <section>
@@ -152,8 +150,8 @@ const StudentHome = () => {
             <div className="row row-cols-2  row-cols-lg-5 row-cols-xl-5  row-cols-md-2">
               {all_tutors &&
                 all_tutors.map((tutor: any, index: any) => {
-                  if(tutor.element.tutor_slots.length > 0){
-                    return(
+                  if (tutor.element.tutor_slots.length > 0) {
+                    return (
                       <Link href={`/student/tutors/${tutor.id}`} key={index}>
                         <div
                           className="col mb-5 tutor__list_column mouse"
@@ -167,7 +165,7 @@ const StudentHome = () => {
                           />
                         </div>
                       </Link>
-                    )
+                    );
                   }
                 })}
             </div>
@@ -191,24 +189,21 @@ const StudentHome = () => {
             </div>
             <div className="row row-cols-2  row-cols-lg-5 row-cols-xl-5  row-cols-md-2">
               {dashboard?.popular_tutors?.map((tutor: any, index: any) => (
-                  <div
-                    className="col mb-5 tutor__list_column mouse"
-                    key={index}
-                  >
-                    <Link href={`/student/tutors/${tutor.id}`} key={index}>
-                      <div
-                        className="col mb-5 tutor__list_column mouse"
-                        key={index}
-                      >
-                        <TutorCard
-                          tutorName={tutor.fullname}
-                          profilePicture={tutor.image}
-                          tutorSubject={tutor.subjects}
-                          rating={tutor.rating}
-                        />
-                      </div>
-                    </Link>
-                    {/* <Link href={`/student/tutors/${tutor.id}`} key={index}>
+                <div className="col mb-5 tutor__list_column mouse" key={index}>
+                  <Link href={`/student/tutors/${tutor.id}`} key={index}>
+                    <div
+                      className="col mb-5 tutor__list_column mouse"
+                      key={index}
+                    >
+                      <TutorCard
+                        tutorName={tutor.fullname}
+                        profilePicture={tutor.image}
+                        tutorSubject={tutor.subjects}
+                        rating={tutor.rating}
+                      />
+                    </div>
+                  </Link>
+                  {/* <Link href={`/student/tutors/${tutor.id}`} key={index}>
                       <TutorCard
                         tutorName={tutor.name}
                         profilePicture={tutor.image}
@@ -216,8 +211,8 @@ const StudentHome = () => {
                         rating={tutor.ratting}
                       />
                     </Link> */}
-                  </div>
-                ))}
+                </div>
+              ))}
             </div>
           </section>
           <section id="">
@@ -239,17 +234,19 @@ const StudentHome = () => {
             </div>
             <div className="row row-cols-2  row-cols-lg-5 row-cols-xl-5  row-cols-md-2">
               {dashboard?.recommended_tutors?.map((tutor: any, index: any) => (
-                <div
-                  className="col mb-5 tutor__list_column mouse"
-                  key={index}
-                >
-                  <Link href={`/student/tutors/${tutor.id}`}>
-                    <TutorCard
-                      tutorName={tutor.fullname}
-                      profilePicture={tutor.image}
-                      tutorSubject={tutor.subjects}
-                      rating={tutor.rating}
-                    />
+                <div className="col mb-5 tutor__list_column mouse" key={index}>
+                  <Link href={`/student/tutors/${tutor.id}`} key={index}>
+                    <div
+                      className="col mb-5 tutor__list_column mouse"
+                      key={index}
+                    >
+                      <TutorCard
+                        tutorName={tutor.fullname}
+                        profilePicture={tutor.image}
+                        tutorSubject={tutor.subjects}
+                        rating={tutor.rating}
+                      />
+                    </div>
                   </Link>
                 </div>
               ))}

@@ -85,7 +85,6 @@ function EditProfilePageStudent() {
 
   useEffect(() => {
     if (updateProfilePicture?.data) {
-      console.log(updateProfilePicture?.data[0]?.id);
       setPicId(updateProfilePicture?.data[0]?.id);
     }
   }, [updateProfilePicture?.data]);

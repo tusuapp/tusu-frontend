@@ -2315,7 +2315,6 @@ footer {
 
 .Student__my-class {
   button {
-    color: #ffffff;
     border: none;
     font-size: 11px;
     padding: 2px 13px;
@@ -2330,13 +2329,7 @@ footer {
     color: #924781;
   }
 }
-.button--overdue,
-.button--rejected {
-  background: #ff0000d1;
-}
-.button--pending {
-  background: #03c303b0;
-}
+
 .student--accepted {
   // background: rgb(146 71 129 / 13%);
   border-radius: 15px;

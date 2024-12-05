@@ -87,8 +87,10 @@ const Sidebar = () => {
   const { user } = useSelector(selectAuth);
   const { data } = useBookings();
   const earnings = useEarnings("all");
-  const classCount = data?.bookings.filter((key: any)=> key.status== "completed");
-    console.log(data)
+  const classCount = data?.bookings.filter(
+    (key: any) => key.status == "completed"
+  );
+  console.log(data);
   return (
     <div className="sidebar">
       <div
@@ -105,7 +107,7 @@ const Sidebar = () => {
             }}
             height="25%"
             width="25%"
-            alt="Profilepicture"
+            alt="profile"
           />
         </div>
         <div
@@ -136,23 +138,30 @@ const Sidebar = () => {
         </div>
         <div className="tutor_sidebar_top_count">
           <div className="tutor_class__count">
-                <div className="svg_container"><img src="/icons/tutor/teacher.svg" /></div>
-                <div>
-                  <h6>{classCount?.length}</h6>
-                  <p>Classes</p>
-                </div>
+            <div className="svg_container">
+              <img src="/icons/tutor/teacher.svg" />
+            </div>
+            <div>
+              <h6>{classCount?.length}</h6>
+              <p>Classes</p>
+            </div>
           </div>
           <div className="tutor_earnings__count">
-                <div className="svg_container"><img src="/icons/tutor/dollar.svg" /></div>
-                <div>
-                  <h6>{earnings?.data?.currency} {earnings?.data?.getEarnings?.total_earnings}</h6>
-                  <p>Earnings</p>
-                </div>
+            <div className="svg_container">
+              <img src="/icons/tutor/dollar.svg" />
+            </div>
+            <div>
+              <h6>
+                {earnings?.data?.currency}{" "}
+                {earnings?.data?.getEarnings?.total_earnings}
+              </h6>
+              <p>Earnings</p>
+            </div>
           </div>
         </div>
       </div>
       <div className="sidebar__menu">
-        {menuItems.map((menuItem,index) => (
+        {menuItems.map((menuItem, index) => (
           <MenuItem href={menuItem.link} icon={menuItem.icon} key={index}>
             {menuItem.name}
           </MenuItem>
@@ -162,5 +171,5 @@ const Sidebar = () => {
   );
 };
 
-export {MenuItem, menuItems}
+export { MenuItem, menuItems };
 export default Sidebar;

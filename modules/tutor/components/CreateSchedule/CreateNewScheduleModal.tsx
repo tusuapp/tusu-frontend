@@ -46,8 +46,8 @@ const CreateNewScheduleModal: React.FC<Props> = ({
   description = "Create a new time schedule for your class by adding your class timing",
 }) => {
   const [data, setData] = useState({
-    start_time: "",
-    end_time: "",
+    start_time: "00:00",
+    end_time: "01:00",
   });
 
   const { mutate } = useCreateTutorSlots();
@@ -67,11 +67,14 @@ const CreateNewScheduleModal: React.FC<Props> = ({
   };
 
   const handleStartTimeChange = (value: any) => {
+    if (value == null) {
+      return;
+    }
     setData({
       ...data,
 
-      start_time: moment(value, "h:mm").format("HH:mm:ss"),
-      end_time: moment(value, "h:mm").add(1, "hours").format("HH:mm:ss"),
+      start_time: moment(value, "hh:mm").format("HH:mm:ss"),
+      end_time: moment(value, "hh:mm").add(1, "hours").format("HH:mm:ss"),
     });
   };
 
