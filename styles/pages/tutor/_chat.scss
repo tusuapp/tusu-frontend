@@ -205,9 +205,15 @@
   max-height: 60vh;
 }
 .chat_user_list {
+  .user_block_selected {
+    background-color: #b5b5b54d;
+  }
   .user_block {
     display: flex;
     align-items: center;
+    :hover{
+      cursor: pointer;
+    }
     img {
       width: 40px;
       height: 40px;

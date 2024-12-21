@@ -47,6 +47,8 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ user, usertype }) => {
   // const [accordion2, setAccordion2] = useState(false);
   const { chatHistoryUsers } = useSelector(selectChat);
 
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   // console.log("chatHistoryUsers=====>",chatHistoryUsers);
 
   useEffect(() => {
@@ -104,7 +106,15 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ user, usertype }) => {
                 let cuser = chatHistoryUsers.usersList[uuid];
 
                 return (
-                  <div className="user_block px-5 py-3 mb-1" key={index}>
+                  <div
+                    className={`user_block px-5 py-3 mb-1 ${
+                      selectedIndex == index ? "user_block_selected" : ""
+                    }`}
+                    key={index}
+                    onClick={() => {
+                      setSelectedIndex(index);
+                    }}
+                  >
                     <div>
                       <img
                         src={
