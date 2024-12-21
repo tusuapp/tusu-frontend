@@ -87,7 +87,7 @@ const Header: React.FC<Props> = ({ title }) => {
             <a className="navbar-brand" href={userRole ? `/${userRole}` : `/`}>
               <img src="/image/logo.svg" alt="Logo" height={40} />
             </a>
-            asdasd
+
             <button
               className="navbar-toggler"
               type="button"
