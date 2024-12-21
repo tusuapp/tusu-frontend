@@ -36,7 +36,7 @@ function BookingRequests() {
           {data &&
             data?.booking_request?.booking?.map((booking: any, index: any) => (
               <>
-                <div className="col-lg-6 col-xl-4" key={index}>
+                <div className="col-lg-6 col-xl-5" key={index}>
                   <BookingRequestCard
                     id={booking.id}
                     name={booking.student.fullname}
