@@ -31,11 +31,12 @@ function BookingRequests() {
         {data?.booking_request.count === 0 && (
           <PageEmptyDataView message="No bookings requests found" />
         )}
+
         <div className="row">
           {data &&
             data?.booking_request?.booking?.map((booking: any, index: any) => (
               <>
-                 <div className="col-lg-6 col-xl-4" key={index}>
+                <div className="col-lg-6 col-xl-4" key={index}>
                   <BookingRequestCard
                     id={booking.id}
                     name={booking.student.fullname}
@@ -44,6 +45,7 @@ function BookingRequests() {
                     date={booking.schedule?.date}
                     startTime={booking.schedule?.start_time}
                     endTime={booking.schedule?.end_time}
+                    notes={booking.notes}
                     // onChange={() => {
                     //   // dispatch(fetchBookings("pending"));
                     // }}
