@@ -58,7 +58,11 @@ function StudentContact() {
           <div className="row contact-us">
             <div className="col-md-4 contact-address p-5 justify-content-center align-items-center">
               <div className="text-center mb-3">
-                <img src="/image/logo.png" className="contact-logo" />
+                <img
+                  src="/image/logo.svg"
+                  className="contact-logo"
+                  height={40}
+                />
               </div>
               <div className="contact-details">
                 <div className="contact-email">
@@ -86,7 +90,7 @@ function StudentContact() {
             <div className="col-md-8">
               <h3 className="small-header">Get in touch with us</h3>
               {/* <form className="contact-form" onSubmit={handleSubmit(onSubmit)}> */}
-              <form className="contact-form" >
+              <form className="contact-form">
                 <input
                   type="text"
                   className="form-control"
@@ -94,11 +98,9 @@ function StudentContact() {
                   placeholder="Name"
                   onChange={(e) => setName(e.target.value)}
                 />
-                  {errors.name && (
-                    <small className="text-danger">
-                      {errors.name.message}
-                    </small>
-                  )}
+                {errors.name && (
+                  <small className="text-danger">{errors.name.message}</small>
+                )}
                 <br />
                 <input
                   type="email"
@@ -107,11 +109,9 @@ function StudentContact() {
                   placeholder="Email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                  {errors.email && (
-                    <small className="text-danger">
-                      {errors.email.message}
-                    </small>
-                  )}
+                {errors.email && (
+                  <small className="text-danger">{errors.email.message}</small>
+                )}
                 <input
                   type="text"
                   className={`form-control ${errors.phone && "invalid"}`}

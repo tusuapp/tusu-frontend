@@ -7,8 +7,9 @@ const Footer = () => {
             <div className="row">
               <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
                 <img
-                  src="/image/logo.png"
+                  src="/image/logo.svg"
                   className="pl-5 footer-logo"
+                  height={40}
                   alt=""
                 />
                 <p className="mt-3">
@@ -43,7 +44,9 @@ const Footer = () => {
                     <a href="/student/privacy-policy">Legal</a>
                   </li>
                   <li className="footer-item">
-                    <a href="/student/terms-and-condition">Terms and condition</a>
+                    <a href="/student/terms-and-condition">
+                      Terms and condition
+                    </a>
                   </li>
                 </ul>
               </div>

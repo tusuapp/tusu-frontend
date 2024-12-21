@@ -56,7 +56,7 @@ const Header: React.FC<Props> = ({ title }) => {
         <nav className="navbar navbar-expand-lg navbar-custom navbar-light">
           <div className="container-fluid p-0 px-5">
             <a className="navbar-brand" href={userRole ? `/${userRole}` : `/`}>
-              <img src="/image/logo.png" alt="Logo" />
+              <img src="/image/logo.svg" alt="Logo" height={40} />
             </a>
             <button
               className="navbar-toggler"
@@ -79,7 +79,7 @@ const Header: React.FC<Props> = ({ title }) => {
                 <ul className="navbar-nav mb-2 mb-lg-0"></ul>
               )}
               <SearchBar />
-              <Chat privateMessage={false} showOnlineUser={true}/>
+              <Chat privateMessage={false} showOnlineUser={true} />
 
               {user ? (
                 <ul className="navbar-nav ms-auto">
@@ -122,32 +122,32 @@ const Header: React.FC<Props> = ({ title }) => {
               )}
             </div>
           </div>
-            {isMenuVisibile && user && (
-                <ul className="navbar-nav mob-navbar-nav-student ms-auto-student">
-                  <li className="nav-item d-flex align-items-center">
-                    {/* <div
+          {isMenuVisibile && user && (
+            <ul className="navbar-nav mob-navbar-nav-student ms-auto-student">
+              <li className="nav-item d-flex align-items-center">
+                {/* <div
                       className="nav-button mouse"
                       onClick={dispatch(signOutTutor)}
                     >
                       Logout
                     </div> */}
-                    <div className="me-3 mb-2">
-                      <a href="/student/notifications">
-                        <img src="/icons/tutor/notification.svg" />
-                      </a>
-                    </div>
-                  </li>
-                  <li className="nav-item">
-                    <div className="nav-button pe-0">
-                      <ProfileMenu
-                        userRole={userRole}
-                        profilePicture={user.image}
-                        fullName={user.fullname}
-                      />
-                    </div>
-                  </li>
-                </ul>
-                )}
+                <div className="me-3 mb-2">
+                  <a href="/student/notifications">
+                    <img src="/icons/tutor/notification.svg" />
+                  </a>
+                </div>
+              </li>
+              <li className="nav-item">
+                <div className="nav-button pe-0">
+                  <ProfileMenu
+                    userRole={userRole}
+                    profilePicture={user.image}
+                    fullName={user.fullname}
+                  />
+                </div>
+              </li>
+            </ul>
+          )}
         </nav>
       </header>
 

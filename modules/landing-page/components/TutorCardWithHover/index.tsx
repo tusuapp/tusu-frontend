@@ -30,7 +30,9 @@ const TutorCard: React.FC<TutorCardProps> = ({
   //   </>
   // );
 
-  let arr = Array(5).fill(<FontAwesomeIcon icon={faStar} style={{ color: "#FFFFFF" }} />)
+  let arr = Array(5).fill(
+    <FontAwesomeIcon icon={faStar} style={{ color: "#FFFFFF" }} />
+  );
 
   return (
     <>
@@ -44,7 +46,13 @@ const TutorCard: React.FC<TutorCardProps> = ({
           <div className="tutor__card__name">{tutorName}</div>
           <h6 className="tutor__card__subject">{tutorSubject?.join(", ")}</h6>
           {/* <div className="tutor__card__star__rating">{Rating}</div> */}
-          <div className="tutor__card__star__rating">{arr.fill(<FontAwesomeIcon icon={faStar} style={{ color: "#FBB017" }} />, 0, rating)}</div>
+          <div className="tutor__card__star__rating">
+            {arr.fill(
+              <FontAwesomeIcon icon={faStar} style={{ color: "#FBB017" }} />,
+              0,
+              rating
+            )}
+          </div>
         </div>
       </div>
       {/* <TutorModal

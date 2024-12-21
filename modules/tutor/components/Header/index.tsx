@@ -55,15 +55,12 @@ const Header: React.FC = () => {
 
   return (
     <>
-        <Chat showOnlineUser={true} privateMessage={true} />
+      <Chat showOnlineUser={true} privateMessage={true} />
       <header>
         <nav className="navbar navbar-expand-lg navbar-custom navbar-light">
           <div className="container-fluid  p-0 px-4">
             <a className="navbar-brand" href="/tutor">
-              <img
-                src="/image/logo.png"
-                alt="Logo"
-              />
+              <img src="/image/logo.svg" alt="Logo" height={40} />
             </a>
             <button
               className="navbar-toggler"
@@ -166,46 +163,51 @@ const Header: React.FC = () => {
         }}
       >
         {isMenuVisibile && user && (
-                <ul className="navbar-nav mob-navbar-nav ms-auto">
-                  <li className="nav-item">
-                    <div className="nav-button">
-                      <Button
-                        type="link"
-                        onClick={dispatch(signOutTutor)}
-                        style={{ height: "53px", width: "180px" }}
-                      >
-                        <LogoutIcon style={{ color: "#bbbbbb" }} />
-                        <span style={{ marginLeft: "10px", color: "#bbbbbb" }}>
-                          Logout
-                        </span>
-                      </Button>
-                    </div>
-                  </li>
-                  <li className="nav-item">
-                    <div className="nav-button">
-                      <Link href="/tutor">
-                        <Button type="primary">
-                          <img
-                            src={user.image}
-                            height="30px"
-                            width="30px"
-                            style={{ borderRadius: "50%", marginRight: "20px" }}
-                          />
-                          {user?.fullname}
-                        </Button>
-                      </Link>
-                    </div>
-                  </li>
-                  <li>
-                  <div className="sidebar__menu">
-        {menuItems.map((menuItem,index) => (
-          <MenuItem href={menuItem.link} icon={menuItem.icon} key={index}>
-            {menuItem.name}
-          </MenuItem>
-        ))}
-      </div>
-                  </li>
-                </ul>)}
+          <ul className="navbar-nav mob-navbar-nav ms-auto">
+            <li className="nav-item">
+              <div className="nav-button">
+                <Button
+                  type="link"
+                  onClick={dispatch(signOutTutor)}
+                  style={{ height: "53px", width: "180px" }}
+                >
+                  <LogoutIcon style={{ color: "#bbbbbb" }} />
+                  <span style={{ marginLeft: "10px", color: "#bbbbbb" }}>
+                    Logout
+                  </span>
+                </Button>
+              </div>
+            </li>
+            <li className="nav-item">
+              <div className="nav-button">
+                <Link href="/tutor">
+                  <Button type="primary">
+                    <img
+                      src={user.image}
+                      height="30px"
+                      width="30px"
+                      style={{ borderRadius: "50%", marginRight: "20px" }}
+                    />
+                    {user?.fullname}
+                  </Button>
+                </Link>
+              </div>
+            </li>
+            <li>
+              <div className="sidebar__menu">
+                {menuItems.map((menuItem, index) => (
+                  <MenuItem
+                    href={menuItem.link}
+                    icon={menuItem.icon}
+                    key={index}
+                  >
+                    {menuItem.name}
+                  </MenuItem>
+                ))}
+              </div>
+            </li>
+          </ul>
+        )}
       </div>
       <div className="Header__spacer"> </div>
     </>

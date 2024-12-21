@@ -138,16 +138,16 @@ const StatusButton: React.FC<IButton> = ({
   //Improved readability from inline conditions
   let buttonStyle = "";
   if (status === "completed") {
-    buttonStyle = `button button--success ` + styles.playButton;
+    buttonStyle = `button--success ` + styles.playButton;
   } else if (whatLeft.asDays() > 0) {
-    buttonStyle = `button button--${xstatus}`;
+    buttonStyle = `button--${xstatus}`;
   } else {
-    buttonStyle = `button ${styles.overDueButton}`;
+    buttonStyle = `button--${xstatus} ${styles.overDueButton}`;
   }
 
   return (
     <button
-      className={`${buttonStyle}`}
+      className={`button ${buttonStyle}`}
       onClick={() => {
         handleClassStart(id);
       }}

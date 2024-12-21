@@ -49,7 +49,7 @@ const StudentHome = () => {
             Hello {user.fullname}!
           </p>
           <section>
-            <div className="d-flex justify-content-between align-items-center mb-5">
+            <div className="d-flex justify-content-between align-items-center ">
               <h2
                 className="discipline-head mb-5"
                 style={{

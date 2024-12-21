@@ -22,7 +22,7 @@ function Home() {
   const {
     register,
     handleSubmit,
-    formState: {errors}
+    formState: { errors },
   } = useForm();
 
   // const {
@@ -46,7 +46,7 @@ function Home() {
         <div className="row">
           <div className="col-md-4 contact-address p-5 justify-content-center align-items-center">
             <div className="text-center mb-3">
-              <img src="/image/logo.png" className="contact-logo" />
+              <img src="/image/logo.svg" className="contact-logo" height={40} />
             </div>
             <div className="contact-details">
               <div className="contact-email">
@@ -81,7 +81,7 @@ function Home() {
                 id="name"
                 placeholder="Name"
                 // onChange={(e) => setName(e.target.value)}
-                {...register("name",{
+                {...register("name", {
                   required: "name required",
                   pattern: {
                     value: /^(?!_)(?!\[)(?!\])(?!\\)(?!\^)[a-zA-z][a-zA-Z\s]*$/,
@@ -90,9 +90,7 @@ function Home() {
                 })}
               />
               {errors.name && (
-                  <small className="text-danger">
-                    {errors.name.message}
-                  </small>
+                <small className="text-danger">{errors.name.message}</small>
               )}
               <input
                 type="text"
@@ -104,14 +102,12 @@ function Home() {
                   required: "email required",
                   pattern: {
                     value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                    message: "enter a valid email"
+                    message: "enter a valid email",
                   },
                 })}
               />
               {errors.email && (
-                  <small className="text-danger">
-                    {errors.email.message}
-                  </small>
+                <small className="text-danger">{errors.email.message}</small>
               )}
               <input
                 type="text"
@@ -133,15 +129,14 @@ function Home() {
                 {...register("phone", {
                   required: "phone number required",
                   pattern: {
-                    value: /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
-                    message: "enter a valid phone number"
+                    value:
+                      /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
+                    message: "enter a valid phone number",
                   },
                 })}
               />
               {errors.phone && (
-                  <small className="text-danger">
-                    {errors.phone.message}
-                  </small>
+                <small className="text-danger">{errors.phone.message}</small>
               )}
               <div className="form-group">
                 <label className="col-form-label"></label>

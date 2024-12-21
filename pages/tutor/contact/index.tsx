@@ -49,7 +49,7 @@ function TutorContact() {
         <div className="row contact-us">
           <div className="col-md-4 contact-address p-5 justify-content-center align-items-center">
             <div className="text-center mb-3">
-              <img src="/image/logo.png" className="contact-logo" />
+              <img src="/image/logo.svg" className="contact-logo" height={40} />
             </div>
             <div className="contact-details">
               <div className="contact-email">

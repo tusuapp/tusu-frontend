@@ -12,7 +12,11 @@ import { getUserRole, isEmailVerfied } from "../../utils";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import FilterDropdown from "@/student/components/FilterDropdown";
-import {initialState, selectSearch, setSearchResults} from "../../features/search/reducer";
+import {
+  initialState,
+  selectSearch,
+  setSearchResults,
+} from "../../features/search/reducer";
 
 export const NavItem: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -31,7 +35,7 @@ interface Props {
 
 const Header: React.FC<Props> = ({ title }) => {
   const { user, token } = useSelector(selectAuth);
-  const router = useRouter()
+  const router = useRouter();
   const paramsName = router?.pathname?.split("/");
 
   const dispatch = useDispatch();
@@ -40,11 +44,11 @@ const Header: React.FC<Props> = ({ title }) => {
   const [userRole, setUserRole] = useState("tutor");
 
   const [show, setShow] = useState(false);
-  const q: string = typeof router.query.q === "string" ? router.query.q : ""
+  const q: string = typeof router.query.q === "string" ? router.query.q : "";
 
-  const [searchVal, setSearchVal] = useState(q)
-  const [inSearchPage, setInSearchPage] = useState(false)
-  const [filter, setFilter] = useState("")
+  const [searchVal, setSearchVal] = useState(q);
+  const [inSearchPage, setInSearchPage] = useState(false);
+  const [filter, setFilter] = useState("");
 
   const node = useRef<any>();
 
@@ -53,10 +57,9 @@ const Header: React.FC<Props> = ({ title }) => {
   };
 
   function handleClear() {
-    setSearchVal("")
-    dispatch(setSearchResults(initialState.searchResults))
-
-}
+    setSearchVal("");
+    dispatch(setSearchResults(initialState.searchResults));
+  }
 
   useEffect(() => {
     if (!token) return;
@@ -82,8 +85,9 @@ const Header: React.FC<Props> = ({ title }) => {
         <nav className="navbar navbar-expand-lg navbar-custom navbar-light">
           <div className="container p-0">
             <a className="navbar-brand" href={userRole ? `/${userRole}` : `/`}>
-              <img src="/image/logo.png" alt="Logo" />
+              <img src="/image/logo.svg" alt="Logo" height={40} />
             </a>
+            asdasd
             <button
               className="navbar-toggler"
               type="button"
@@ -92,14 +96,14 @@ const Header: React.FC<Props> = ({ title }) => {
               aria-controls="head-navbar"
               aria-expanded="false"
               aria-label="Toggle navigation"
-              onClick={()=>setShow(!show)}
+              onClick={() => setShow(!show)}
             >
               <span className="navbar-toggler-icon" />
             </button>
             <div
               style={{ marginLeft: "4rem" }}
               // className="collapse navbar-collapse"
-              className={`collapse navbar-collapse ${show? "show" : ""}`}
+              className={`collapse navbar-collapse ${show ? "show" : ""}`}
               id="head-navbar"
             >
               {userRole === "tutor" && (
@@ -129,15 +133,20 @@ const Header: React.FC<Props> = ({ title }) => {
                   </ActiveLink>
                 </li>
                 <li className="nav-item">
-                {paramsName[paramsName.length - 1] === "all" && <FilterDropdown parentHandleClear={handleClear} onApplyFilter={(filters) => {
-                if (!inSearchPage) {
-                    router.push({
-                        pathname: '/student/search',
-                        query: {q: searchVal}
-                    })
-                }
-                setFilter(filters)
-            }}/>}
+                  {paramsName[paramsName.length - 1] === "all" && (
+                    <FilterDropdown
+                      parentHandleClear={handleClear}
+                      onApplyFilter={(filters) => {
+                        if (!inSearchPage) {
+                          router.push({
+                            pathname: "/student/search",
+                            query: { q: searchVal },
+                          });
+                        }
+                        setFilter(filters);
+                      }}
+                    />
+                  )}
                 </li>
               </ul>
               {user ? (
@@ -154,7 +163,12 @@ const Header: React.FC<Props> = ({ title }) => {
                       className="nav-button"
                       onClick={() => setIsMenuVisible((state) => !state)}
                     >
-                      <Button href={user?.role?.type == 'student' ? `/student` : `/tutor`} type="primary">
+                      <Button
+                        href={
+                          user?.role?.type == "student" ? `/student` : `/tutor`
+                        }
+                        type="primary"
+                      >
                         Home
                       </Button>
                     </div>
