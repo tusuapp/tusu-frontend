@@ -105,7 +105,8 @@ const SearchBar = () => {
           Search
         </button>
       </form>
-      {paramsName[paramsName.length - 1] === "tutors" && (
+      {(paramsName[paramsName.length - 1] === "tutors" ||
+        paramsName[paramsName.length - 1] === "search") && (
         <FilterDropdown
           parentHandleClear={handleClear}
           onApplyFilter={(filters) => {
