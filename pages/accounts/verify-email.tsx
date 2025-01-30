@@ -15,6 +15,9 @@ function Home() {
   useEffect(() => {
     if (!user) return;
 
+    console.log("verify-email ");
+    console.log(user.is_email_verified);
+
     if (isEmailVerfied(user)) {
       Router.push("/" + getUserRole(user));
     }
