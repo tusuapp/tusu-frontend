@@ -9,7 +9,7 @@ export const isProfileCompleted = (user: any) => {
 };
 
 export const isEmailVerfied = (user: any) => {
-  return user.is_mobile_verified;
+  return user.is_email_verified;
 };
 
 export const verifyToken = (token: string) => {
@@ -53,7 +53,7 @@ export const formatTimePeriod = (timePeriod: any) => {
   ).format("HH:mm")}`;
 };
 
-export const formatDDMMYYYY = function (date: Date,seperator: string = "/") {
+export const formatDDMMYYYY = function (date: Date, seperator: string = "/") {
   return moment(date).format(`DD${seperator}MM${seperator}YYYY`);
 };
 
