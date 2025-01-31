@@ -33,10 +33,7 @@ const TutorCardCard: React.FC<TutorCardProps> = ({
   return (
     <div className={styles.tutor__card}>
       <img
-        src={
-          profilePicture ||
-          `https://tusuadmin.stagingcs.com/default/img_avatar.png`
-        }
+        src={profilePicture || `https://api.tusuapp.com/default/img_avatar.png`}
         className="tutor-img img-fluid"
         alt={tutorName}
       />

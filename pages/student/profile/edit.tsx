@@ -103,6 +103,11 @@ function EditProfilePageStudent() {
     if (!userProfile.data) return;
     const { data } = userProfile;
 
+    //Add the + to prefix phone
+    if (data?.phone.toString().charAt(0) != "+") {
+      data.phone = `+${data.phone}`;
+    }
+
     setInitialValues({
       fullname: data?.fullname,
       email: data?.email,
