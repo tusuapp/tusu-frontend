@@ -43,13 +43,13 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ user, usertype }) => {
   const Router = useRouter();
 
   const [tab, setTab] = useState("requested");
-  const [accordion, setAccordion] = useState(false);
+  const [accordion, setAccordion] = useState(true);
   // const [accordion2, setAccordion2] = useState(false);
   const { chatHistoryUsers } = useSelector(selectChat);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  // console.log("chatHistoryUsers=====>",chatHistoryUsers);
+  console.log("chatHistoryUsers=====>", chatHistoryUsers);
 
   useEffect(() => {
     Object.keys(chatHistoryUsers.histories)?.map((key, index) => {
@@ -242,7 +242,6 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ user, usertype }) => {
           requestedChatUsers.map((user: any, index: number) => (
             <Link href={`/tutor/messages/${user.room_id}`} key={index}>
               <a style={{ textDecoration: "none" }}>
-                {console.log(user)}
                 <Chat
                   key={index}
                   image={user.user.image}

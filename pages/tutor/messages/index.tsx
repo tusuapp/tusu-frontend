@@ -86,14 +86,21 @@ function Message() {
           <div className="col-12 col-md-6 d-flex justify-content-between">
             <h2 className="tutor__dashboard__title">Messages</h2>
 
-            <div>sdfsdfd</div>
+            <div></div>
           </div>
         </div>
         <div className="d-flex mb-5">
-          <ChatSidebar  user={user} usertype={"tutor"}/>
+          <ChatSidebar user={user} usertype={"tutor"} />
           <div className="flex-grow-1">
             <div className="chat__header">
-              <img src={user?.image ? process.env.NEXT_PUBLIC_API_ENDPOINT + user?.image.slice(1, user?.image.length) : "/image/img_avatar.png"} />
+              <img
+                src={
+                  user?.image
+                    ? process.env.NEXT_PUBLIC_API_ENDPOINT +
+                      user?.image.slice(1, user?.image.length)
+                    : "/image/img_avatar.png"
+                }
+              />
               <div className="user__data">
                 <div className="name">{user?.fullname}</div>
                 <div>{user?.is_online ? "Online" : "Offline"}</div>

@@ -59,7 +59,8 @@ export const fetchUser = (): AppThunk => async (dispatch) => {
     const response = await api.get("/auth/user");
     dispatch(getUser(response.data.result.user));
   } catch (e: any) {
-    await localStorage.removeItem("accessToken");
+    console.log("Unable to fetch user");
+    // await localStorage.removeItem("accessToken");
 
     dispatch(getUser(null));
 

@@ -115,17 +115,6 @@ function CreditPoints() {
                             >
                               Add Credits
                             </button>
-                            {/* <button
-                              className="text-white"
-                              style={{
-                                fontSize: "18px",
-                                fontWeight: "normal",
-                                
-                                // onClick = { handleAddCredits },
-                              }}
-                            >
-                              Add Credits
-                            </button> */}
                           </div>
                         </div>
                         <div className="d-flex p-2 pe-0 me-4">

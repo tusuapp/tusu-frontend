@@ -24,7 +24,6 @@ const withAuthNew = (WrappedComponent: React.FC, role: any) => {
     const [verified, setVerified] = useState(false);
 
     useEffect(() => {
-
       const accessToken = localStorage.getItem("accessToken");
 
       // if no accessToken was found,then we redirect to "/" page.
@@ -48,7 +47,6 @@ const withAuthNew = (WrappedComponent: React.FC, role: any) => {
       if (!user) return;
 
       if (!isEmailVerfied(user)) {
-        // alert("Email not verified")
         Router.replace("/accounts/verify-email");
         return;
       }

@@ -9,7 +9,7 @@ export const isProfileCompleted = (user: any) => {
 };
 
 export const isEmailVerfied = (user: any) => {
-  return user.is_email_verified;
+  return user.is_email_verified || user.is_mobile_verified;
 };
 
 export const verifyToken = (token: string) => {

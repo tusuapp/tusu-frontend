@@ -43,8 +43,9 @@ const OutgoingChat = ({ message, timestamp }: any) => {
 function Message() {
   const [message, setMessage] = useState("");
   const [otherUserData, setOtherUserData] = useState<IToUser>({
-    fullname: "Demo user",
+    fullname: "Loading",
     connected: true,
+    image: "",
   });
   const { user } = useSelector(selectAuth);
   const { isSocket } = useSelector(selectChat);
@@ -64,10 +65,16 @@ function Message() {
       socket.on("user_chat_with_uuid_" + user.uuid, (data) => {
         console.log("result>>>>>>>>>>>>>>", data);
         let msg = data.result;
-        msg.data = _.orderBy(data.result.data, "created_at", "asc");
 
+        msg.data = _.orderBy(data, "updated_at", "asc");
+
+        const messages = initState;
+        messages.data = msg;
         if (query.tutor_id == data.tab) {
-          setOldMsgData(msg);
+          console.log(`Messages = `);
+          console.log(messages);
+
+          setOldMsgData(messages);
         }
       });
 
@@ -114,8 +121,11 @@ function Message() {
       from: user.uuid,
       message: message,
       timestamp: moment().fromNow(),
+      content: message,
+      updated_at: moment().fromNow(),
+      from_id: "",
     });
-    msg.data = _.orderBy(msg.data, "created_at", "asc");
+    msg.data = _.orderBy(msg.data, "updated_at", "desc");
 
     setOldMsgData(msg);
     setMessage("");
@@ -161,68 +171,75 @@ function Message() {
         </div>
         <div className="d-flex mb-5">
           <ChatSidebar user={user} usertype={"tutor"} />
-          <div className="flex-grow-1">
-            <div className="chat__header">
-              <img
-                src={
-                  otherUserData?.image
-                    ? process.env.NEXT_PUBLIC_API_ENDPOINT +
-                      otherUserData.image.slice(1, otherUserData.image.length)
-                    : "/image/img_avatar.png"
-                }
-              />
-              <div className="user__data">
-                <div className="name">{otherUserData?.fullname}</div>
-                <div>{otherUserData?.connected ? "Online" : "Offline"}</div>
-              </div>
-            </div>
-            {/* {JSON.stringify(chats)} */}
-            <section className="msger">
-              <main className="msger-chat">
-                {oldMsgData.data?.map((fake, index) => {
-                  if (fake.from === user.uuid) {
-                    return (
-                      <IncomingChat
-                        key={index}
-                        message={fake.message}
-                        timestamp={fake.timestamp}
-                      />
-                    );
-                  } else {
-                    return (
-                      <OutgoingChat
-                        key={index}
-                        message={fake.message}
-                        timestamp={fake.timestamp}
-                      />
-                    );
+
+          {otherUserData.fullname === "Loading" && (
+            <p>Select user to continue chatting.</p>
+          )}
+
+          {otherUserData.fullname != "Loading" && (
+            <div className="flex-grow-1">
+              <div className="chat__header">
+                <img
+                  src={
+                    otherUserData?.image
+                      ? process.env.NEXT_PUBLIC_API_ENDPOINT +
+                        otherUserData.image.slice(1, otherUserData.image.length)
+                      : "/image/img_avatar.png"
                   }
-                })}
-              </main>
-              <form className="msger-inputarea 2">
-                <input
-                  type="text"
-                  className="msger-input"
-                  placeholder="Write now..."
-                  value={message}
-                  onChange={handleMessageChange}
                 />
-                <button
-                  type="submit"
-                  // className="msger-send-btn"
-                  onClick={handleSubmit}
-                >
-                  <img src="../../icons/send.svg" alt="" width="50px" />
-                </button>
-                {/* <FontAwesomeIcon
+                <div className="user__data">
+                  <div className="name">{otherUserData?.fullname}</div>
+                  <div>{otherUserData?.connected ? "Online" : "Offline"}</div>
+                </div>
+              </div>
+              {/* {JSON.stringify(chats)} */}
+              <section className="msger">
+                <main className="msger-chat">
+                  {oldMsgData.data?.map((fake, index) => {
+                    if (fake.from_id === user.uuid) {
+                      return (
+                        <OutgoingChat
+                          key={index}
+                          message={fake.content}
+                          timestamp={fake.updated_at}
+                        />
+                      );
+                    } else {
+                      return (
+                        <IncomingChat
+                          key={index}
+                          message={fake.content}
+                          timestamp={fake.updated_at}
+                        />
+                      );
+                    }
+                  })}
+                </main>
+                <form className="msger-inputarea 2">
+                  <input
+                    type="text"
+                    className="msger-input"
+                    placeholder="Write now..."
+                    value={message}
+                    onChange={handleMessageChange}
+                  />
+                  <button
+                    type="submit"
+                    // className="msger-send-btn"
+                    onClick={handleSubmit}
+                  >
+                    <img src="../../icons/send.svg" alt="" width="50px" />
+                  </button>
+                  {/* <FontAwesomeIcon
                   className="msger-send-btn"
                   icon={faPaperPlane}
                   style={{ color: "#FFF" }}
                   onClick={handleSubmit}
                 /> */}
-              </form>
-            </section>
-          </div>
+                </form>
+              </section>
+            </div>
+          )}
         </div>
       </TutorDashboardLayout>
     </>
