@@ -107,7 +107,7 @@ const ProfileMenu = ({ userRole }: any) => {
                   </div>
                 )}
               </Menu.Item>
-              <Menu.Item>
+              {/* <Menu.Item>
                 {({ active }) => (
                   <div className="student__dropdown__menu__item">
                     <a
@@ -119,7 +119,7 @@ const ProfileMenu = ({ userRole }: any) => {
                     </a>
                   </div>
                 )}
-              </Menu.Item>
+              </Menu.Item> */}
               <div className="student__dropdown__menu__item">
                 <Menu.Item>
                   {({ active }) => (
@@ -172,7 +172,7 @@ const ProfileMenu = ({ userRole }: any) => {
                   )}
                 </Menu.Item>
               </div>
-              <div className="student__dropdown__menu__item">
+              {/* <div className="student__dropdown__menu__item">
                 <Menu.Item>
                   {({ active }) => (
                     <a
@@ -210,8 +210,8 @@ const ProfileMenu = ({ userRole }: any) => {
                     </a>
                   )}
                 </Menu.Item>
-              </div>
-              <div className="student__dropdown__menu__item">
+              </div> */}
+              {/* <div className="student__dropdown__menu__item">
                 <Menu.Item>
                   {({ active }) => (
                     <a
@@ -223,7 +223,7 @@ const ProfileMenu = ({ userRole }: any) => {
                     </a>
                   )}
                 </Menu.Item>
-              </div>
+              </div> */}
             </Menu.Items>
           </motion.div>
           {/* </AnimatePresence> */}
