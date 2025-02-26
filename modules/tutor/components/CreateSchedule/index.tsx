@@ -14,43 +14,59 @@ import Skeleton from "react-loading-skeleton";
 import { AnimatePresence, motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import Calendar from "react-calendar";
 
 interface CreateScheduleProps {
   scheduleCreated: any;
 }
 
 const CreateSchedule: React.FC<CreateScheduleProps> = ({ scheduleCreated }) => {
-  const [activeDay, setActiveDay] = useState<string>("Sunday");
-
   const [timeslots, setTimeslots] = useState<any>([]);
 
   const [IsModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const { data, isFetching, isLoading } = useTutorSlots();
-
   const { mutate } = useDeleteTutorSlots();
 
-  const isTimeslotsEmpty = (timeslots: any) => {
-    for (let index = 0; index < timeslots.length; index++) {
-      if (timeslots[index].times.length !== 0) return false;
-    }
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
 
-    return true;
+  const { data, isFetching, isLoading } = useTutorSlots(selectedDate);
+
+  const isTimeslotsEmpty = (timeslots: any) => {
+    // for (let index = 0; index < timeslots.length; index++) {
+    //   if (timeslots[index].times.length !== 0) return false;
+    // }
+    return timeslots.length == 0;
+  };
+
+  const handleDateChange = async (date: Date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Ensure two digits
+    const day = date.getDate().toString().padStart(2, "0");
+
+    // Format as YYYY-MM-DD
+    const formattedDate = `${year}-${month}-${day}`;
+
+    setSelectedDate(formattedDate); // Save formatted date
+    // await setSelectedDate(date);
   };
 
   useEffect(() => {
-    if (!data) return;
+    console.log("CreateSchedule");
 
-    scheduleCreated(!isTimeslotsEmpty(data.times_slots));
+    if (!data) return;
+    console.log(data);
+
+    setTimeslots(data);
+    scheduleCreated(!isTimeslotsEmpty(data));
   }, [data]);
 
   useEffect(() => {
     if (!data) return;
 
-    const timeSlotsByDay = getTimeSlotsByDay(data.times_slots, activeDay);
-
-    setTimeslots(timeSlotsByDay);
-  }, [activeDay, data]);
+    setTimeslots(data);
+  }, [data]);
 
   const getTimeSlotsByDay = (timeslots: any, day: string) => {
     let timeslotsBydate: any = [];
@@ -62,10 +78,6 @@ const CreateSchedule: React.FC<CreateScheduleProps> = ({ scheduleCreated }) => {
     });
 
     return timeslotsBydate;
-  };
-
-  const handleDayChange = (day: any) => {
-    setActiveDay(day);
   };
 
   const handleDelete = async (id: number) => {
@@ -81,72 +93,88 @@ const CreateSchedule: React.FC<CreateScheduleProps> = ({ scheduleCreated }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <div className="d-flex mb-4 justify-content-between p-0">
+          <div className="d-flex mb-4 justify-content-around p-0">
             <div className="d-flex">
               <h1 className="Create-schedule__title ">Create Schedule</h1>
               <div className="me-5"></div>
             </div>
-            <button
-              className="btn-brand btn-sm px-3"
-              onClick={() => setIsModalOpen(true)}
-              style={{ height: "36px" }}
-            >
-              <span
-                style={{
-                  marginRight: "10px",
-                }}
-              >
-                <FontAwesomeIcon icon={faPlus} />
-              </span>{" "}
-              Add
-            </button>
+
             <CreateNewScheduleModal
-              day={activeDay}
               isOpen={IsModalOpen}
               onClose={setIsModalOpen}
+              selectedDate={selectedDate}
             />
           </div>
-          {<DayPicker days={data?.days || []} onSelect={handleDayChange} />}
-          <div className="d-flex mt-4">
-            <h1 className="Create-schedule__title me-3">Class timing</h1>
-            <div className="me-5">
-            {isFetching ||
-                    (isLoading && (
-                      <BeatLoader
-                        loading={isFetching || isLoading}
-                        color={"grey"}
-                        size={5}
-                      />
-                    ))}
-            </div>
-          </div>
-
-          <div className="Schedules">
-            {isLoading && (
-              <>
-                {[1, 2, 3, 4, 5].map(() => (
-                  <div style={{ height: "30px" }}>
-                    <Skeleton />
-                  </div>
-                ))}
-              </>
-            )}
-            {timeslots.length === 0 && (
-              <div className="text-center">
-                You haven't created <br />
-                any timeslots on {activeDay}. <br />
-                Please a create a timeslot.
-              </div>
-            )}
-            {timeslots.map((timeslot: any) => (
-              <ScheduleItem
-                id={timeslot.id}
-                startTime={timeslot.start}
-                endTime={timeslot.end}
-                onEdit={() => setIsModalOpen(true)}
-                onDelete={() => handleDelete(timeslot.id)}
+          {/* {<DayPicker days={data?.days || []} onSelect={handleDayChange} />} */}
+          <div className="Calender_Timing d-flex mt-4 justify-content-around">
+            <span className="col-md-6">
+              <Calendar
+                // activeStartDate={new Date()}
+                onChange={handleDateChange}
+                // maxDate={MAX_DATE}
+                minDate={new Date()}
+                // nextLabel={null}
+                // prevLabel={null}
+                next2Label={null}
+                prev2Label={null}
               />
-            ))}
+            </span>
+            <div className="col-md-5 ms-3">
+              <span className="d-flex flex-row justify-content-between align-items-center">
+                <h1 className="Create-schedule__title me-3">Class timing</h1>
+                <button
+                  className="btn-brand btn-sm px-3"
+                  onClick={() => setIsModalOpen(true)}
+                  style={{ height: "36px" }}
+                >
+                  <span
+                    style={{
+                      marginRight: "10px",
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faPlus} />
+                  </span>{" "}
+                  Add
+                </button>
+              </span>
+              <div className="me-5">
+                {isFetching ||
+                  (isLoading && (
+                    <BeatLoader
+                      loading={isFetching || isLoading}
+                      color={"grey"}
+                      size={5}
+                    />
+                  ))}
+              </div>
+              <div className="Schedules">
+                {isLoading && (
+                  <>
+                    {[1, 2, 3, 4, 5].map(() => (
+                      <div style={{ height: "30px" }}>
+                        <Skeleton />
+                      </div>
+                    ))}
+                  </>
+                )}
+                {timeslots && timeslots.length === 0 && !isLoading && (
+                  <div className="text-center">
+                    You haven't created <br />
+                    any timeslots on {selectedDate}. <br />
+                    Please a create a timeslot.
+                  </div>
+                )}
+                {timeslots.map((timeslot: any) => (
+                  <ScheduleItem
+                    id={timeslot.id}
+                    startTime={timeslot.start}
+                    endTime={timeslot.end}
+                    onEdit={() => setIsModalOpen(true)}
+                    onDelete={() => handleDelete(timeslot.id)}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </motion.div>
       </AnimatePresence>

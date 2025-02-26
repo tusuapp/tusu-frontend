@@ -56,7 +56,7 @@ const ChooseSchedulePage = () => {
         <div className="container page__container">
           <div className="container h-100">
             <div className="row h-100 p-0">
-              <div className="col-md-7 h-100 p-0">
+              <div className="col-md-4 h-100 p-0">
                 <div style={{ height: "80%" }}>
                   {step === 1 && (
                     <AnimatePresence>
@@ -88,10 +88,10 @@ const ChooseSchedulePage = () => {
                     <AnimatePresence>
                       <motion.img
                         key="CreateScheduleImage"
-                        initial={{ x: 300, opacity: 0 }}
+                        initial={{ x: 150, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: -300, opacity: 0 }}
-                        className="img-fluid"
+                        exit={{ x: -150, opacity: 0 }}
+                        style={{ maxWidth: "80%" }}
                         src="/image/tutorschedule.svg"
                         height="100%"
                       />
@@ -117,7 +117,7 @@ const ChooseSchedulePage = () => {
                   </div> */}
                 </div>
               </div>
-              <div className="col-md-5 p-0 d-flex justify-content-end">
+              <div className="col-md-8 p-0 d-flex justify-content-end">
                 <div className="Right__card">
                   {/* form values: {JSON.stringify(formValues)} */}
                   {step === 1 && (
@@ -143,7 +143,7 @@ const ChooseSchedulePage = () => {
                       <CreateSchedule scheduleCreated={setIsScheduleCreated} />
                       <Button
                         type="primary"
-                        className="btn-brand w-100 btn-lg mt-auto  "
+                        className="btn-brand w-100 btn-lg mt-1"
                         onClick={() => {
                           router.push("/tutor/class-schedules");
                         }}

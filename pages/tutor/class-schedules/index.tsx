@@ -28,8 +28,21 @@ function ClassSchedules() {
     setSelectedSlotId(null);
     setSelectedDate(date);
   };
+
+  const getFormattedDate = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Ensure two digits
+    const day = date.getDate().toString().padStart(2, "0");
+
+    // Format as YYYY-MM-DD
+    return `${year}-${month}-${day}`;
+  };
+
   const isTutorSlots = useQuery("checkTutorSlots", () =>
-    api.get("/tutor/get-tutor-slots").then((res) => res.data)
+    api
+      .get(`/tutor/get-tutor-slots?date=${getFormattedDate()}`)
+      .then((res) => res.data)
   );
 
   return (

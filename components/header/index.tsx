@@ -110,28 +110,32 @@ const Header: React.FC<Props> = ({ title }) => {
                 <ul className="navbar-nav mb-2 mb-lg-0"></ul>
               )}
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 gap-4 fs-7">
-                <li className="nav-item" style={{ color: "rosybrown" }}>
-                  <ActiveLink activeClassName="active" href="/">
-                    <a className="nav-link" aria-current="page">
-                      Home
-                    </a>
-                  </ActiveLink>
-                </li>
-                <li className="nav-item">
-                  <ActiveLink activeClassName="active" href={TUTORS_PAGE}>
-                    <a className="nav-link">Our Tutors</a>
-                  </ActiveLink>
-                </li>
-                <li className="nav-item">
-                  <ActiveLink activeClassName="active" href={CONTACT_PAGE}>
-                    <a className="nav-link">Contact Us</a>
-                  </ActiveLink>
-                </li>
-                <li className="nav-item">
-                  <ActiveLink activeClassName="active" href="/signup/tutor">
-                    <a className="nav-link">Become a tutor</a>
-                  </ActiveLink>
-                </li>
+                {!user && (
+                  <span className="navbar-nav me-auto mb-2 mb-lg-0 gap-4 fs-7">
+                    <li className="nav-item" style={{ color: "rosybrown" }}>
+                      <ActiveLink activeClassName="active" href="/">
+                        <a className="nav-link" aria-current="page">
+                          Home
+                        </a>
+                      </ActiveLink>
+                    </li>
+                    <li className="nav-item">
+                      <ActiveLink activeClassName="active" href={TUTORS_PAGE}>
+                        <a className="nav-link">Our Tutors</a>
+                      </ActiveLink>
+                    </li>
+                    <li className="nav-item">
+                      <ActiveLink activeClassName="active" href={CONTACT_PAGE}>
+                        <a className="nav-link">Contact Us</a>
+                      </ActiveLink>
+                    </li>
+                    <li className="nav-item">
+                      <ActiveLink activeClassName="active" href="/signup/tutor">
+                        <a className="nav-link">Become a tutor</a>
+                      </ActiveLink>
+                    </li>
+                  </span>
+                )}
                 <li className="nav-item">
                   {paramsName[paramsName.length - 1] === "all" && (
                     <FilterDropdown

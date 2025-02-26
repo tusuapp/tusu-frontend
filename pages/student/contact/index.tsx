@@ -51,6 +51,7 @@ function StudentContact() {
         <title>Tusu - Student | Dashboard</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+
       <Header title={"Contact us"} />
       <Container>
         <div className="pt-5 pb-5">
@@ -169,7 +170,6 @@ function StudentContact() {
           </div>
         </div>
       </Container>
-
       <Footer />
     </>
   );

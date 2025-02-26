@@ -36,6 +36,7 @@ interface Props {
   description?: string;
   buttonLabel?: string;
   onSubmit?: any;
+  selectedDate: string;
 }
 
 const CreateNewScheduleModal: React.FC<Props> = ({
@@ -44,11 +45,15 @@ const CreateNewScheduleModal: React.FC<Props> = ({
   day,
   title = "Add New Time Schedule",
   description = "Create a new time schedule for your class by adding your class timing",
+  selectedDate = "",
 }) => {
   const [data, setData] = useState({
     start_time: "00:00",
     end_time: "01:00",
+    date: selectedDate,
   });
+
+  console.log("Modal date = ", selectedDate);
 
   const { mutate } = useCreateTutorSlots();
 
@@ -56,11 +61,12 @@ const CreateNewScheduleModal: React.FC<Props> = ({
     const schedule = {
       ...data,
       day,
+      date: selectedDate,
     };
 
     mutate(schedule, {
       onSuccess: () => {
-        setData({ start_time: "", end_time: "" });
+        setData({ start_time: "", end_time: "", date: selectedDate });
         onClose();
       },
     });
