@@ -172,11 +172,11 @@ function Message() {
         <div className="d-flex mb-5">
           <ChatSidebar user={user} usertype={"tutor"} />
 
-          {otherUserData.fullname === "Loading" && (
+          {otherUserData && otherUserData.fullname === "Loading" && (
             <p>Select user to continue chatting.</p>
           )}
 
-          {otherUserData.fullname != "Loading" && (
+          {otherUserData && otherUserData.fullname != "Loading" && (
             <div className="flex-grow-1">
               <div className="chat__header">
                 <img
