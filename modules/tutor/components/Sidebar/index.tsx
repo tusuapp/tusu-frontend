@@ -62,25 +62,25 @@ const menuItems = [
     icon: "/icons/tutor/notification.svg",
   },
   {
-    name: "FAQ",
+    name: "Help",
     link: "/tutor/faq",
     icon: "/icons/tutor/teacher.svg",
   },
-  {
-    name: "Contact Us",
-    link: "/tutor/contact",
-    icon: "/icons/tutor/teacher.svg",
-  },
-  {
-    name: "Legal",
-    link: "/tutor/privacy-policy",
-    icon: "/icons/tutor/teacher.svg",
-  },
-  {
-    name: "Terms and Conditions",
-    link: "/tutor/student-terms-and-conditions",
-    icon: "/icons/tutor/teacher.svg",
-  },
+  // {
+  //   name: "Contact Us",
+  //   link: "/tutor/contact",
+  //   icon: "/icons/tutor/teacher.svg",
+  // },
+  // {
+  //   name: "Legal",
+  //   link: "/tutor/privacy-policy",
+  //   icon: "/icons/tutor/teacher.svg",
+  // },
+  // {
+  //   name: "Terms and Conditions",
+  //   link: "/tutor/student-terms-and-conditions",
+  //   icon: "/icons/tutor/teacher.svg",
+  // },
 ];
 
 const Sidebar = () => {
