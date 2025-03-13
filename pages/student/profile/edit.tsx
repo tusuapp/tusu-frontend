@@ -66,15 +66,8 @@ const ProfileSchema = Yup.object().shape({
 });
 
 function EditProfilePageStudent() {
-  const ROLE = "tutor";
-
-  const dispatch = useDispatch();
-  const [disciplineOptions, setDesciplineOptions] = useState([]);
-  const [subjectOptions, setSubjectOptions] = useState([]);
-  const { desciplines, subjects } = useSelector(selectProfile);
   const [images, setImages] = useState<any>([]);
   const [imageId, setImageId] = useState<number>();
-  const profile = useSelector(selectProfile);
   const { user } = useSelector(selectAuth);
   const userProfile = useStudentProfile();
   const updateProfilePicture = useUpdateProfiePicture(setImageId);
@@ -138,7 +131,7 @@ function EditProfilePageStudent() {
 
   const handleSubmit = (values: any) => {
     const data = {
-      ...values,
+      // ...values,
       fullname: values.fullname,
       email: values.email,
       phone: values.phone,
@@ -168,7 +161,16 @@ function EditProfilePageStudent() {
           <Formik
             initialValues={initialValues}
             validationSchema={ProfileSchema}
-            onSubmit={handleSubmit}
+            onSubmit={(values, { setSubmitting }) => {
+              // Check if values are the same as initial values
+              if (JSON.stringify(values) === JSON.stringify(initialValues)) {
+                setSubmitting(false);
+                return;
+              }
+
+              // Proceed with the update only if changes are detected
+              handleSubmit(values);
+            }}
           >
             {({ errors, touched, isValid, dirty }) => {
               return (

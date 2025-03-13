@@ -3,9 +3,9 @@ import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
 const updateProfilePicture = async (form: any, setImageId: any) => {
-  console.log("updateProfilePicture",form)
-  const { data } = await api.post("/upload", form);
-  setImageId(data?.result?.id)
+  console.log("updateProfilePicture", form);
+  const { data } = await api.post("/upload-auth-profile", form);
+  setImageId(data?.result?.id);
   return data.result;
 };
 
