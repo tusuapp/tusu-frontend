@@ -274,17 +274,17 @@ function EditProfilePageStudent() {
 
                       <div className="row">
                         <div className="col-md-4">
-                          <div className="p-1 form-field-3  mb-3">
+                          <div className="p-1 form-field-3  mb-5">
                             <label htmlFor="fullname">Name</label>
                             <Field
                               type="name"
                               name="fullname"
                               id="fullname"
-                              className={
+                              className={`${
                                 errors.fullname && touched.fullname
                                   ? "input-error"
                                   : null
-                              }
+                              } w-100`}
                             />
                             <ErrorMessage
                               name="fullname"
@@ -334,11 +334,11 @@ function EditProfilePageStudent() {
                               type="email"
                               name="email"
                               id="email"
-                              className={
-                                errors.email && touched.email
+                              className={`${
+                                errors.fullname && touched.fullname
                                   ? "input-error"
                                   : null
-                              }
+                              } w-100`}
                               disabled
                             />
                             <ErrorMessage
@@ -388,11 +388,11 @@ function EditProfilePageStudent() {
                               type="password"
                               name="password"
                               id="password"
-                              className={
-                                errors.password && touched.password
+                              className={`${
+                                errors.fullname && touched.fullname
                                   ? "input-error"
                                   : null
-                              }
+                              } w-100`}
                             />
                             <ErrorMessage
                               name="password"
@@ -411,12 +411,11 @@ function EditProfilePageStudent() {
                               type="password"
                               name="confirm_password"
                               id="confirm_password"
-                              className={
-                                errors.confirm_password &&
-                                touched.confirm_password
+                              className={`${
+                                errors.fullname && touched.fullname
                                   ? "input-error"
                                   : null
-                              }
+                              } w-100`}
                             />
                             <ErrorMessage
                               name="confirm_password"
@@ -434,11 +433,11 @@ function EditProfilePageStudent() {
                               type="number"
                               name="phone"
                               id="phone"
-                              className={
-                                errors.phone && touched.phone
+                              className={`${
+                                errors.fullname && touched.fullname
                                   ? "input-error"
                                   : null
-                              }
+                              } w-100`}
                               disabled
                             >
                               {({ field, form: { setFieldValue } }: any) => (
@@ -450,7 +449,7 @@ function EditProfilePageStudent() {
                                   }}
                                   onBlur={field.onBlur}
                                   inputStyle={{
-                                    width: "224px",
+                                    width: "100%",
                                     boxShadow: "0 3px 6px rgb(0 0 0 / 7%)",
                                     borderRadius: "8px",
                                     border: 0,
@@ -484,11 +483,11 @@ function EditProfilePageStudent() {
                               type="name"
                               name="address"
                               id="address"
-                              className={
-                                errors.address && touched.address
+                              className={`${
+                                errors.fullname && touched.fullname
                                   ? "input-error"
                                   : null
-                              }
+                              } w-100`}
                             />
                             <ErrorMessage
                               name="address"
