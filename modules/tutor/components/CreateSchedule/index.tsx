@@ -56,6 +56,7 @@ const CreateSchedule: React.FC<CreateScheduleProps> = ({ scheduleCreated }) => {
     console.log("CreateSchedule");
 
     if (!data) return;
+
     console.log(data);
 
     setTimeslots(data);
@@ -67,18 +68,6 @@ const CreateSchedule: React.FC<CreateScheduleProps> = ({ scheduleCreated }) => {
 
     setTimeslots(data);
   }, [data]);
-
-  const getTimeSlotsByDay = (timeslots: any, day: string) => {
-    let timeslotsBydate: any = [];
-
-    timeslots.forEach((days: any) => {
-      if (days.weeks === day) {
-        timeslotsBydate = days.times;
-      }
-    });
-
-    return timeslotsBydate;
-  };
 
   const handleDelete = async (id: number) => {
     mutate(id);
@@ -167,8 +156,8 @@ const CreateSchedule: React.FC<CreateScheduleProps> = ({ scheduleCreated }) => {
                 {timeslots.map((timeslot: any) => (
                   <ScheduleItem
                     id={timeslot.id}
-                    startTime={timeslot.start}
-                    endTime={timeslot.end}
+                    startTime={timeslot.from_time}
+                    endTime={timeslot.to_time}
                     onEdit={() => setIsModalOpen(true)}
                     onDelete={() => handleDelete(timeslot.id)}
                   />

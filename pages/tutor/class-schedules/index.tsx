@@ -51,13 +51,10 @@ function ClassSchedules() {
         <div className="row">
           <div className="col-12 col-md-6 d-flex justify-content-between">
             <h2 className="tutor__dashboard__title">Class Schedules</h2>
-            {isTutorSlots?.data?.result && (
+            {data && (
               <div>
                 <Link href="/tutor/class-schedules/edit">
                   <button className="btn btn-brand px-4">
-                    {/* {isTutorSlots.data.result.total_slots === 0
-                      ? "Add schedule"
-                      : "Edit Schedule"} */}
                     Add/Edit Schedule
                   </button>
                 </Link>
@@ -125,12 +122,12 @@ function ClassSchedules() {
             <div className="scheduled__classes__container">
               {isLoading && "Loading"}
 
-              {data?.times.length === 0 &&
+              {data?.slots.length === 0 &&
                 "No scheduled classes on selected day"}
 
               {data && (
                 <TimeSlots
-                  data={data?.times}
+                  data={data?.slots}
                   selectedDate={selectedDate}
                   onChange={(time: any) => {
                     setSelectedSlotId(time);
