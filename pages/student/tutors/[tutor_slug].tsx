@@ -35,7 +35,7 @@ const addToCart = async (data: any) => {
   await api
     .post(`/student/add-cart`, data)
     .then((response) => {
-      cartId = response.data.result.slot_id;
+      cartId = response.data.result.bookingRequestId;
     })
     .catch(() => {
       return false;
