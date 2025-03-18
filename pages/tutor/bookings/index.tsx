@@ -38,8 +38,8 @@ function Bookings() {
                 <div className="col-lg-6 col-xl-6 mb-4" key={index}>
                   <TutorClass
                     id={booking.id}
-                    name={booking.student.fullname}
-                    image={booking.student.image}
+                    name={booking.student_id.fullname}
+                    image={booking.student_id.image}
                     subject={booking.subject}
                     scheduleInfo={booking.schedule}
                     status={booking.status}
@@ -53,4 +53,4 @@ function Bookings() {
   );
 }
 
- export default withAuthNew(Bookings, "tutor");
+export default withAuthNew(Bookings, "tutor");

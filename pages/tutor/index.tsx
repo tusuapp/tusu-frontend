@@ -91,8 +91,8 @@ function TutorDashboard() {
                   subject={booking.subject}
                   amount={booking.total_amount}
                   date={booking.schedule?.date}
-                  startTime={booking.schedule?.start_time}
-                  endTime={booking.schedule?.end_time}
+                  startTime={booking.from_datetime}
+                  endTime={booking.to_datetime}
                 />
               ))}
             <h4 style={{ fontSize: "22px" }} className="mb-3">

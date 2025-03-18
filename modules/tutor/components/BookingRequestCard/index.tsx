@@ -63,7 +63,7 @@ const BookingRequestCard: React.FC<BookingRequestCardProps> = ({
         <br />
         Message : {notes}
         <br />
-        Chosen Schedule :{" "}
+        Choosen Schedule :{" "}
         <span style={{ color: "#82296E" }}>
           {" "}
           {date} {moment(startTime).format("HH:MM A DD-MM-YYYY")} -{" "}

@@ -27,7 +27,7 @@ const BookingRequest: React.FC<BookingRequestProps> = ({
     api
       .put(`/tutor/bookings/change-status/${id}`, {
         status: "accepted",
-        notes: "Lorem ipsum",
+        notes: "",
       })
       .then(() => {
         toast.success("Booking accepted successfully.");
@@ -64,7 +64,7 @@ const BookingRequest: React.FC<BookingRequestProps> = ({
       <br />
       Payment of <b>${amount}</b> Received.
       <br />
-      Chosen Schedule : {date}, {startTime} - {endTime}
+      Schedule : {date}, {startTime} - {endTime}
       <div className="d-flex justify-content-start mt-3">
         <button className="btn-accept me-3" onClick={() => handleAccept(id)}>
           Accept
