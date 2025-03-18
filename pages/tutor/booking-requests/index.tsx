@@ -28,8 +28,8 @@ function BookingRequests() {
 
         {error && "Failed to get data from the server"}
 
-        {data?.booking_request.count === 0 && (
-          <PageEmptyDataView message="No bookings requests found" />
+        {data?.booking_request.length === 0 && (
+          <PageEmptyDataView message="No pending booking requests" />
         )}
 
         <div className="row">
@@ -39,12 +39,12 @@ function BookingRequests() {
                 <div className="col-lg-6 col-xl-5" key={index}>
                   <BookingRequestCard
                     id={booking.id}
-                    name={booking.student.fullname}
+                    name={booking.student_fullname}
                     subject={booking.subject}
-                    amount={booking.order?.amount}
+                    amount={booking.total_amount}
                     date={booking.schedule?.date}
-                    startTime={booking.schedule?.start_time}
-                    endTime={booking.schedule?.end_time}
+                    startTime={booking.from_datetime}
+                    endTime={booking.to_datetime}
                     notes={booking.notes}
                     // onChange={() => {
                     //   // dispatch(fetchBookings("pending"));

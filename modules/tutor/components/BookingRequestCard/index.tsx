@@ -9,6 +9,7 @@ import { useState } from "react";
 import useChangeBookingActions from "@/tutor/hooks/useChangeBookingActions";
 import RescheduleModal from "../RescheduleModal";
 import router from "next/router";
+import moment from "moment";
 
 interface BookingRequestCardProps {
   id?: any;
@@ -65,7 +66,8 @@ const BookingRequestCard: React.FC<BookingRequestCardProps> = ({
         Chosen Schedule :{" "}
         <span style={{ color: "#82296E" }}>
           {" "}
-          {date}, {startTime} - {endTime}
+          {date} {moment(startTime).format("HH:MM A DD-MM-YYYY")} -{" "}
+          {moment(endTime).format("HH:MM A DD-MM-YYYY")}
         </span>
         {/* <div style={{ color: "#82296E" }}>
         <FontAwesomeIcon icon={faStickyNote} /> View note

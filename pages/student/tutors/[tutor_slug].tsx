@@ -129,12 +129,22 @@ function TutorProfile() {
 
     const cartId = await addToCart(data);
 
+    console.log(cartId);
+
+    // Ensure cartId is valid before redirecting
     if (cartId) {
-      router.push(`/student/checkout?id=${cartId}`);
-      return;
+      // If cartId is an array, get the first ID
+      const id = Array.isArray(cartId) ? cartId[0]?.id : cartId;
+
+      if (id) {
+        router.push(`/student/checkout?id=${id}`);
+        return;
+      }
     }
 
-    toast.error("Already booked" + cartId);
+    toast.error(
+      "Cannot book slot, It may be already booked. Please refresh and try again"
+    );
 
     setBookNowLoading(false);
   };

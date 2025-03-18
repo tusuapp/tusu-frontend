@@ -87,9 +87,9 @@ function TutorDashboard() {
               data?.booking_request?.booking?.map((booking: any) => (
                 <BookingRequestCard
                   id={booking.id}
-                  name={booking.student.fullname}
+                  name={booking.student_fullname}
                   subject={booking.subject}
-                  amount={booking.order.amount}
+                  amount={booking.total_amount}
                   date={booking.schedule?.date}
                   startTime={booking.schedule?.start_time}
                   endTime={booking.schedule?.end_time}
@@ -102,7 +102,7 @@ function TutorDashboard() {
               <div className="mb-3">
                 <TutorClass
                   id={booking.id}
-                  name={booking.student.fullname}
+                  name={booking.student_fullname}
                   image={booking.student.image}
                   subject={booking.subject}
                   scheduleInfo={booking.schedule}

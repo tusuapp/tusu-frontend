@@ -11,11 +11,7 @@ const PageEmptyDataView = ({ message }: any) => {
             className="mb-5"
           />
           <h5 className="mt-2">{message}</h5>
-          <p className="w-50 text-center">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
-            corporis officiis ipsa. Similique nemo hic optio enim molestiae
-            omnis aliquid maxime necessitatibus
-          </p>
+          <p className="w-50 text-center"></p>
         </div>
       </div>
     </>
