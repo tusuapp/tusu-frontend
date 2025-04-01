@@ -171,13 +171,13 @@ const ProfileExtras = ({ profile }: any) => {
                   className="font-w600 text-wallet m-0"
                   style={{ fontSize: "12px", color: "#000000" }}
                 >
-                  Time
+                  Tutor Timezone
                 </p>
                 <span
                   className="text-black"
                   style={{ fontSize: "12px", color: "#00213D" }}
                 >
-                  {profile.time}
+                  {profile.timezone}
                 </span>
               </div>
             </div>
