@@ -39,9 +39,11 @@ function Bookings() {
                   <TutorClass
                     id={booking.id}
                     name={booking.student_id.fullname}
-                    image={booking.student_id.image}
+                    image={booking.student_id.image_url}
                     subject={booking.subject}
                     scheduleInfo={booking.schedule}
+                    scheduleDate={booking.schedule_date}
+                    scheduleTime={booking.start_time}
                     status={booking.status}
                   />
                 </div>
