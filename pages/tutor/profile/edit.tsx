@@ -75,8 +75,11 @@ function Profile() {
   const getInitialFormData = () => {
     if (!userProfile.data) return;
     const { data } = userProfile;
+    console.log(data);
+
     setInitialValues({
       name: data?.fullname,
+      image_url: data?.image_url,
       address: data?.tutor_details.address,
       description: data?.tutor_details.description,
       email: data?.email,
@@ -106,6 +109,7 @@ function Profile() {
   const onChange = (imageList: any, addUpdateIndex: any) => {
     setPromptOpen(false);
     setImages(imageList);
+
     var formData = new FormData();
     formData.append("files", imageList[0]?.file);
     updateProfilePicture.mutate(formData);
@@ -189,7 +193,7 @@ function Profile() {
                                 {imageList.length === 0 ? (
                                   <>
                                     <img
-                                      src={userProfile.data?.image}
+                                      src={userProfile.data?.image_url}
                                       height={"100px"}
                                       // onClick={onImageUpload}
                                       className="edit-profile__profile__image"
@@ -222,7 +226,6 @@ function Profile() {
                                   imageList.map((image, index) => (
                                     <div key={index} className="image-item">
                                       <img
-                                        src={image["data_url"]}
                                         alt=""
                                         width="100"
                                         // onClick={() => onImageUpdate(index)}

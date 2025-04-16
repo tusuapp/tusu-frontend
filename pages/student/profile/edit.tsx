@@ -216,38 +216,40 @@ function EditProfilePageStudent() {
                                       ))}
                                     </>
                                   ) : (
-                                    <img
-                                      src={user?.image}
-                                      height={"100px"}
-                                      onClick={onImageUpload}
-                                      className="edit-profile__profile__image"
-                                      {...dragProps}
-                                    />
+                                    <div>
+                                      <button
+                                        style={{
+                                          border: "none",
+                                          backgroundColor: "white",
+                                          borderRadius: "50px",
+                                          boxShadow: " 0px 3px 6px #0000001A",
+                                          position: "absolute",
+                                          left: "60px",
+                                        }}
+                                        onClick={onImageUpload}
+                                        // onClick={handleUpdateProfilePicture}
+                                      >
+                                        <img
+                                          src="/icons/camera.svg"
+                                          style={{
+                                            width: "15px",
+                                            height: "13px",
+                                          }}
+                                        />
+                                      </button>
+                                      <img
+                                        src={user?.image}
+                                        height={"100px"}
+                                        onClick={onImageUpload}
+                                        className="edit-profile__profile__image"
+                                        {...dragProps}
+                                      />
+                                    </div>
                                   )}
                                 </div>
                               )}
                             </ImageUploading>
-                            <div className="me-1 d-flex align-items-end">
-                              <button
-                                style={{
-                                  border: "none",
-                                  backgroundColor: "white",
-                                  borderRadius: "50px",
-                                  boxShadow: " 0px 3px 6px #0000001A",
-                                  position: "absolute",
-                                  left: "60px",
-                                }}
-                                onClick={handleUpdateProfilePicture}
-                              >
-                                <img
-                                  src="/icons/camera.svg"
-                                  style={{
-                                    width: "15px",
-                                    height: "13px",
-                                  }}
-                                />
-                              </button>
-                            </div>
+                            <div className="me-1 align-items-end"></div>
                           </div>
                           <div>
                             <button
