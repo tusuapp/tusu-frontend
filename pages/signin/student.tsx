@@ -53,7 +53,7 @@ const SignIn = () => {
 
     dispatch(signIn(newData, "student"))
       .then((res: any) => {
-        console.log(res);
+        setIsLoading(false);
         Router.replace("/student");
       })
       .catch((error: any) => {

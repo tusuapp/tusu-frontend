@@ -5,6 +5,7 @@ import { getErrorMessages, getSuccessMessages } from "../alerts/alertSlice";
 import { convertErrorsToArray } from "../../utils";
 import { toast } from "react-toastify";
 import router from "next/router";
+import axios from "axios";
 
 export interface AuthState {
   user: any;
@@ -117,13 +118,20 @@ export const signIn =
   (data: any, role: any): AppThunk =>
   async (dispatch) => {
     setApplicationName(role);
-    return api.post("/auth/login", data).then((response) => {
-      dispatch(getSuccessMessages(["Login success"]));
-      dispatch(getToken(response.data.result.jwt));
-      dispatch(getUser(response.data.result.user));
-      localStorage.setItem("accessToken", response.data.result.jwt);
-      localStorage.setItem("currentUser", JSON.stringify(response.data.result));
-    });
+    return axios
+      .post("https://api.tusuapp.com/auth/login", data, {
+        headers: {
+          "Content-Type": "application/json",
+          "application-name": "student",
+        },
+      })
+      .then((response) => {
+        dispatch(getSuccessMessages(["Login success"]));
+        dispatch(getToken(response.data.jwt));
+        dispatch(getUser(response.data.user));
+        localStorage.setItem("accessToken", response.data.jwt);
+        localStorage.setItem("currentUser", JSON.stringify(response.data));
+      });
   };
 
 export const signUp =

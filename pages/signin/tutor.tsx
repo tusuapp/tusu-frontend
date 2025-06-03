@@ -210,7 +210,7 @@ const SignUpPage = () => {
                   alignItems: "center",
                   // marginRight: "10px",
                   paddingRight: "10px",
-                  flexWrap: "wrap"
+                  flexWrap: "wrap",
                 }}
               >
                 <div
@@ -224,11 +224,9 @@ const SignUpPage = () => {
                     padding: "10px 20px 10px 0px",
                   }}
                 >
-                  <LoginGoogle />
+                  {/* <LoginGoogle /> */}
                 </div>
-                <div>
-                  <LoginFacebook />
-                </div>
+                <div>{/* <LoginFacebook /> */}</div>
                 &nbsp; &nbsp; &nbsp;
                 {/* <div>
                   <LoginApple />
