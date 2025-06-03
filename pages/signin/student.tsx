@@ -47,6 +47,8 @@ const SignIn = () => {
       password: data.password,
     };
 
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("currentUser");
     setIsLoading(true);
 
     dispatch(signIn(newData, "student"))
