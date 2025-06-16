@@ -4,7 +4,7 @@ import Link from "next/link";
 import Button from "../../../components/button";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { api } from "../../../api";
+import { api, v2api } from "../../../api";
 import Image from "next/image";
 import PaymentSuccesssPic from "public/image/payment-success.svg";
 
@@ -17,19 +17,16 @@ function PaymentSuccesss() {
 
   // const { session, credit } = query;
 
-  const { session, resources, credit } = query;
-  const url =
-    "/payments/complete/" +
-    session +
-    (resources ? "?resources=" + resources : "");
+  const { session_id, resources, credit } = query;
+  const url = "payments/stripe/complete?sessionID=" + session_id;
   useEffect(() => {
     if (credit) {
       setStatus("success");
     }
-    if (!session) return;
+    if (!session_id) return;
     // if (creditSession === "success") setStatus("success");
-    api
-      .get(url)
+    v2api
+      .post(url)
       .then(() => {
         setStatus("success");
       })
@@ -37,7 +34,7 @@ function PaymentSuccesss() {
         console.log(error);
         setStatus("failed");
       });
-  }, [session]);
+  }, [session_id]);
 
   return (
     <>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Container from "components/container";
 import Head from "next/head";
 import StudentDashboardLayout from "layouts/StudentDashboard";
-import { api } from "api";
+import { api, v2api } from "api";
 import { useRouter } from "next/router";
 import useTransactionHistories from "@/student/hooks/useTransactionHistories";
 import useCreditPoints from "@/student/hooks/useCreditPoints";
@@ -31,11 +31,11 @@ function CreditPoints() {
   };
 
   const handleAddCredits = () => {
-    api
-      .post("/student/buy/credits", { value: count })
+    v2api
+      .post(`/payments/stripe/buy-credits?topUpAmount=${count}`)
       .then(({ data }) => {
-        // console.log(data.result);
-        router.push(data.result.checkout_url);
+        console.log(data.result);
+        router.push(data.payment_url);
       })
       .catch((err) => {
         console.log(err);
@@ -109,7 +109,7 @@ function CreditPoints() {
                                 border: "none",
                                 color: "white",
                                 borderRadius: "6px",
-                                padding: "7px 14px"
+                                padding: "7px 14px",
                               }}
                               onClick={handleAddCredits}
                             >
