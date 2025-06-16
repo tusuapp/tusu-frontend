@@ -3,6 +3,7 @@ import axios from "axios";
 export function setToken(token: any) {
   if (!token) return;
   api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  v2api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
 export function setApplicationName(role: any) {
@@ -11,6 +12,15 @@ export function setApplicationName(role: any) {
 
 export const api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_ENDPOINT}`,
+  headers: {
+    Accept: "application/json",
+    "Application-access": "web",
+    "Content-Type": "application/json",
+  },
+});
+console.log("V2 API Endpoint:", process.env.NEXT_PUBLIC_V2_API_ENDPOINT);
+export const v2api = axios.create({
+  baseURL: `${process.env.NEXT_PUBLIC_V2_API_ENDPOINT}`,
   headers: {
     Accept: "application/json",
     "Application-access": "web",
