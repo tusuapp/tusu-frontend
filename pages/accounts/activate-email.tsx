@@ -11,7 +11,7 @@ import Router from "next/router";
 import { toast } from "react-toastify";
 
 function Home() {
-  const { is_email_verified } = useSelector(selectAuth);
+  const { emailVerified } = useSelector(selectAuth);
   const router = useRouter();
   const { confirmation } = router.query;
   const dispatch = useDispatch();
@@ -23,12 +23,12 @@ function Home() {
   }, [router.query]);
 
   useEffect(() => {
-    if (is_email_verified) {
+    if (emailVerified) {
       // alert("email verified")
       toast.success("Email verification success");
       Router.push("/signin");
     }
-  }, [is_email_verified]);
+  }, [emailVerified]);
 
   return (
     <>

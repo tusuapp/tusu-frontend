@@ -16,7 +16,7 @@ function Home() {
     if (!user) return;
 
     console.log("verify-email ");
-    console.log(user.is_email_verified);
+    console.log(user.emailVerified);
 
     if (isEmailVerfied(user)) {
       Router.push("/" + getUserRole(user));

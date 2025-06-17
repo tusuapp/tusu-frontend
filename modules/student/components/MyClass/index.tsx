@@ -52,7 +52,7 @@ const customReviewStyles = {
 const MyClass = ({ myclass }: any) => {
   const {
     id,
-    tutor: { image, name, tutorId },
+    tutor,
     subject,
     schedule,
     bigbluebutton,
@@ -64,11 +64,11 @@ const MyClass = ({ myclass }: any) => {
 
   const { user } = useSelector(selectAuth);
 
-  let imagez = image ? image : "/image/img_avatar.png";
+  let imagez = tutor.imageUrl ? tutor.imageUrl : "/image/img_avatar.png";
 
-  let current_time = moment().utcOffset(user.timezoneOffset);
+  let current_time = moment().utcOffset(user.timeZoneOffset);
   let schedule_time = moment(schedule?.actual_time).utcOffset(
-    user.timezoneOffset
+    user.timeZoneOffset
   );
   let whatLeft = moment.duration(schedule_time.diff(current_time));
 
@@ -150,7 +150,7 @@ const MyClass = ({ myclass }: any) => {
         </div>
         <div className="flex-grow-1">
           <div className="d-flex justify-content-between align-items-center">
-            <div className="Student__my-class__name">{name}</div>
+            <div className="Student__my-class__name">{tutor.fullName}</div>
             <FontAwesomeIcon
               icon={faStar}
               style={{ color: "#FBB017" }}
@@ -158,7 +158,7 @@ const MyClass = ({ myclass }: any) => {
               onClick={() => {
                 // console.log("id====>::::", id, tutorId);
                 setselectedBookingId(id);
-                setselectedTutorId(tutorId);
+                setselectedTutorId(tutor.id);
                 setisReviewOpen(!isReviewOpen);
               }}
             />
@@ -178,7 +178,7 @@ const MyClass = ({ myclass }: any) => {
                                 <br />
                                 {tutorId} */}
                 <p>
-                  How was {name} class. <br />
+                  How was {tutor.fullName} class. <br />
                   Please give your feedback.
                 </p>
                 <p>Rate Tutor</p>

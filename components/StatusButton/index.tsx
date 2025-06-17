@@ -42,9 +42,9 @@ const StatusButton: React.FC<IButton> = ({
   const { user } = useSelector(selectAuth);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
   const [btnTxt, setBtnTxt] = useState();
-  let current_time = moment().utcOffset(user.timezoneOffset);
+  let current_time = moment().utcOffset(user.timeZoneOffset);
   let schedule_time = moment(scheduleInfo?.actual_time).utcOffset(
-    user.timezoneOffset
+    user.timeZoneOffset
   );
   let currentTimeOffset = moment().format("Z");
   let whatLeft = moment.duration(schedule_time.diff(current_time));

@@ -172,58 +172,6 @@ const ProfileMenu = ({ userRole }: any) => {
                   )}
                 </Menu.Item>
               </div>
-              {/* <div className="student__dropdown__menu__item">
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      className={`${active && "bg-blue-500"}`}
-                      href="/student/faq"
-                    >
-                      <img src="/icons/document.svg" />
-                      <span className="ms-3">FAQ</span>
-                    </a>
-                  )}
-                </Menu.Item>
-              </div>
-              <div className="student__dropdown__menu__item">
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      className={`${active && "bg-blue-500"}`}
-                      href="/student/contact"
-                    >
-                      <img src="/icons/document.svg" />
-                      <span className="ms-3">Contact Us</span>
-                    </a>
-                  )}
-                </Menu.Item>
-              </div>
-              <div className="student__dropdown__menu__item">
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      className={`${active && "bg-blue-500"}`}
-                      href="/student/privacy-policy"
-                    >
-                      <img src="/icons/document.svg" />
-                      <span className="ms-3">Legal</span>
-                    </a>
-                  )}
-                </Menu.Item>
-              </div> */}
-              {/* <div className="student__dropdown__menu__item">
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      className={`${active && "bg-blue-500"}`}
-                      href="/student/terms-and-conditions"
-                    >
-                      <img src="/icons/document.svg" />
-                      <span className="ms-3">Terms and Conditions</span>
-                    </a>
-                  )}
-                </Menu.Item>
-              </div> */}
             </Menu.Items>
           </motion.div>
           {/* </AnimatePresence> */}

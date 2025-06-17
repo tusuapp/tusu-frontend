@@ -39,9 +39,9 @@ const TutorClass: React.FC<TutorClassProps> = ({
     router.push(`/tutor/classes/${id}`);
   };
 
-  let current_time = moment().utcOffset(user.timezoneOffset);
+  let current_time = moment().utcOffset(user.timeZoneOffset);
   let schedule_time = moment(scheduleInfo?.actual_time).utcOffset(
-    user.timezoneOffset
+    user.timeZoneOffset
   );
   let currentTimeOffset = moment().format("Z");
   let whatLeft = moment.duration(schedule_time.diff(current_time));

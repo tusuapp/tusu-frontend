@@ -67,7 +67,7 @@ export interface IUser {
   timezone: string;
   address?: any;
   social_login?: any;
-  is_email_verified: boolean;
+  emailVerified: boolean;
   uuid: string;
   users_chat_register?: any;
   created_at: Date;

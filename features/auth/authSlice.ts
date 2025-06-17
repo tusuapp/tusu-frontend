@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { AppState, AppThunk } from "store";
-import { api, setApplicationName } from "api";
+import { api, setApplicationName, v2api } from "api";
 import { getErrorMessages, getSuccessMessages } from "../alerts/alertSlice";
 import { convertErrorsToArray } from "../../utils";
 import { toast } from "react-toastify";
@@ -10,7 +10,7 @@ import axios from "axios";
 export interface AuthState {
   user: any;
   token: any;
-  is_email_verified: boolean;
+  emailVerified: boolean;
   is_profile_completed: boolean;
   is_confirmed: boolean;
   status: "idle" | "loading" | "failed";
@@ -19,7 +19,7 @@ export interface AuthState {
 const initialState: AuthState = {
   user: null,
   token: null,
-  is_email_verified: false,
+  emailVerified: false,
   is_profile_completed: false,
   is_confirmed: false,
   status: "idle",
@@ -43,7 +43,7 @@ export const authSlice = createSlice({
     },
 
     setEmailVerified: (state, action) => {
-      state.is_email_verified = action.payload;
+      state.emailVerified = action.payload;
     },
 
     logoutTutor: (state) => {
@@ -57,8 +57,8 @@ export const authSlice = createSlice({
 
 export const fetchUser = (): AppThunk => async (dispatch) => {
   try {
-    const response = await api.get("/auth/user");
-    dispatch(getUser(response.data.result.user));
+    const response = await v2api.get("/auth/user");
+    dispatch(getUser(response.data));
   } catch (e: any) {
     console.log("Unable to fetch user");
     // await localStorage.removeItem("accessToken");

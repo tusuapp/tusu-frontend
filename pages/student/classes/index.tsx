@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import PageSearchField from "@/student/components/PageSearchField";
 import StudentDashboardLayout from "layouts/StudentDashboard";
-import { api } from "../../../api";
+import { api, v2api } from "../../../api";
 import Container from "../../../components/container";
 import withAuthNew from "../../../HOC/withAuthNew";
 import MyClass from "../../../modules/student/components/MyClass";
@@ -43,7 +43,9 @@ const FavouriteTutors: React.FC = () => {
       <StudentDashboardLayout>
         <Container>
           <section>
-            <h3 className="student__page__header__title mb-4">My classes</h3>
+            <h3 className="student__page__header__title m-4 mt-10">
+              My classes
+            </h3>
             <div className="d-flex  justify-content-between mb-5 mt-5">
               <Box sx={{ width: "100%" }}>
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -74,10 +76,13 @@ const FavouriteTutors: React.FC = () => {
                   </Tabs>
                 </Box>
                 <CustomTabPanel value={value} index={0}>
-                  <ActiveClassesTab type="accepted" />
+                  <ActiveClassesTab type="accepted,requested" />
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={1}>
-                  Item Two
+                  <ActiveClassesTab type="completed" />
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={2}>
+                  <ActiveClassesTab type="cancelled,rejected" />
                 </CustomTabPanel>
               </Box>
             </div>
@@ -165,15 +170,13 @@ interface ActiveClassesTabProps {
 const ActiveClassesTab: React.FC<ActiveClassesTabProps> = ({ type }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const [pageData, setPageData] = useState<any>();
-
+  const [classes, setClasses] = useState<any>([]);
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const { data } = await api.get(
-        `/student/my-bookings?page=${currentPage}&limit=${postsPerPage}`
-      );
-      setPageData(data?.result?.data);
+      const data = await v2api.get(`/user/classes?types=${type}`);
+      console.log(data.data);
+      setClasses(data.data.bookings);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -181,28 +184,34 @@ const ActiveClassesTab: React.FC<ActiveClassesTabProps> = ({ type }) => {
   };
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
+  }, []);
+
+  console.log(classes);
 
   if (isLoading) {
     return <Spinner />;
   }
 
+  if (classes?.length === 0) {
+    return <p>You don't have any classes here.</p>;
+  }
+
   return (
     <>
       <div className="row">
-        <div className="col-lg-12">Type: {type}</div>
-        {pageData?.map((myClass: any, index: number) => {
-          return (
-            <>
-              <div
-                className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 my-classes"
-                key={index}
-              >
-                <MyClass myclass={myClass} />
-              </div>
-            </>
-          );
-        })}
+        {classes &&
+          classes?.map((myClass: any, index: number) => {
+            return (
+              <>
+                <div
+                  className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 my-classes"
+                  key={index}
+                >
+                  <MyClass myclass={myClass} />
+                </div>
+              </>
+            );
+          })}
       </div>
     </>
   );

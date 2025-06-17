@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { api } from "api";
+import { api, v2api } from "api";
 
 import {
   selectStudentDashboard,
@@ -26,9 +26,11 @@ const StudentHome = () => {
   // console.log("classData ======>", classesData);
 
   const fetchClasses = async () => {
-    const response = await api.get("student/my-bookings?page=1&limit=3");
+    const response = await v2api.get(
+      "/user/classes?types=accepted,requested&limit=3"
+    );
     // setclassesData(response);
-    setclassesData(response.data.result.data);
+    setclassesData(response.data.bookings);
   };
 
   useEffect(() => {
@@ -46,7 +48,7 @@ const StudentHome = () => {
           <br />
           <br />
           <p style={{ color: "#637381", fontSize: "20px" }}>
-            Hello {user.fullname}!
+            Hello {user.fullName}!
           </p>
           <section>
             <div className="d-flex justify-content-between align-items-center ">
