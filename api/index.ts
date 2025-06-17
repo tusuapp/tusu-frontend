@@ -1,4 +1,5 @@
 import axios from "axios";
+import { selectAuth } from "features/auth/authSlice";
 
 export function setToken(token: any) {
   if (!token) return;

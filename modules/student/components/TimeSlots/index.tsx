@@ -1,69 +1,69 @@
 import { RadioGroup } from "@headlessui/react";
-
-import { useState } from "react";
 import moment from "moment";
-import { useSelector } from "react-redux";
-import { selectAuth } from "../../../../features/auth/authSlice";
 
-const TimeSlots = ({ data, onChange, setSelectedSlot, selectedDate }: any) => {
-  const [timeslot, setTimeslot] = useState("");
+interface TimePeriod {
+  start: string;
+  end: string;
+}
 
-  let slotEmpty = 0;
+interface TimeSlotData {
+  id: number;
+  fromDatetime: string;
+  toDatetime: string;
+  isBooked: boolean;
+}
 
-  const selDate = moment(selectedDate).format("YYYY-MM-DD");
-  const TimeSlot = ({ timePeriod, isChecked, isDisabled, id }: any) => {
-    return (
-      <div
-        className={isChecked ? "tutor__timeslot--active" : "tutor__timeslot"}
-        onClick={() => setSelectedSlot(id)}
-      >
-        {/* {isDisabled && "Booked"} */}
-        {timePeriod.start} - {timePeriod.end}
-      </div>
-    );
-  };
+interface TimeSlotsProps {
+  data: TimeSlotData[];
+  onChange: (value: TimePeriod) => void;
+  setSelectedSlot: (id: number) => void;
+}
 
+const TimeSlot = ({
+  timePeriod,
+  isChecked,
+  onClick,
+}: {
+  timePeriod: TimePeriod;
+  isChecked: boolean;
+  onClick: () => void;
+}) => {
   return (
-    <>
-      <RadioGroup value={""} onChange={onChange}>
-        {data.map((timeslot: any, inx: number) => {
-          const from = moment(selDate + "T" + timeslot.start);
-          const to = moment();
-          const dd = moment.duration(to.diff(from)).asMinutes();
+    <div
+      className={isChecked ? "tutor__timeslot--active" : "tutor__timeslot"}
+      onClick={onClick}
+    >
+      {timePeriod.start} - {timePeriod.end}
+    </div>
+  );
+};
 
-          if (dd > 0) {
-            return <></>;
-          }
+const TimeSlots = ({ data, onChange, setSelectedSlot }: TimeSlotsProps) => {
+  return (
+    <RadioGroup value={null} onChange={onChange}>
+      {data
+        .filter((slot) => !slot.isBooked)
+        .map((slot) => {
+          const timePeriod = {
+            start: moment(slot.fromDatetime).format("hh:mm a"),
+            end: moment(slot.toDatetime).format("hh:mm a"),
+          };
 
-          if (!timeslot.is_booked) {
-            slotEmpty++;
-            return (
-              <div className="mb-5" key={inx}>
-                <RadioGroup.Option
-                  value={{ start: timeslot.start, end: timeslot.end }}
-                  disabled={timeslot.is_booked}
-                >
-                  {({ active }) => (
-                    <TimeSlot
-                      timePeriod={{ start: timeslot.start, end: timeslot.end }}
-                      isChecked={active}
-                      isDisabled={timeslot.is_booked}
-                      id={timeslot.id}
-                    />
-                  )}
-                </RadioGroup.Option>
-              </div>
-            );
-          }
+          return (
+            <div className="mb-5" key={slot.id}>
+              <RadioGroup.Option value={timePeriod} disabled={slot.isBooked}>
+                {({ active }) => (
+                  <TimeSlot
+                    timePeriod={timePeriod}
+                    isChecked={active}
+                    onClick={() => setSelectedSlot(slot.id)}
+                  />
+                )}
+              </RadioGroup.Option>
+            </div>
+          );
         })}
-
-        {data?.length && slotEmpty == 0 ? (
-          <p className={"mt-3"}> Slot not available / booked </p>
-        ) : (
-          ""
-        )}
-      </RadioGroup>
-    </>
+    </RadioGroup>
   );
 };
 

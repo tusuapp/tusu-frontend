@@ -33,7 +33,7 @@ const addToCart = async (data: any) => {
   let cartId = null;
 
   await v2api
-    .post(`/student/classes`, data)
+    .post(`/user/classes/bookings/initiate`, data)
     .then((response) => {
       cartId = response.data.id;
     })
@@ -82,7 +82,7 @@ function TutorProfile() {
     (async () => {
       if (selectedDate) {
         const response = await fetchAvailableSchedules(
-          formatYYYYMMDD(selectedDate)
+          formatYYYYMMDD(selectedDate, "-")
         );
         await setLoadingSchedules(false);
         console.log(response);
@@ -95,11 +95,12 @@ function TutorProfile() {
   const fetchAvailableSchedules = async (date: string) => {
     try {
       setApplicationName("student");
-      const response = await api.get(
-        `/tutor/tutor-slots/${tutor_slug}?date=${date}`
+      const response = await v2api.get(
+        `/slots?tutorId=${tutor_slug}&date=${date}`
       );
+      console.log(response.data);
 
-      return response.data.result.slots;
+      return response.data;
     } catch (e: any) {
       return console.log(e.message);
     }
@@ -119,10 +120,6 @@ function TutorProfile() {
     setBookNowLoading(true);
 
     const data = {
-      tutor_id: tutor_slug,
-      date: formatYYYYMMDD(selectedDate, "-"),
-      to_time: moment(selectedSchedule.end, "hh:mm A").format("HH:mm:ss"),
-      from_time: moment(selectedSchedule.start, "hh:mm A").format("HH:mm:ss"),
       subject_id: selectedSubject,
       slot_id: selectedSlot,
     };
@@ -131,15 +128,9 @@ function TutorProfile() {
 
     console.log(cartId);
 
-    // Ensure cartId is valid before redirecting
     if (cartId) {
-      // If cartId is an array, get the first ID
-      const id = Array.isArray(cartId) ? cartId[0]?.id : cartId;
-
-      if (id) {
-        router.push(`/student/checkout?id=${id}`);
-        return;
-      }
+      router.push(`/student/checkout?id=${cartId}`);
+      return;
     }
 
     toast.error(
@@ -294,9 +285,10 @@ function TutorProfile() {
                                         selectedDate
                                       )}
                                       data={availableSchedules}
-                                      onChange={(time: any) =>
-                                        setSelectedSchedule(time)
-                                      }
+                                      onChange={(time: any) => {
+                                        console.log(`time`, time);
+                                        setSelectedSchedule(time);
+                                      }}
                                       setSelectedSlot={setSelectedSlot}
                                     />
                                   )}

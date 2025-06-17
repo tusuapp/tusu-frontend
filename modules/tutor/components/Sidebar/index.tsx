@@ -99,7 +99,7 @@ const Sidebar = () => {
       >
         <div className="text-center">
           <img
-            src={user?.image}
+            src={user?.imageUrl}
             style={{
               borderRadius: "15px",
               paddingTop: "10px",
@@ -121,7 +121,7 @@ const Sidebar = () => {
             fontSize: "20px",
           }}
         >
-          {user?.fullname}
+          {user?.fullName}
         </div>
         <div
           className=" "

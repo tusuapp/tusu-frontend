@@ -4,9 +4,34 @@ import BeatLoader from "react-spinners/BeatLoader";
 import useBookingRequests from "@/tutor/hooks/useBookingRequests";
 import PageEmptyDataView from "@/tutor/components/PageEmptyDataView";
 import { useEffect, useState } from "react";
+import { v2api } from "api";
 
 function BookingRequests() {
-  const { data, error, isFetching, isLoading, isError } = useBookingRequests();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchRequests = async () => {
+      try {
+        const response = await v2api.get("/user/classes", {
+          params: { types: "requested" },
+        });
+        setData(response.data.bookings);
+        console.log(data);
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : "An error occurred while fetching bookings.";
+        console.error("Failed to fetch bookings:", errorMessage);
+        setError(errorMessage);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRequests();
+  }, []);
 
   return (
     <>
@@ -15,20 +40,12 @@ function BookingRequests() {
           <h2 className="tutor__dashboard__title me-3 mb-4">
             Booking requests
           </h2>
-
-          {isFetching ||
-            (isLoading && (
-              <BeatLoader
-                loading={isFetching || isLoading}
-                color={"grey"}
-                size={5}
-              />
-            ))}
+          {loading && <BeatLoader loading={loading} color={"grey"} size={5} />}
         </div>
 
-        {error && "Failed to get data from the server"}
+        {/* {error && "Failed to get data from the server"} */}
 
-        {data?.booking_request.length === 0 && (
+        {data?.length === 0 && (
           <PageEmptyDataView message="No pending booking requests" />
         )}
 

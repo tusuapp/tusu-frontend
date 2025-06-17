@@ -16,22 +16,17 @@ const makePayment = async (
   isCreditPoint = false
 ) => {
   try {
-    let url = `/student/make-payment/${cartId}`;
-    url = isCreditPoint ? url + "?type=mobile" : url;
-    const response = await api.post(url, {
-      selected_gateway: 1,
-      buy_through_credit_points: isCreditPoint ? "true" : "false",
-      notes,
-    });
+    console.log("cartId", cartId);
 
-    if (response.data.result.is_purchased) {
-      // alert("success");
-      // router.push("");
+    let url = `/user/classes/bookings/pay?bookingId=${cartId}`;
+    const response = await v2api.post(url);
+    console.log("response", response.data);
+    if (response.data.paid) {
       router.push({
         pathname: "/student/payment/success/",
         query: { credit: "success" },
       });
-    } else return response.data.result.checkout_url;
+    } else return response.data.payment_url;
 
     // return redirect_url;
   } catch (error) {
@@ -47,7 +42,6 @@ const Checkout = () => {
   const { query } = router;
 
   const [cartDetails, setCartDetails] = useState<any>(null);
-  const [getTutors, setGetTutors] = useState<any>(null);
   const [additionalNotes, setAdditionalNotes] = useState("");
   const [isTermsAgreed, setisTermsAgreed] = useState("");
   const [isCreditPoint, setIsCreditPoint] = useState(false);
@@ -66,7 +60,7 @@ const Checkout = () => {
     console.log("cartDetails", cartDetails);
 
     const res = await makePayment(
-      cartDetails.booking_id,
+      cartDetails.id,
       additionalNotes,
       isCreditPoint
     );
@@ -80,7 +74,7 @@ const Checkout = () => {
 
   const fetchCartDetails = (cartId: any) => {
     v2api
-      .get(`/student/classes/${cartId}`)
+      .get(`/user/classes/${cartId}`)
       .then((response) => {
         console.log("Cart deatils", response.data);
         setCartDetails(response.data);
@@ -90,10 +84,6 @@ const Checkout = () => {
       });
   };
 
-  const tutorDetails = getTutors?.find(
-    (item: any) => item.id == cartDetails?.tutor?.id
-  );
-  // console.log(tutorDetails?.gender);
   const getOurTutors = async () => {
     try {
       const { data } = await api.get("/student/tutors?type=all-tutors");
@@ -102,10 +92,6 @@ const Checkout = () => {
     } catch (e) {}
   };
 
-  // const tutorDetails = getTutors?.find((item: any) => item.id == cartDetails?.tutor?.id)
-  // console.log(tutorDetails?.gender);
-
-  // @ts-ignore
   return (
     <>
       <Head>
@@ -132,7 +118,7 @@ const Checkout = () => {
                   >
                     You are booking{" "}
                     {/* {tutorDetails?.gender == "Male" ? "Mr. " : "Miss. "} */}
-                    {cartDetails?.tutor?.full_name}
+                    {cartDetails?.tutor?.fullName}
                   </div>
                   {/* <code>{JSON.stringify(cartDetails)}</code> */}
                   <br />
@@ -163,9 +149,8 @@ const Checkout = () => {
                                     <span style={{ color: "#8A959ECC" }}>
                                       Hourly Fee:
                                     </span>{" "}
-                                    {cartDetails?.currency_symbol +
-                                      " " +
-                                      cartDetails?.tutor?.hourly_fee}
+                                    {cartDetails?.currencySymbol ||
+                                      "$" + " " + cartDetails?.hourlyFee}
                                   </p>
                                 </div>
                               </div>
@@ -251,16 +236,15 @@ const Checkout = () => {
                             <div className="d-flex justify-content-between">
                               <div>Booked Hour(s):</div>
                               <div>
-                                {cartDetails?.payment_summary?.total_hour}
+                                {cartDetails?.payment_summary?.total_hour || 1}
                               </div>
                             </div>
                             <div className="d-flex justify-content-between">
                               <div>Total</div>
                               <div>
                                 1 x {cartDetails?.tutor?.final_amount} ={" "}
-                                {cartDetails?.currency_symbol +
-                                  " " +
-                                  cartDetails?.payment_summary?.total}
+                                {cartDetails?.currency_symbol ||
+                                  "$" + " " + cartDetails?.totalAmount}
                               </div>
                             </div>
                             <div

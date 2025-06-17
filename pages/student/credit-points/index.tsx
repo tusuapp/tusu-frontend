@@ -6,6 +6,7 @@ import { api, v2api } from "api";
 import { useRouter } from "next/router";
 import useTransactionHistories from "@/student/hooks/useTransactionHistories";
 import useCreditPoints from "@/student/hooks/useCreditPoints";
+import Spinner from "components/Spinner";
 
 function CreditPoints() {
   const creditPoints = useCreditPoints();
@@ -70,7 +71,11 @@ function CreditPoints() {
                               style={{ fontSize: "28px" }}
                             >
                               {" "}
-                              {creditPoints?.data?.credit_points}
+                              {creditPoints.isLoading ? (
+                                <Spinner />
+                              ) : (
+                                creditPoints?.data?.credit_points
+                              )}
                             </h3>
                             <h6
                               className="text-white"
@@ -201,7 +206,7 @@ function CreditPoints() {
                         </div>
                       </div>
 
-                      <div className="d-flex justify-content-between pb-3">
+                      {/* <div className="d-flex justify-content-between pb-3">
                         <div className="d-flex justify-content-start p-3 me-5">
                           <span className="text-white">
                             <i
@@ -213,7 +218,7 @@ function CreditPoints() {
                             <i className="fa fa-plus text-warning ps-3" />
                           </span>
                         </div>
-                      </div>
+                      </div> */}
                       <div className="text-center bg-brand cred-point-inner2">
                         <button
                           className="btn text-white"

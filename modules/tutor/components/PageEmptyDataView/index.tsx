@@ -9,8 +9,9 @@ const PageEmptyDataView = ({ message }: any) => {
           <img
             src="/image/tutor/empty-screens/empty-mailbox.png"
             className="mb-5"
+            width={"200px"}
           />
-          <h5 className="mt-2">{message}</h5>
+          <h5 className="mt-3">{message}</h5>
           <p className="w-50 text-center"></p>
         </div>
       </div>
