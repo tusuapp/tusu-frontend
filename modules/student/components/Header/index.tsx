@@ -100,8 +100,8 @@ const Header: React.FC<Props> = ({ title }) => {
                     <div className="nav-button pe-0">
                       <ProfileMenu
                         userRole={userRole}
-                        profilePicture={user.image}
-                        fullName={user.fullname}
+                        profilePicture={user.imageUrl}
+                        fullName={user.fullName}
                       />
                     </div>
                   </li>
@@ -141,8 +141,8 @@ const Header: React.FC<Props> = ({ title }) => {
                 <div className="nav-button pe-0">
                   <ProfileMenu
                     userRole={userRole}
-                    profilePicture={user.image}
-                    fullName={user.fullname}
+                    profilePicture={user.imageUrl}
+                    fullName={user.fullName}
                   />
                 </div>
               </li>

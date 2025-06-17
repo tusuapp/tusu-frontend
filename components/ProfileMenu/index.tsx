@@ -17,12 +17,12 @@ const ProfileMenu = ({ userRole }: any) => {
         <Menu>
           <Menu.Button className="btn btn-brand ">
             <img
-              src={user.image}
+              src={user.imageUrl}
               height="30px"
               width="30px"
               style={{ borderRadius: "50%", marginRight: "20px" }}
             />
-            {user.fullname}
+            {user.fullName}
           </Menu.Button>
           {/* <AnimatePresence> */}
           <motion.div
@@ -186,7 +186,7 @@ const ProfileMenu = ({ userRole }: any) => {
         <Menu>
           <Menu.Button className="btn btn-brand">
             <img
-              // src={user.image}
+              src={user.imageUrl}
               height="30px"
               width="30px"
               style={{ borderRadius: "50%", marginRight: "20px" }}

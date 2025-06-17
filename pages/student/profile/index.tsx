@@ -42,35 +42,28 @@ function Profile() {
             </Link>
           </div>
         </div>
-        {/* {JSON.stringify(data)} */}
-        <div className="profile__wrap">
 
+        <div className="profile__wrap">
           <div className="profile__leftContainer">
             <div className="profile__leftContainer__top">
-              <img src={data?.image}/>
-              <h6>{data?.fullname}</h6>
+              <img src={data?.imageUrl} />
+              <h6>{data?.fullName}</h6>
               <p>{data?.email}</p>
             </div>
             <div className="profile__leftContainer__bottom">
               <div className="profile__class__count">
-                <div><img src="/icons/teacher.svg" /></div>
+                <div>
+                  <img src="/icons/teacher.svg" />
+                </div>
                 <div>
                   <h6>{data?.total_classes}</h6>
                   <p>Classes</p>
                 </div>
               </div>
-              <div className="profile__certification__count">
-                <div><img src="/icons/document.svg" /></div>
-                <div>
-                  <h6>0</h6>
-                  <p>Certifications</p>
-                </div>
-              </div>
             </div>
           </div>
-          
 
-            {/* <div className="col-12 py-4 px-5 d-flex align-items-end">
+          {/* <div className="col-12 py-4 px-5 d-flex align-items-end">
               <img
                 src={data?.image}
                 onClick={onImageUpload}
@@ -80,33 +73,36 @@ function Profile() {
               />
             </div> */}
 
-
-            <div className="row profile__rightContainer">
-                <div className="profileField">
-                  <div className="profile__field__label"> Phone Number</div>
-                  <div className="profile__field__value profileField__value">{data?.phone}</div>
-                </div>
-                <div className="profileField">
-                  <div className="profile__field__label">Address</div>
-                  <div className="profile__field__value profileField__value">{data?.address ? data?.address : "N/A"}</div>
-                </div>
-                <div className="profileField">
-                  <div className="profile__field__label">Country</div>
-                  <div className="profile__field__value profileField__value">
-                    {data?.country?.name}
-                  </div>
-                </div>
-                <div className="profileField">
-                  <div className="profile__field__label">Timezone</div>
-                  <div className="profile__field__value profileField__value">{data?.timezone}</div>
-                </div>
-                {/* <div className="profileField">
+          <div className="row profile__rightContainer">
+            <div className="profileField">
+              <div className="profile__field__label"> Phone Number</div>
+              <div className="profile__field__value profileField__value">
+                {data?.phone}
+              </div>
+            </div>
+            <div className="profileField">
+              <div className="profile__field__label">Address</div>
+              <div className="profile__field__value profileField__value">
+                {data?.address ? data?.address : "N/A"}
+              </div>
+            </div>
+            <div className="profileField">
+              <div className="profile__field__label">Country</div>
+              <div className="profile__field__value profileField__value">
+                {data?.country?.name}
+              </div>
+            </div>
+            <div className="profileField">
+              <div className="profile__field__label">Timezone</div>
+              <div className="profile__field__value profileField__value">
+                {data?.timeZone}
+              </div>
+            </div>
+            {/* <div className="profileField">
                   <div className="profile__field__label">Password</div>
                   <div className="profile__field__value profileField__value">{data?.password}</div>
                 </div> */}
-            </div>
-
-
+          </div>
         </div>
       </div>
     </>
