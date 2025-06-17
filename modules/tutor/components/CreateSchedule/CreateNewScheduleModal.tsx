@@ -58,13 +58,11 @@ const CreateNewScheduleModal: React.FC<Props> = ({
   const { mutate } = useCreateTutorSlots();
 
   const handleSaveSchedule = () => {
-    const schedule = {
-      ...data,
-      day,
-      date: selectedDate,
+    const schedulePayload = {
+      fromDateTime: `${selectedDate}T${data.start_time}`,
+      toDateTime: `${selectedDate}T${data.end_time}`,
     };
-
-    mutate(schedule, {
+    mutate(schedulePayload, {
       onSuccess: () => {
         setData({ start_time: "", end_time: "", date: selectedDate });
         onClose();

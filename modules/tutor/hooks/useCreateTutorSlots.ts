@@ -1,11 +1,10 @@
-import { api } from "api";
+import { api, v2api } from "api";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
 const createTutorSchedule = async (schedule: any) => {
-  const { data } = await api.post("/tutor/create-tutor-slot", schedule);
-
-  return data.result;
+  const { data } = await v2api.post("/slots", schedule);
+  return data;
 };
 
 const useCreateTutorSlots = () => {

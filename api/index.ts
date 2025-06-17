@@ -18,7 +18,7 @@ export const api = axios.create({
     "Content-Type": "application/json",
   },
 });
-console.log("V2 API Endpoint:", process.env.NEXT_PUBLIC_V2_API_ENDPOINT);
+
 export const v2api = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_V2_API_ENDPOINT}`,
   headers: {
