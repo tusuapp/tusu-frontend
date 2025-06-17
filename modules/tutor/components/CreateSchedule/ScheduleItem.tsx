@@ -2,6 +2,7 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import ConfirmDialogueModal from "../../../../components/ConfirmDialogueModal";
+import moment from "moment";
 
 interface Props {
   onEdit: () => void;
@@ -18,6 +19,8 @@ const ScheduleItem: React.FC<Props> = ({
   startTime,
   endTime,
 }) => {
+  startTime = moment(new Date(startTime)).format("hh:mm a");
+  endTime = moment(new Date(endTime)).format("hh:mm a");
   return (
     <div className="Schedule__item">
       <div className="Schedule__item__icons">

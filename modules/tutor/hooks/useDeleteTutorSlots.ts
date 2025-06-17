@@ -1,11 +1,11 @@
-import { api } from "api";
+import { api, v2api } from "api";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
 const deleteTutorSchedule = async (id: number) => {
-  const { data } = await api.delete(`/tutor/tutor-slot/${id}`);
+  const { data } = await v2api.delete(`/slots?slotId=${id}`);
 
-  return data.result;
+  return data;
 };
 
 const useDeleteTutorSlots = () => {

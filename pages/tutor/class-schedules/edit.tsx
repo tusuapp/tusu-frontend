@@ -143,13 +143,13 @@ const ChooseSchedulePage = () => {
                       <CreateSchedule scheduleCreated={setIsScheduleCreated} />
                       <Button
                         type="primary"
-                        className="btn-brand w-100 btn-lg mt-1"
+                        className="btn-brand w-100 btn-lg mt-3"
                         onClick={() => {
                           router.push("/tutor/class-schedules");
                         }}
                         disabled={!isScheduleCreated}
                       >
-                        Proceed
+                        Back to Dashboard
                       </Button>
                     </>
                   )}

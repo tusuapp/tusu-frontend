@@ -31,6 +31,8 @@ const CreateSchedule: React.FC<CreateScheduleProps> = ({ scheduleCreated }) => {
     new Date().toISOString().split("T")[0]
   );
 
+  console.log(selectedDate);
+
   const { data, isFetching, isLoading } = useTutorSlots(selectedDate);
 
   const isTimeslotsEmpty = (timeslots: any) => {
@@ -156,8 +158,8 @@ const CreateSchedule: React.FC<CreateScheduleProps> = ({ scheduleCreated }) => {
                 {timeslots.map((timeslot: any) => (
                   <ScheduleItem
                     id={timeslot.id}
-                    startTime={timeslot.from_time}
-                    endTime={timeslot.to_time}
+                    startTime={timeslot.fromDatetime}
+                    endTime={timeslot.toDatetime}
                     onEdit={() => setIsModalOpen(true)}
                     onDelete={() => handleDelete(timeslot.id)}
                   />

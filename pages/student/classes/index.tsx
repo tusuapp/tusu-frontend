@@ -6,6 +6,11 @@ import { api } from "../../../api";
 import Container from "../../../components/container";
 import withAuthNew from "../../../HOC/withAuthNew";
 import MyClass from "../../../modules/student/components/MyClass";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import CustomTabPanel from "components/tabs/CustomTabPanel";
+import Spinner from "components/Spinner";
 
 const USER_ROLE = "student";
 
@@ -27,40 +32,56 @@ const FavouriteTutors: React.FC = () => {
       pageNumber.push(i);
     }
   }
+  const [value, setValue] = useState(0);
 
-  // console.log("pageData =>",pageData);
-  
-  const fetchData = async () => {
-    try {
-      setIsLoading(true);
-      const { data } = await api.get(
-        `/student/my-bookings?page=${currentPage}&limit=${postsPerPage}`
-      );
-      setPageData(data?.result?.data);
-      setPaginationData({ ...paginationData, ...data?.result?.pagination });
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-    }
-  };
-  useEffect(() => {
-    fetchData();
-  }, [currentPage]);
+  function handleChange(event: React.SyntheticEvent, newValue: number): void {
+    setValue(newValue);
+  }
 
   return (
     <>
       <StudentDashboardLayout>
         <Container>
           <section>
+            <h3 className="student__page__header__title mb-4">My classes</h3>
             <div className="d-flex  justify-content-between mb-5 mt-5">
-              <h3 className="student__page__header__title">My classes</h3>
+              <Box sx={{ width: "100%" }}>
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <Tabs
+                    value={value}
+                    textColor="inherit"
+                    onChange={handleChange}
+                    aria-label="basic tabs example"
+                  >
+                    <Tab
+                      sx={{ textTransform: "none" }}
+                      label="Upcoming "
+                      disableRipple
+                      {...a11yProps(0)}
+                    />
+                    <Tab
+                      sx={{ textTransform: "none" }}
+                      label="Completed "
+                      disableRipple
+                      {...a11yProps(1)}
+                    />
+                    <Tab
+                      sx={{ textTransform: "none" }}
+                      label="Cancelled or Rejected"
+                      disableRipple
+                      {...a11yProps(1)}
+                    />
+                  </Tabs>
+                </Box>
+                <CustomTabPanel value={value} index={0}>
+                  <ActiveClassesTab type="accepted" />
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={1}>
+                  Item Two
+                </CustomTabPanel>
+              </Box>
             </div>
-            <div className="d-flex justify-content-between mb-5">
-              <div>
-                <PageSearchField />
-              </div>
-              <div>{/* <PageFilters /> */}</div>
-            </div>
+
             <div className="tutors">
               {/* Loading screen */}
               <div>{isLoading ? "Loading..." : ""}</div>
@@ -79,16 +100,14 @@ const FavouriteTutors: React.FC = () => {
                         className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 my-classes"
                         key={index}
                       >
-                        <MyClass
-                            myclass={myClass}
-                        />
+                        <MyClass myclass={myClass} />
                       </div>
                     </>
                   );
                 })}
               </div>
 
-              {pageData?.length > 0 && (
+              {/* {pageData?.length > 0 && (
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="pagination">
@@ -127,7 +146,7 @@ const FavouriteTutors: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
             <br />
             <br />
@@ -138,5 +157,62 @@ const FavouriteTutors: React.FC = () => {
     </>
   );
 };
+
+interface ActiveClassesTabProps {
+  type: string;
+}
+
+const ActiveClassesTab: React.FC<ActiveClassesTabProps> = ({ type }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [pageData, setPageData] = useState<any>();
+
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await api.get(
+        `/student/my-bookings?page=${currentPage}&limit=${postsPerPage}`
+      );
+      setPageData(data?.result?.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, [currentPage]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  return (
+    <>
+      <div className="row">
+        <div className="col-lg-12">Type: {type}</div>
+        {pageData?.map((myClass: any, index: number) => {
+          return (
+            <>
+              <div
+                className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 my-classes"
+                key={index}
+              >
+                <MyClass myclass={myClass} />
+              </div>
+            </>
+          );
+        })}
+      </div>
+    </>
+  );
+};
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
 
 export default withAuthNew(FavouriteTutors, USER_ROLE);

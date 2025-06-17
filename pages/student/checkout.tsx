@@ -2,7 +2,7 @@ import Header from "../../components/header";
 import Container from "../../components/container";
 import Footer from "../../components/footer";
 import Head from "next/head";
-import { api } from "../../api";
+import { api, v2api } from "../../api";
 import { useEffect, useState } from "react";
 import router, { useRouter } from "next/router";
 import Button from "../../components/button";
@@ -79,11 +79,11 @@ const Checkout = () => {
   };
 
   const fetchCartDetails = (cartId: any) => {
-    api
-      .get(`/student/get-cart/${cartId}`)
+    v2api
+      .get(`/student/classes/${cartId}`)
       .then((response) => {
-        console.log("Cart deatils", response.data.result);
-        setCartDetails(response.data.result);
+        console.log("Cart deatils", response.data);
+        setCartDetails(response.data);
       })
       .catch(() => {
         return null;
@@ -132,7 +132,7 @@ const Checkout = () => {
                   >
                     You are booking{" "}
                     {/* {tutorDetails?.gender == "Male" ? "Mr. " : "Miss. "} */}
-                    {cartDetails?.tutor?.name}
+                    {cartDetails?.tutor?.full_name}
                   </div>
                   {/* <code>{JSON.stringify(cartDetails)}</code> */}
                   <br />

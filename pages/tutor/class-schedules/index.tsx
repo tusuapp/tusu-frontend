@@ -39,12 +39,6 @@ function ClassSchedules() {
     return `${year}-${month}-${day}`;
   };
 
-  const isTutorSlots = useQuery("checkTutorSlots", () =>
-    api
-      .get(`/tutor/get-tutor-slots?date=${getFormattedDate()}`)
-      .then((res) => res.data)
-  );
-
   return (
     <>
       <TutorDashboardLayout>
@@ -100,18 +94,28 @@ function ClassSchedules() {
                 </div>
               </div>
               <div>
-                <button
-                  className="btn btn-brand "
-                  style={{
-                    marginLeft: "50px",
-                    backgroundColor: "#FBB017",
-                    border: "0px",
-                  }}
-                  onClick={() => setIsRescheduleModalOpen(true)}
-                  disabled={!selectedSlotId ? true : false}
-                >
-                  Reschedule
-                </button>
+                {selectedSlotId &&
+                data.length > 0 &&
+                !data.find((slot: any) => slot.id === selectedSlotId.id)
+                  .isBooked ? (
+                  <small className="m-2">
+                    Go to Add/Edit to edit unbooked slots
+                  </small>
+                ) : (
+                  <button
+                    className="btn btn-brand "
+                    style={{
+                      marginLeft: "50px",
+                      backgroundColor: "#FBB017",
+                      border: "0px",
+                    }}
+                    onClick={() => setIsRescheduleModalOpen(true)}
+                    disabled={!selectedSlotId ? true : false}
+                  >
+                    Reschedule
+                  </button>
+                )}
+
                 <RescheduleModal
                   selectedClassId={selectedSlotId}
                   isOpen={isRescheduleModalOpen}
@@ -122,12 +126,11 @@ function ClassSchedules() {
             <div className="scheduled__classes__container">
               {isLoading && "Loading"}
 
-              {data?.slots.length === 0 &&
-                "No scheduled classes on selected day"}
+              {data?.length === 0 && "No scheduled classes on selected day"}
 
               {data && (
                 <TimeSlots
-                  data={data?.slots}
+                  data={data}
                   selectedDate={selectedDate}
                   onChange={(time: any) => {
                     setSelectedSlotId(time);

@@ -9,7 +9,7 @@ import {
 } from "../../../features/students/TutorProfileSlice";
 import { formatDDMMYYYY, formatYYYYMMDD } from "../../../utils";
 import Error from "../../_error";
-import { api, setApplicationName } from "../../../api";
+import { v2api, api, setApplicationName } from "../../../api";
 import TimeSlots from "../../../modules/student/components/TimeSlots";
 import ProfileExtras from "../../../modules/tutor/components/ProfileExtras";
 import Button from "../../../components/button";
@@ -32,10 +32,10 @@ MAX_DATE.setDate(MAX_DATE.getDate() + 30);
 const addToCart = async (data: any) => {
   let cartId = null;
 
-  await api
-    .post(`/student/add-cart`, data)
+  await v2api
+    .post(`/student/classes`, data)
     .then((response) => {
-      cartId = response.data.result.bookingRequestId;
+      cartId = response.data.id;
     })
     .catch(() => {
       return false;

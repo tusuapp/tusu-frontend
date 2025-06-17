@@ -4,8 +4,6 @@ import { useState } from "react";
 import Timeslot from "./timeslot";
 
 const TimeSlots = ({ data, selectedDate, onChange, selectedSlotId }: any) => {
-  console.log("data of new result", data);
-
   return (
     <>
       <RadioGroup value={selectedSlotId} onChange={onChange}>
@@ -19,8 +17,12 @@ const TimeSlots = ({ data, selectedDate, onChange, selectedSlotId }: any) => {
               >
                 {({ checked, active }) => (
                   <Timeslot
-                    time={`${timeslot.start} - ${timeslot.end}`}
-                    status={timeslot.is_booked ? "Booked" : "Not booked"}
+                    time={`${moment(new Date(timeslot.fromDatetime)).format(
+                      "hh:mm a"
+                    )} - ${moment(new Date(timeslot.toDatetime)).format(
+                      "hh:mm a"
+                    )}`}
+                    status={timeslot.isBooked ? "Booked" : "Not booked"}
                     disabled={false}
                     subject={timeslot.subject ? timeslot.subject : "Nil"}
                     key={index}
