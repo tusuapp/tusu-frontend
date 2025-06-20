@@ -218,7 +218,7 @@ const MyClass = ({ myclass }: any) => {
 
             {isActionStatus() && (
               <StatusButtonV2
-                url={id}
+                url={`/student/classes/${id}`}
                 text={status === "in-progress" ? "Join" : "Re-Play"}
               />
             )}

@@ -36,7 +36,7 @@ interface Props {
   description?: string;
   buttonLabel?: string;
   onSubmit?: any;
-  handleClick?:any;
+  handleClick?: any;
 }
 
 const RejectionNotesModal: React.FC<Props> = ({
@@ -44,7 +44,7 @@ const RejectionNotesModal: React.FC<Props> = ({
   onClose,
   onSubmit,
   day,
-  message = "Are you sure you want to reject Jonathan Doel?",
+  message = "Are you sure you want to reject ?",
   description = "Create a new time schedule for your class by adding your class timing",
   handleClick,
 }) => {
@@ -85,7 +85,7 @@ const RejectionNotesModal: React.FC<Props> = ({
                 className="mt-1 w-100 btn-lg me-2"
                 style={{ backgroundColor: "#EC6565" }}
                 type="primary"
-                onClick={(e:any) => handleClick(reason)}
+                onClick={(e: any) => handleClick(reason)}
                 // loading={true}
               >
                 Reject

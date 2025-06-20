@@ -5,7 +5,7 @@ export const getUserRole = (user: any) => {
 };
 
 export const isProfileCompleted = (user: any) => {
-  return user.is_complete_profile;
+  return user.completeProfile;
 };
 
 export const isEmailVerfied = (user: any) => {

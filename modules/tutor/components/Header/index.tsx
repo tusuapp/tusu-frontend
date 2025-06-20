@@ -126,12 +126,12 @@ const Header: React.FC = () => {
                       <Link href="/tutor">
                         <Button type="primary">
                           <img
-                            src={user.image}
+                            src={user.imageUrl}
                             height="30px"
                             width="30px"
                             style={{ borderRadius: "50%", marginRight: "20px" }}
                           />
-                          {user?.fullname}
+                          {user?.fullName}
                         </Button>
                       </Link>
                     </div>

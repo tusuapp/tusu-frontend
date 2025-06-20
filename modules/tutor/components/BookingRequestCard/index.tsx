@@ -1,6 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
-import { api } from "api";
+import { api, v2api } from "api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStickyNote } from "@fortawesome/free-solid-svg-icons";
 import ConfirmDialogueModal from "components/ConfirmDialogueModal";
@@ -43,14 +43,19 @@ const BookingRequestCard: React.FC<BookingRequestCardProps> = ({
     mutate({ id, status: "accepted", notes: "" });
   };
 
-  const handleReject = (id: number) => {
-    console.log(id);
+  const handleReject = async (message: any) => {
+    const response = await v2api.put("/user/classes/bookings/reject", {
+      bookingId: id,
+      message,
+    });
 
-    // mutate({ id, status: "rejected", notes: "" });
-  };
-  const handleClick = (event: any) => {
-    mutate({ id, status: "rejected", notes: event });
-    //  router.reload();
+    if (response.status == 200) {
+      toast.success("Booking request rejected successfully.");
+      setIsRejectionModalOpen(false);
+      onChange();
+    } else {
+      toast.error("Failed to reject booking request.");
+    }
   };
 
   return (
@@ -61,12 +66,11 @@ const BookingRequestCard: React.FC<BookingRequestCardProps> = ({
         <br />
         Payment of <span style={{ color: "#82296E" }}>${amount}</span> Received.
         <br />
-        Message : {notes}
-        <br />
+        {/* Message : {notes}
+        <br /> */}
         Choosen Schedule :{" "}
         <span style={{ color: "#82296E" }}>
-          {" "}
-          {date} {moment(startTime).format("HH:MM A DD-MM-YYYY")} -{" "}
+          {moment(startTime).format("HH:MM A")} -{" "}
           {moment(endTime).format("HH:MM A DD-MM-YYYY")}
         </span>
         {/* <div style={{ color: "#82296E" }}>
@@ -91,7 +95,7 @@ const BookingRequestCard: React.FC<BookingRequestCardProps> = ({
             isOpen={isRejectionModalOpen}
             onClose={() => setIsRejectionModalOpen(false)}
             onSubmit={() => handleReject(id)}
-            handleClick={handleClick}
+            handleClick={handleReject}
           />
           <button
             className="btn-view"

@@ -79,7 +79,7 @@ function Profile() {
 
     setInitialValues({
       name: data?.fullname,
-      image_url: data?.image_url,
+      image_url: data?.imageUrl,
       address: data?.tutor_details.address,
       description: data?.tutor_details.description,
       email: data?.email,

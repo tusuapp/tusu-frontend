@@ -11,10 +11,11 @@ const StatusButtonV2: React.FC<IButton> = ({ url, text }) => {
 
   return (
     <button
+      className="btn btn-brand"
       onClick={() => {
         console.log(url);
 
-        router.push("student/classes/" + url);
+        router.push(url);
       }}
     >
       {text}

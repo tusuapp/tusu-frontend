@@ -3,48 +3,31 @@ import TutorDashboardLayout from "layouts/TutorDashboard";
 import BookingRequestCard from "modules/tutor/components/BookingRequestCard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Filter from "../../components/filter";
 import TutorClass from "../../components/tutorClass";
-import {
-  fetchDashboard,
-  getEarnings,
-  selectTutorDashboard,
-} from "../../features/tutorDashboard/tutorDashboardSlice";
 import withAuth from "../../HOC/withAuth";
-import { api, fetch } from "../../api";
+import { api, fetch, v2api } from "../../api";
 import useBookingRequests from "@/tutor/hooks/useBookingRequests";
+import Spinner from "components/Spinner";
+import moment from "moment";
 
 function TutorDashboard() {
-  const dispatch = useDispatch();
-  const dashboard = useSelector(selectTutorDashboard);
-  const { data, error, isFetching, isLoading, isError } = useBookingRequests();
-  const [dashData, setDashData] = useState({
-    chartData: [],
-    total: 0,
-    help: {},
-  });
-  const [filter, setFilter] = useState("all");
+  const [dashData, setDashData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchDashboard = async () => {
+    setIsLoading(true);
+    const response = await v2api.get("/tutor/dashboard");
+    if (response.status === 200) {
+      setDashData(response.data);
+    } else {
+      //setError("Failed to fetch dashboard data.");
+    }
+    setIsLoading(false);
+  };
 
   useEffect(() => {
-    (async () => {
-      try {
-        let token = localStorage.getItem("accessToken") || "";
-        const response = await fetch(token).get(
-          "/tutor/dashboard/chart?filter=" + filter
-        ); // all,week,month,year
-
-        if (response && response.data && response.data.result)
-          setDashData(response.data.result);
-        console.log(response.data.result);
-      } catch (e: any) {
-        return console.log(e.message);
-      }
-    })();
-  }, [filter]);
-
-  useEffect(() => {
-    dispatch(fetchDashboard());
+    fetchDashboard();
   }, []);
 
   return (
@@ -59,9 +42,11 @@ function TutorDashboard() {
             />
             <div className="total-earnings">
               <div className="title">Your total earnings</div>
-              <div className="earnings">${`${dashData.total}`}</div>
+              <div className="earnings">
+                ${`${dashData.totalEarning || "."}`}
+              </div>
             </div>
-            <EarningsChart data={dashData} filter={filter} />
+            {/* <EarningsChart data={dashData} filter={filter} /> */}
           </div>
           <div className="col-lg-5">
             <h2 className="tutor__dashboard__title mb-4">Booking requests</h2>
@@ -70,7 +55,8 @@ function TutorDashboard() {
               style={{ backgroundColor: "#924781" }}
             >
               <span>
-                {dashboard?.dashboard?.booking_request?.count} new bookings{" "}
+                {!isLoading ? dashData.bookingRequests.length : "..."} New
+                bookings{" "}
               </span>
               <span>
                 <Link href="/tutor/booking-requests">
@@ -78,38 +64,29 @@ function TutorDashboard() {
                 </Link>
               </span>
             </div>
-            {data && data?.booking_request?.booking?.length === 0 && (
-              <div className="mb-3">
-                You don't have any new booking requests
-              </div>
-            )}
-            {data &&
-              data?.booking_request?.booking?.map((booking: any) => (
+            {isLoading && <Spinner />}
+            {dashData &&
+              !isLoading &&
+              dashData.bookingRequests.map((booking: any) => (
                 <BookingRequestCard
                   id={booking.id}
-                  name={booking.student_fullname}
+                  name={booking.student.fullName}
                   subject={booking.subject}
-                  amount={booking.total_amount}
+                  amount={booking.totalAmount}
                   date={booking.schedule?.date}
-                  startTime={booking.from_datetime}
-                  endTime={booking.to_datetime}
+                  startTime={booking.startTime}
+                  endTime={booking.endTime}
                 />
               ))}
             <h4 style={{ fontSize: "22px" }} className="mb-3">
-              Bookings
+              Upcoming Classes
             </h4>
-            {dashboard?.dashboard?.my_bookings.map((booking: any) => (
-              <div className="mb-3">
-                <TutorClass
-                  id={booking.id}
-                  name={booking.student_fullname}
-                  image={booking.student.image}
-                  subject={booking.subject}
-                  scheduleInfo={booking.schedule}
-                  status={booking.status}
-                />
-              </div>
-            ))}
+            {!isLoading &&
+              dashData.upcomingClasses.map((booking: any) => (
+                <div className="mb-3">
+                  <TutorClass booking={booking} />
+                </div>
+              ))}
           </div>
         </div>
       </TutorDashboardLayout>
