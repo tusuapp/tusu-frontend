@@ -38,16 +38,10 @@ const StatusButton: React.FC<IButton> = ({
   type,
   bbb,
 }) => {
-  //  console.log(bbb)
-  const { user } = useSelector(selectAuth);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
   const [btnTxt, setBtnTxt] = useState();
-  let current_time = moment().utcOffset(user.timeZoneOffset);
-  let schedule_time = moment(scheduleInfo?.actual_time).utcOffset(
-    user.timeZoneOffset
-  );
-  let currentTimeOffset = moment().format("Z");
-  let whatLeft = moment.duration(schedule_time.diff(current_time));
+
+  let whatLeft = moment.duration();
   const router = useRouter();
 
   const isDisabled = (status: string) => {
@@ -84,28 +78,27 @@ const StatusButton: React.FC<IButton> = ({
         case "reschedule":
         case "accepted":
         case "inprogress":
-          //  console.log(whatLeft.asDays(), whatleftDays > 1)
           if (whatleftDays > 1) {
             return parseInt(String(whatleftDays)) + " days";
           } else {
             //+ve time
             if (whatLeft.asMinutes() > 0) {
               // run timer
-              return (
-                <Countdown
-                  date={schedule_time
-                    .utcOffset(currentTimeOffset)
-                    .format("MM/DD/YYYY h:mm a")}
-                  onComplete={() => {
-                    setIsButtonDisabled(false);
-                  }}
-                >
-                  <>{statusTxt.START}</>
-                </Countdown>
-              );
+              // return (
+              // <Countdown
+              //   date={schedule_time
+              //     .utcOffset(currentTimeOffset)
+              //     .format("MM/DD/YYYY h:mm a")}
+              //   onComplete={() => {
+              //     setIsButtonDisabled(false);
+              //   }}
+              // >
+              //   <>{statusTxt.START}</>
+              // </Countdown>
+              // );
             } else {
               //-ve time
-              if (whatLeft.asMinutes() > -60) {
+              if (whatLeft.asMinutes() > -10) {
                 setIsButtonDisabled(false);
                 return statusTxt.JOIN;
               } else if (

@@ -174,7 +174,7 @@ const ActiveClassesTab: React.FC<ActiveClassesTabProps> = ({ type }) => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const data = await v2api.get(`/user/classes?types=${type}`);
+      const data = await v2api.get(`/user/classes/bookings?types=${type}`);
       console.log(data.data);
       setClasses(data.data.bookings);
       setIsLoading(false);

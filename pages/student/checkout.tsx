@@ -9,6 +9,7 @@ import Button from "../../components/button";
 import { arrayToSentence } from "../../utils";
 import { toast } from "react-toastify";
 import useCreditPoints from "@/student/hooks/useCreditPoints";
+import moment from "moment";
 
 const makePayment = async (
   cartId: any,
@@ -72,12 +73,27 @@ const Checkout = () => {
     setPayNowButtonLoading(false);
   };
 
+  const fetchSubjectDetails = async (subjectId: number | string) => {
+    try {
+      const response = await v2api.get(`/subjects/${subjectId}`);
+      console.log("Subject details", response.data);
+
+      setCartDetails((prev: any) => ({
+        ...prev,
+        subject: response.data.name,
+      }));
+    } catch (error) {
+      console.error("Failed to fetch subject details:", error);
+    }
+  };
+
   const fetchCartDetails = (cartId: any) => {
     v2api
-      .get(`/user/classes/${cartId}`)
+      .get(`/user/classes/bookings/${cartId}`)
       .then((response) => {
         console.log("Cart deatils", response.data);
         setCartDetails(response.data);
+        fetchSubjectDetails(response.data.subjectId);
       })
       .catch(() => {
         return null;
@@ -143,7 +159,7 @@ const Checkout = () => {
                                     <span style={{ color: "#8A959ECC" }}>
                                       Subject:
                                     </span>{" "}
-                                    {cartDetails?.tutor?.subject}
+                                    {cartDetails?.subject}
                                   </p>
                                   <p className="mb-0">
                                     <span style={{ color: "#8A959ECC" }}>
@@ -180,7 +196,12 @@ const Checkout = () => {
                               <div className="ms-3 w-100">
                                 <div className="d-flex justify-content-between">
                                   <div>Chosen day</div>
-                                  <div> {cartDetails?.chosen_date}</div>
+                                  <div>
+                                    {" "}
+                                    {moment(
+                                      new Date(cartDetails?.startTime)
+                                    ).format("YYYY-MM-DD")}
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -212,8 +233,13 @@ const Checkout = () => {
                                 <div className="d-flex justify-content-between">
                                   <div> Chosen schedule Time</div>
                                   <div>
-                                    {cartDetails?.schedule?.from_time} -{" "}
-                                    {cartDetails?.schedule?.to_time}
+                                    {moment(
+                                      new Date(cartDetails?.startTime)
+                                    ).format("hh:mm a")}{" "}
+                                    -
+                                    {moment(
+                                      new Date(cartDetails?.endTime)
+                                    ).format("hh:mm a")}
                                   </div>
                                 </div>
                               </div>
@@ -258,9 +284,8 @@ const Checkout = () => {
                             >
                               <div> Amount Payable</div>
                               <div>
-                                {cartDetails?.currency_symbol +
-                                  " " +
-                                  cartDetails?.payment_summary?.payable_total}
+                                {cartDetails?.currency_symbol ||
+                                  "$" + " " + cartDetails?.totalAmount}
                               </div>
                             </div>
                           </div>

@@ -7,6 +7,7 @@ import Countdown from "react-countdown";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../../features/auth/authSlice";
 import StatusButton from "../StatusButton";
+import StatusButtonV2 from "components/StatusButton/StatusButtonV2";
 
 interface TutorClassProps {
   id: number;
@@ -81,81 +82,7 @@ const TutorClass: React.FC<TutorClassProps> = ({
               </div>
             </div>
             <div className="d-flex justify-content-start">
-              <StatusButton
-                scheduleInfo={scheduleInfo}
-                bbb={bigbluebutton}
-                status={status}
-                type={"tutor"}
-                id={id}
-              />
-              {/*{renderButton(scheduleInfo, status, bookingId)}*/}
-              {/*  {status && (
-
-
-                                <button
-                                    className="button"
-                                    onClick={() => {
-                                        handleClassStart(id);
-                                    }}
-                                    disabled={
-                                        status === "rejected" ||
-                                        status === "reschedule" ||
-                                        status === "completed"
-                                    }
-                                >
-                                    <>
-                                        {status === "accepted" && (
-                                            <>
-                                                {whatLeft.asDays() > 1 ? parseInt(String(whatLeft.asDays())) + " days" : whatLeft.asMinutes() >= -10 ? (
-                                                    <>
-                                                        {current_time.isAfter(schedule_time) ? (
-                                                            "Overdue "
-                                                        ) : (
-                                                            <>
-                                                                <FontAwesomeIcon
-                                                                    icon={faClock}
-                                                                    className="me-2"
-                                                                />
-                                                                <Countdown
-
-                                                                    date={schedule_time.utcOffset(currentTimeOffset).format("MM/DD/YYYY h:mm a")}
-                                                                    onComplete={() => setIsButtonDisabled(false)}
-                                                                >
-                                                                    <>Start now </>
-                                                                </Countdown>
-                                                            </>
-                                                        )}
-                                                    </>
-                                                ) : (
-                                                    "Start Class"
-                                                )}
-                                            </>
-                                        )}
-
-                                        {status === "rejected" && (
-                                            <>
-                                                <FontAwesomeIcon icon={faClock} className="me-2"/>
-                                                Rejected
-                                            </>
-                                        )}
-                                        {status === "inprogress" && "Incompleted"}
-                                        {status === "auto-cancelled" && "Overdue"}
-                                        {status === "pending" && "Pending"}
-                                        {status === "completed" && (
-                                            <>
-                                                <FontAwesomeIcon icon={faClock} className="me-2"/>
-                                                Play
-                                            </>
-                                        )}
-                                        {status === "reschedule" && (
-                                            <>
-                                                <FontAwesomeIcon icon={faClock} className="me-2"/>
-                                                Resheduled
-                                            </>
-                                        )}
-                                    </>
-                                </button>
-                            )}*/}
+              <StatusButtonV2 url="" text="Start Class" />
             </div>
           </div>
         </div>

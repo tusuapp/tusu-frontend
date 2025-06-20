@@ -1,13 +1,12 @@
 import { faClock, faFile, faTimes } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import router from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import Modal from "react-modal";
-import { setApplicationName } from "../../../../api";
+import { setApplicationName, v2api } from "../../../../api";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../../../../features/auth/authSlice";
-import StatusButton from "../../../../components/StatusButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { Rating } from "react-simple-star-rating";
@@ -15,6 +14,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import styles from "./myclass.module.css";
+import StatusButtonV2 from "components/StatusButton/StatusButtonV2";
+import Spinner from "components/Spinner";
 
 const customStyles = {
   content: {
@@ -50,17 +51,8 @@ const customReviewStyles = {
 };
 
 const MyClass = ({ myclass }: any) => {
-  const {
-    id,
-    tutor,
-    subject,
-    schedule,
-    bigbluebutton,
-    status,
-    notes,
-    booking_no,
-    booking_date_time,
-  } = myclass;
+  const { id, tutor, subject, schedule, bigbluebutton, status, notes } =
+    myclass;
 
   const { user } = useSelector(selectAuth);
 
@@ -77,17 +69,15 @@ const MyClass = ({ myclass }: any) => {
   const [selectedTutorId, setselectedTutorId] = useState();
   const [selectedBookingId, setselectedBookingId] = useState();
   const [comments, setcomments] = useState("");
-  const [IsClassReviewModelOpen, setIsClassReviewModelOpen] =
-    useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [rating, setRating] = useState(0);
+  const [bbbUrl, setBbbUrl] = useState("");
   let reviewPayload = {
     booking_id: selectedBookingId,
     rating: rating,
     tutor_id: selectedTutorId,
     comments: comments,
   };
-
-  // console.log("reviewPayload", reviewPayload);
 
   const handleRating = (rate: any) => {
     setRating(rate);
@@ -127,8 +117,18 @@ const MyClass = ({ myclass }: any) => {
     setisReviewOpen(false);
   }
 
+  function isActionStatus() {
+    return status === "in-progress" || status === "completed";
+  }
+
   return (
-    <Link href={`/student/tutors/${myclass.tutor.tutorId}`}>
+    <div
+      onClick={() => {
+        if (!isActionStatus()) {
+          router.push(`/student/tutors/${tutor.id}`);
+        }
+      }}
+    >
       <div
         className={
           whatLeft.asDays() > 0
@@ -214,84 +214,22 @@ const MyClass = ({ myclass }: any) => {
           </div>
 
           <div className="d-flex justify-content-end">
-            <StatusButton
-              scheduleInfo={schedule}
-              bbb={bigbluebutton}
-              status={status}
-              type={"student"}
-              id={id}
-            />
+            {isLoading && <Spinner />}
 
-            {/* {status && (
-                        <button
-                            className={
-                                whatLeft.asDays() > 0
-                                    ? `button button--${status}`
-                                    : `button button--overdue`
-                            }
-                            onClick={() => {
-                                handleClassStart(id);
-                            }}
-                            disabled={
-                                // status === "rejected" ||
-                                // status === "reschedule" ||
-                                // status === "completed" ||
-                                // status === "auto-cancelled" ||
-                                // status === "pending"
-                                isButtonDisabled
-                            }
-                        >
-                            <>
-                                {status === "accepted" && (
-                                    <>
-                                        { whatLeft.asDays() > 1 ? (
-                                            parseInt(whatLeft.asDays()) + " days"
-                                        ) : whatLeft.asMinutes() >= -10 ? (
-                                            <>
-                                                { whatLeft.asMinutes() < -60 ? (
-                                                    "Overdue"
-                                                ) : (
-                                                    <>
-                                                        <FontAwesomeIcon icon={faClock} className="me-2"/>
-                                                        <Countdown
-                                                            date={schedule_time.utcOffset(currentTimeOffset).format("MM/DD/YYYY h:mm a")}
-                                                            onComplete={() => setIsButtonDisabled(false)}
-                                                        >
-                                                            <>Start now</>
-                                                        </Countdown>
-                                                    </>
-                                                )}
-                                            </>
-                                        ) :   "in progress"  }
-                                    </>
-                                )}
+            {isActionStatus() && (
+              <StatusButtonV2
+                url={id}
+                text={status === "in-progress" ? "Join" : "Re-Play"}
+              />
+            )}
 
-                                {status === "rejected" && (
-                                    <>
-                                        <FontAwesomeIcon icon={faClock} className="me-2"/>
-                                        Rejected
-                                    </>
-                                )}
-                                {status === "inprogress" && "Incompleted"}
-                                {status === "auto-cancelled" && "Overdue"}
-                                {status === "pending" && "Pending"}
-                                {status === "completed" && (
-                                    <>
-                                        <FontAwesomeIcon icon={faClock} className="me-2"/>
-                                        Play
-                                    </>
-                                )}
-                                {status === "reschedule" && (
-                                    <>
-                                        <FontAwesomeIcon icon={faClock} className="me-2"/>
-                                        Resheduled
-                                    </>
-                                )}
-                            </>
-                        </button>
-                    )}*/}
+            {!isActionStatus() && (
+              <small>
+                {String(status).charAt(0).toUpperCase() +
+                  String(status).slice(1)}
+              </small>
+            )}
           </div>
-
           <div>
             {notes ? (
               <button className="btn-view" onClick={openModal}>
@@ -321,36 +259,9 @@ const MyClass = ({ myclass }: any) => {
               </div>
             </Modal>
           </div>
-
-          {/* {status === "rejected" ? (
-          <div className="mt-2">Tutor cancelled</div>
-        ) : status === "reschedule" ? (
-          <div className="mt-2">Rescheduled</div>
-        ) : status === "pending" ? (
-          <div className="mt-2">Waiting for confirmation</div>
-        ) : (
-          <button
-            className="Student__my-class__button"
-            onClick={() => handleClassStart(id)}
-            disabled={status === "pending" || status === "completed"}
-          >
-            {status === "inprogress" && "Join now"}
-            {status === "completed" && "Play"}
-            {status === "accepted" && (
-              <Countdown
-                date={moment(
-                  schedule?.date + " " + schedule?.start_time
-                ).format("MM/DD/YYYY h:mm a")}
-              >
-                <>Join now</>
-              </Countdown>
-            )}
-            {status === "rejected" && "Rejected"}
-          </button>
-        )} */}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

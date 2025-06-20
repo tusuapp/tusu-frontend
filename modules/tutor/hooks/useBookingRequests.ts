@@ -11,7 +11,7 @@ const useBookingRequests = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await v2api.get("/user/classes", {
+        const response = await v2api.get("/user/classes/bookings", {
           params: { types: "requested" },
         });
         setData(response.data);
