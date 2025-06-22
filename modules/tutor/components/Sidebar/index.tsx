@@ -40,11 +40,11 @@ const menuItems = [
     icon: "/icons/tutor/dollar.svg",
   },
 
-  {
-    name: "Messages",
-    link: "/tutor/messages/sdds",
-    icon: "/icons/tutor/dollar.svg",
-  },
+  // {
+  //   name: "Messages",
+  //   link: "/tutor/messages/sdds",
+  //   icon: "/icons/tutor/dollar.svg",
+  // },
 
   {
     name: "Class Schedule",

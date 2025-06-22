@@ -8,7 +8,7 @@ import RejectionNotesModal from "./RejectionNotesModal";
 import { useState } from "react";
 import useChangeBookingActions from "@/tutor/hooks/useChangeBookingActions";
 import RescheduleModal from "../RescheduleModal";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import moment from "moment";
 
 interface BookingRequestCardProps {
@@ -36,11 +36,22 @@ const BookingRequestCard: React.FC<BookingRequestCardProps> = ({
 }) => {
   const [isRejectionModalOpen, setIsRejectionModalOpen] = useState(false);
   const [isRescheduleModalOpen, setIsRescheduleModalOpen] = useState(false);
-  const { data, mutate } = useChangeBookingActions(router);
-  const [isHandle, setIsHandle] = useState(false);
 
+  const [isHandle, setIsHandle] = useState(false);
+  const route = useRouter();
   const handleAccept = (id: number) => {
-    mutate({ id, status: "accepted", notes: "" });
+    v2api
+      .put("/user/classes/bookings/status", {
+        status: "accepted",
+        bookingId: id,
+      })
+      .then(() => {
+        toast.success("Booking accepted successfully.");
+        route.reload();
+      })
+      .catch((error) => {
+        toast.error("Falied to change the booking status.");
+      });
   };
 
   const handleReject = async (message: any) => {

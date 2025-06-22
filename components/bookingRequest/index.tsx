@@ -1,6 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
-import { api } from "../../api";
+import { api, v2api } from "../../api";
 
 interface BookingRequestProps {
   id?: any;
@@ -24,10 +24,10 @@ const BookingRequest: React.FC<BookingRequestProps> = ({
   onChange,
 }) => {
   const handleAccept = (id: number) => {
-    api
-      .put(`/tutor/bookings/change-status/${id}`, {
+    v2api
+      .put("/user/classes/bookings/status", {
         status: "accepted",
-        notes: "",
+        bookingId: id,
       })
       .then(() => {
         toast.success("Booking accepted successfully.");
@@ -41,17 +41,17 @@ const BookingRequest: React.FC<BookingRequestProps> = ({
   };
 
   const handleReject = (id: number) => {
-    api
-      .put(`/tutor/bookings/change-status/${id}`, {
+    v2api
+      .put("/user/classes/bookings/status", {
         status: "rejected",
-        notes: "Lorem ipsum",
+        bookingId: id,
       })
       .then(() => {
-        toast.error("Booking rejected successfully");
+        toast.success("Booking has been rejected.");
         onChange();
       })
       .catch((error) => {
-        toast.error("Failed to reject the booking");
+        toast.error("Falied to change the booking status.");
         onChange();
         console.log(error);
       });
@@ -62,7 +62,7 @@ const BookingRequest: React.FC<BookingRequestProps> = ({
       {/* <div className="booking-card-content"> */}
       <b>{name}</b> booked you for <b>{subject}</b> class.
       <br />
-      Payment of <b>${amount}</b> Received.
+      asd Payment of <b>${amount}</b> Received.
       <br />
       Schedule : {date}, {startTime} - {endTime}
       <div className="d-flex justify-content-start mt-3">

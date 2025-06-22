@@ -246,7 +246,7 @@ const Checkout = () => {
                             </div>
                             <br />
                           </div>
-                          <div
+                          {/* <div
                             style={{ color: "#181818", marginBottom: "7px" }}
                           >
                             Additional Note (If Any)
@@ -257,7 +257,7 @@ const Checkout = () => {
                             rows={4}
                             cols={50}
                             onChange={(e) => setAdditionalNotes(e.target.value)}
-                          ></textarea>
+                          ></textarea> */}
                           <div className="Checkout-card__accentBg">
                             <div className="d-flex justify-content-between">
                               <div>Booked Hour(s):</div>

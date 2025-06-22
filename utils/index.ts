@@ -5,6 +5,8 @@ export const getUserRole = (user: any) => {
 };
 
 export const isProfileCompleted = (user: any) => {
+  console.log("user in isProfileCompleted", user);
+
   return user.completeProfile;
 };
 

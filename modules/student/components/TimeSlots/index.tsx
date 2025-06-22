@@ -39,6 +39,8 @@ const TimeSlot = ({
 };
 
 const TimeSlots = ({ data, onChange, setSelectedSlot }: TimeSlotsProps) => {
+  console.log("TimeSlots data", data);
+
   return (
     <RadioGroup value={null} onChange={onChange}>
       {data

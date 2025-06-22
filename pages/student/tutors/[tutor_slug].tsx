@@ -281,9 +281,6 @@ function TutorProfile() {
                                 <>
                                   {availableSchedules && (
                                     <TimeSlots
-                                      selectedDate={formatYYYYMMDD(
-                                        selectedDate
-                                      )}
                                       data={availableSchedules}
                                       onChange={(time: any) => {
                                         console.log(`time`, time);
