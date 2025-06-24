@@ -71,7 +71,7 @@ const ChooseSchedulePage = () => {
         <div className="container page__container">
           <div className="container h-100">
             <div className="row h-100 p-0">
-              <div className="col-md-7 h-100 p-0">
+              <div className="col-md-5 h-100 p-0">
                 <div
                   style={{
                     height: "80%",
@@ -115,6 +115,7 @@ const ChooseSchedulePage = () => {
                         className="img-fluid"
                         src="/image/tutorschedule.svg"
                         height="100%"
+                        style={{ maxWidth: "80%" }}
                       />
                     </AnimatePresence>
                   )}
@@ -126,7 +127,7 @@ const ChooseSchedulePage = () => {
                   <Stepper
                     activeStep={1}
                     styleConfig={{
-                      activeBgColor: "white",
+                      activeBgColor: "green",
                       activeTextColor: " white",
                       completedBgColor: "#FBD162",
                       completedTextColor: "#FBD162",
@@ -141,21 +142,21 @@ const ChooseSchedulePage = () => {
                   >
                     <Step
                       label="Step 1"
-                      style={{ border: "3px solid #924781" }}
+                      style={{ border: "2px solid #924781" }}
                       active={false}
                     />
                     <Step
                       label="Step 2"
-                      style={{ border: "3px solid #924781" }}
+                      style={{ border: "2px solid #924781" }}
                     />
                     <Step
                       label="Step 3"
-                      style={{ border: "3px solid #924781" }}
+                      style={{ border: "2px solid #924781" }}
                     />
                   </Stepper>
                 </div>
               </div>
-              <div className="col-md-5 p-0 d-flex justify-content-end">
+              <div className="col-md-7 p-0 d-flex justify-content-end">
                 <div className="Right__card">
                   {/* form values: {JSON.stringify(formValues)} */}
                   {step === 1 && (
@@ -190,6 +191,15 @@ const ChooseSchedulePage = () => {
                         disabled={!isScheduleCreated}
                       >
                         Proceed
+                      </Button>
+                      <Button
+                        type="primary"
+                        className="btn-brand w-100 btn-lg mt-auto"
+                        onClick={() => {
+                          window.location.href = "/tutor";
+                        }}
+                      >
+                        Or Create Later
                       </Button>
                       {/* </a> */}
                     </>

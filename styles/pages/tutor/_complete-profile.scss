@@ -28,11 +28,12 @@
   border-radius: 15px;
   width: 100%;
   // max-width: 468px;
-  min-height: 520px;
+  min-height: 400px;
   padding: 40px 30px;
   display: flex;
   flex-direction: column;
   // max-height: 540px;
+  margin-top: -50px;
 }
 
 @include media-breakpoint-down(sm) {

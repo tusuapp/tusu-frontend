@@ -25,11 +25,12 @@ import DoneIcon from "@mui/icons-material/Done";
 import useUpdateProfileVideo from "@/tutor/hooks/useUpdateProfileVideo";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { api } from "../../../api";
+import { api, v2api } from "../../../api";
 import { useQuery } from "react-query";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { selectStudentTutorProfile } from "features/students/TutorProfileSlice";
+import { toast } from "react-toastify";
 
 const PAGE_PERMISSION_ROLE = "tutor";
 const EditProfileSchema = Yup.object().shape({
@@ -78,32 +79,35 @@ function Profile() {
     console.log(data);
 
     setInitialValues({
-      name: data?.fullname,
-      image_url: data?.imageUrl,
-      address: data?.tutor_details.address,
-      description: data?.tutor_details.description,
-      email: data?.email,
-      phone: data?.phone || "9102322",
-      country: { label: data?.country?.name, value: data?.country?.id },
-      timezone: { label: data?.timezone, value: data?.timezone },
-      gender: {
-        label: data?.tutor_details?.gender,
-        value: data?.tutor_details?.gender,
+      name: data?.tutor?.fullName,
+      imageUrl: data?.tutor?.imageUrl,
+      address: data?.tutor?.address,
+      description: data?.tutorDetails.description,
+      email: data?.tutor?.email,
+      phone: data?.tutor?.phone || "0",
+      country: {
+        label: data?.tutor?.country?.name,
+        value: data?.tutor?.country?.id,
       },
-      experienceYears: data?.tutor_details?.experience,
-      disciplines: data?.discipline.map((item: any) => ({
+      timezone: { label: data?.tutor?.timeZone, value: data?.tutor?.timeZone },
+      gender: {
+        label: data?.tutorDetails?.gender,
+        value: data?.tutorDetails?.gender,
+      },
+      experienceYears: data?.tutorDetails?.experience,
+      disciplines: data?.tutorDetails.disciplines.map((item: any) => ({
         label: item.name,
         value: item.id,
       })),
-      subjects: data?.subjects.map((item: any) => ({
+      subjects: data?.tutorDetails?.subjects.map((item: any) => ({
         label: item.name,
         value: item.id,
       })),
-      knownLanguages: data?.languages.map((item: any) => ({
+      knownLanguages: data?.tutorDetails?.languages.map((item: any) => ({
         label: item.name,
         value: item.id,
       })),
-      hourlyCharges: data?.tutor_details?.hourly_charge,
+      hourlyCharges: data?.tutorDetails?.hourlyCharge,
     });
   };
   const onChange = (imageList: any, addUpdateIndex: any) => {
@@ -130,25 +134,36 @@ function Profile() {
   const handleInputTypeFile = () => {
     inputEl.current?.click();
   };
-  const handleSubmit = (values: any) => {
+  const handleSubmit = async (values: any) => {
+    console.log("Values", values);
+
     const data = {
-      fullname: values.name,
+      fullName: values.name,
       email: values.email,
       phone: values.phone,
       description: values?.description,
-      country_id: parseInt(values.country.value),
-      country_code: parseInt(values.country.value),
+      countryId: values.country.value,
+      countryCode: values.country.value,
       timezone: values.timezone.value,
       experience: Number(values.experienceYears),
       address: values.address,
       subjects: values.subjects.map((item: any) => Number(item.value)),
       languages: values.knownLanguages.map((item: any) => Number(item.value)),
       disciplines: values.disciplines.map((item: any) => Number(item.value)),
-      hourly_charge: values.hourlyCharges,
+      hourlyCharge: values.hourlyCharges,
       video: videoId,
     };
+    console.log("data", data);
+
     if (!promptOpen) {
-      updateProfile.mutate(data);
+      // updateProfile.mutate(data);
+      const response = await v2api.put("/user/profile/tutor", data);
+      if (response.status == 200) {
+        toast.success("Profile updated successfully.");
+        router.back();
+      } else {
+        toast.error("Failed to update profile");
+      }
     }
   };
 
@@ -193,7 +208,7 @@ function Profile() {
                                 {imageList.length === 0 ? (
                                   <>
                                     <img
-                                      src={userProfile.data?.image_url}
+                                      src={userProfile.data?.tutor?.imageUrl}
                                       height={"100px"}
                                       // onClick={onImageUpload}
                                       className="edit-profile__profile__image"
@@ -573,7 +588,7 @@ function Profile() {
                                           )
                                           .map((country: any) => ({
                                             label: country.name,
-                                            value: country.name,
+                                            value: country.id,
                                           }))}
                                         onChange={(value: any) => {
                                           setFieldValue(field.name, value);

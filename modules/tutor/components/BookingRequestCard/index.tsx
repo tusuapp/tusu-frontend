@@ -55,15 +55,15 @@ const BookingRequestCard: React.FC<BookingRequestCardProps> = ({
   };
 
   const handleReject = async (message: any) => {
-    const response = await v2api.put("/user/classes/bookings/reject", {
+    const response = await v2api.put("/user/classes/bookings/status", {
       bookingId: id,
+      status: "rejected",
       message,
     });
 
     if (response.status == 200) {
       toast.success("Booking request rejected successfully.");
       setIsRejectionModalOpen(false);
-      onChange();
     } else {
       toast.error("Failed to reject booking request.");
     }

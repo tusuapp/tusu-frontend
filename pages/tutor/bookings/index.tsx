@@ -5,20 +5,36 @@ import PageEmptyDataView from "@/tutor/components/PageEmptyDataView";
 import TutorDashboardLayout from "layouts/TutorDashboard";
 import BeatLoader from "react-spinners/BeatLoader";
 import withAuthNew from "../../../HOC/withAuthNew";
+import { useEffect, useState } from "react";
+import { v2api } from "api";
 
 function Bookings() {
-  const { data, error, isFetching, isLoading, isError } = useBookings();
+  const [bookings, setBookings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const fetchBookings = async () => {
+    const response = await v2api.get("/user/classes/bookings?types=accepted");
+    if (response.status === 200) {
+      setBookings(response.data.bookings);
+      console.log(response.data.bookings);
+    } else {
+      setError("Failed to fetch bookings");
+      console.error("Failed to fetch bookings");
+    }
+    setIsLoading(false);
+  };
+  useEffect(() => {
+    fetchBookings();
+  }, []);
+
   return (
     <>
       <TutorDashboardLayout>
         <div className="d-flex">
           <h2 className="tutor__dashboard__title me-3 mb-4">Bookings</h2>
 
-          <BeatLoader
-            loading={isFetching || isLoading}
-            color={"grey"}
-            size={5}
-          />
+          <BeatLoader loading={isLoading} color={"grey"} size={5} />
         </div>
 
         {/* {isLoading && <p>Display sckelton screen</p>} */}
@@ -26,26 +42,16 @@ function Bookings() {
 
         {error && "Failed to get data from the server"}
 
-        {data?.bookings.length === 0 && (
+        {bookings.length === 0 && (
           <PageEmptyDataView message="No bookings found" />
         )}
 
         <div className="row">
-          {data &&
-            data.bookings.map((booking: any, index: any) => {
-              if (booking.status === "pending") return;
+          {bookings &&
+            bookings.map((booking: any, index: any) => {
               return (
                 <div className="col-lg-6 col-xl-6 mb-4" key={index}>
-                  <TutorClass
-                    id={booking.id}
-                    name={booking.student_id.fullname}
-                    image={booking.student_id.image_url}
-                    subject={booking.subject}
-                    scheduleInfo={booking.schedule}
-                    scheduleDate={booking.schedule_date}
-                    scheduleTime={booking.start_time}
-                    status={booking.status}
-                  />
+                  <TutorClass booking={booking} />
                 </div>
               );
             })}

@@ -68,28 +68,32 @@ function Profile() {
               <div className="row">
                 <div className="col-12 mb-5">
                   <div className="profile__field__label"> Phone Number</div>
-                  <div className="profile__field__value">{data?.phone}</div>
+                  <div className="profile__field__value">
+                    {data?.tutor?.phone}
+                  </div>
                 </div>
                 <div className="col-12 mb-5">
                   <div className="profile__field__label">Address</div>
                   <div className="profile__field__value">
-                    {data?.tutor_details?.address}
+                    {data?.tutor?.address}
                   </div>
                 </div>
                 <div className="col-12 mb-5">
                   <div className="profile__field__label">Country</div>
                   <div className="profile__field__value">
-                    {data?.country?.name}
+                    {data?.tutor.country?.name}
                   </div>
                 </div>
                 <div className="col-12 mb-5">
                   <div className="profile__field__label">Timezone</div>
-                  <div className="profile__field__value">{data?.timezone}</div>
+                  <div className="profile__field__value">
+                    {data?.tutor?.timeZone}
+                  </div>
                 </div>
                 <div className="col-12 mb-5">
                   <div className="profile__field__label">Description</div>
                   <div className="profile__field__value">
-                    {data?.tutor_details?.description}
+                    {data?.tutorDetails?.description}
                   </div>
                 </div>
 
@@ -115,7 +119,7 @@ function Profile() {
                 <div className="col-12 mb-5">
                   <div className="profile__field__label"> Gender</div>
                   <div className="profile__field__value">
-                    {data?.tutor_details?.gender}
+                    {data?.tutorDetails?.gender}
                   </div>
                 </div>
                 <div className="col-12 mb-5">
@@ -123,13 +127,13 @@ function Profile() {
                     Experience (year(s))
                   </div>
                   <div className="profile__field__value">
-                    {data?.tutor_details?.experience}
+                    {data?.tutorDetails?.experience}
                   </div>
                 </div>
                 <div className="col-12 mb-5">
                   <div className="profile__field__label">Disciplines</div>
                   <div className="profile__field__value">
-                    {data?.discipline.map(
+                    {data?.tutorDetails?.disciplines.map(
                       (discipline: any) => `${discipline.name}, `
                     )}
                   </div>
@@ -137,19 +141,21 @@ function Profile() {
                 <div className="col-12 mb-5">
                   <div className="profile__field__label">Subjects/Modules</div>
                   <div className="profile__field__value">
-                    {data?.subjects.map((subject: any) => `${subject.name}, `)}
+                    {data?.tutorDetails?.subjects.map(
+                      (subject: any) => `${subject.name}, `
+                    )}
                   </div>
                 </div>
                 <div className="col-12 mb-5">
                   <div className="profile__field__label"> Hourly charge</div>
                   <div className="profile__field__value">
-                    ${data?.tutor_details?.hourly_charge}
+                    ${data?.tutorDetails?.hourlyCharge}
                   </div>
                 </div>
                 <div className="col-12 mb-5">
                   <div className="profile__field__label">Known languages</div>
                   <div className="profile__field__value">
-                    {data?.languages.map(
+                    {data?.tutorDetails?.languages.map(
                       (language: any) => `${language.name}, `
                     )}
                     {/* ${data?.tutor_details?.hourly_charge} */}

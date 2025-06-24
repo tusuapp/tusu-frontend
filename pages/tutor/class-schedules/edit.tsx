@@ -141,6 +141,7 @@ const ChooseSchedulePage = () => {
                   {step === 3 && (
                     <>
                       <CreateSchedule scheduleCreated={setIsScheduleCreated} />
+
                       <Button
                         type="primary"
                         className="btn-brand w-100 btn-lg mt-3"

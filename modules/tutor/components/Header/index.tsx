@@ -46,8 +46,6 @@ const Header: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  console.log("Header", user);
-
   const [isMenuVisibile, setIsMenuVisible] = useState(false);
   const [userRole, setUserRole] = useState("tutor");
 

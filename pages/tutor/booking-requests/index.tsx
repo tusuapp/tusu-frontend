@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { v2api } from "api";
 
 function BookingRequests() {
-  const [data, setData] = useState([]);
+  const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -17,15 +17,11 @@ function BookingRequests() {
         const response = await v2api.get("/user/classes/bookings", {
           params: { types: "requested" },
         });
-        setData(response.data.bookings);
-        console.log(data);
+        setRequests(response.data.bookings);
+        console.log(requests);
       } catch (error) {
-        const errorMessage =
-          error instanceof Error
-            ? error.message
-            : "An error occurred while fetching bookings.";
-        console.error("Failed to fetch bookings:", errorMessage);
-        setError(errorMessage);
+        console.log(error);
+        setError("Failed to fetch booking requests");
       } finally {
         setLoading(false);
       }
@@ -45,23 +41,23 @@ function BookingRequests() {
 
         {/* {error && "Failed to get data from the server"} */}
 
-        {data?.length === 0 && (
+        {requests?.length === 0 && (
           <PageEmptyDataView message="No pending booking requests" />
         )}
 
         <div className="row">
-          {data &&
-            data?.booking_request?.booking?.map((booking: any, index: any) => (
+          {requests &&
+            requests.map((booking: any, index: any) => (
               <>
                 <div className="col-lg-6 col-xl-5" key={index}>
                   <BookingRequestCard
                     id={booking.id}
-                    name={booking.student_fullname}
+                    name={booking.student.fullName}
                     subject={booking.subject}
-                    amount={booking.total_amount}
+                    amount={booking.totalAmount}
                     date={booking.schedule?.date}
-                    startTime={booking.from_datetime}
-                    endTime={booking.to_datetime}
+                    startTime={booking.startTime}
+                    endTime={booking.endTime}
                     notes={booking.notes}
                     // onChange={() => {
                     //   // dispatch(fetchBookings("pending"));

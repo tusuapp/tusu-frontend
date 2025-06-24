@@ -24,8 +24,6 @@ const TutorClass: React.FC<any> = ({ booking }) => {
   let duration = moment.duration(scheduleTime.diff(currentUtcTime));
   let hoursLeft = duration.asHours();
 
-  console.log("Remaining time in hours:", hoursLeft);
-
   return (
     <div className="card">
       <div className="d-flex">
@@ -54,8 +52,14 @@ const TutorClass: React.FC<any> = ({ booking }) => {
               {booking.status !== "in-progress" && (
                 <>
                   <FontAwesomeIcon icon={faClock} className="clock__icon" />
-                  <span>&nbsp;{Math.round(hoursLeft * 100) / 100}</span>
-                  &nbsp;hours left
+                  {hoursLeft > 0 ? (
+                    <>
+                      <span>&nbsp;{Math.round(hoursLeft * 100) / 100}</span>
+                      &nbsp;hours left
+                    </>
+                  ) : (
+                    booking.status
+                  )}
                 </>
               )}
               {booking.status === "in-progress" && (

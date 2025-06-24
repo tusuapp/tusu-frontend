@@ -7,9 +7,7 @@ import Filter from "../../components/filter";
 import TutorClass from "../../components/tutorClass";
 import withAuth from "../../HOC/withAuth";
 import { api, fetch, v2api } from "../../api";
-import useBookingRequests from "@/tutor/hooks/useBookingRequests";
 import Spinner from "components/Spinner";
-import moment from "moment";
 
 function TutorDashboard() {
   const [dashData, setDashData] = useState({});
