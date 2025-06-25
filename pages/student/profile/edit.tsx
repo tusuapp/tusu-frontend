@@ -102,13 +102,13 @@ function EditProfilePageStudent() {
     }
 
     setInitialValues({
-      fullname: data?.fullname,
+      fullname: data?.fullName,
       email: data?.email,
       phone: data?.phone,
       address: data?.address,
       description: data?.description,
       country: { label: data?.country?.name, value: data?.country?.id },
-      timezone: { label: data?.timezone, value: data?.timezone },
+      timezone: { label: data?.timeZone, value: data?.timeZone },
       country_code: data?.country?.country_code,
     });
   };

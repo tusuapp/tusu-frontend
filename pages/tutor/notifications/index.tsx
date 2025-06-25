@@ -27,22 +27,21 @@ function Notifications() {
           {data?.pages.map((page) => (
             <React.Fragment key={page.nextId}>
               {/* {JSON.stringify(page)} */}
-              {page.result?.map((item: any)=> (
+              {page.result?.map((item: any) => (
                 <React.Fragment key={item.nextId}>
                   {item.content?.map((notification: any) => {
                     const props = {
                       id: notification.id,
-                      body: notification.body,
+                      body: notification.title,
                       timestamp: notification.created_at,
                       type: "tutor",
                     };
-    
+
                     let formattedDate;
-    
+
                     if (!currentDate) {
                       currentDate = notification.created_at;
-                    } 
-                    else {
+                    } else {
                       console.log("current date", currentDate);
                       console.log("craeetd", notification.created_at);
                       if (
@@ -54,16 +53,17 @@ function Notifications() {
                         console.log("same curent date");
                       } else {
                         currentDate = notification.created_at;
-    
+
                         formattedDate = moment(notification.created_at).format(
                           "MM/DD/YYYY"
                         );
                       }
                     }
-    
+
                     return (
                       <>
-                        <div className="mb-3"
+                        <div
+                          className="mb-3"
                           style={{
                             color: "#000000",
                             fontSize: "15px",

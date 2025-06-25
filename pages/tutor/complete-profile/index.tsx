@@ -128,11 +128,11 @@ const ChooseSchedulePage = () => {
                     activeStep={1}
                     styleConfig={{
                       activeBgColor: "green",
-                      activeTextColor: " white",
+                      activeTextColor: "white",
                       completedBgColor: "#FBD162",
                       completedTextColor: "#FBD162",
-                      inactiveBgColor: " white",
-                      inactiveTextColor: "white",
+                      inactiveBgColor: "white",
+                      inactiveTextColor: "black",
                       size: "2em",
                       circleFontSize: "1rem",
                       labelFontSize: "0.875rem'",

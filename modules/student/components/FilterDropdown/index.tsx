@@ -127,7 +127,7 @@ const FilterDropdown: React.FC<IFilterDropdown> = ({
       <AnimatePresence>
         <motion.div>
           <Menu>
-            <Menu.Button className="btn text-brand">Filters</Menu.Button>
+            {/* <Menu.Button className="btn text-brand">Filters</Menu.Button> */}
 
             <Menu.Items className="student__filters__wrapper">
               <Formik

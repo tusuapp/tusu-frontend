@@ -8,9 +8,8 @@ import NotificationItem from "../../components/notificationItem";
 
 function Notifications() {
   const { data, fetchNextPage } = useNotifications();
-  let currentDate: any;  
+  let currentDate: any;
   console.log(data);
-  
 
   const formatDate = (date: any) => {
     if (moment(date).isSame(moment(), "day")) return "Today";
@@ -33,54 +32,56 @@ function Notifications() {
               >
                 Notifications
               </h3>
-              {data?.pages.map((page) => 
-                <div key={page.nextId} > 
-                {page.result?.map((item: any)=> (
-                  <div key={item.nextId} >
-                    {item.content?.map((notification: any) => {
-                    const props = {
-                      id: notification.id,
-                      body: notification.title,
-                      timestamp: notification.created_at,
-                      type: "student"
-                    };
-                    let created_notification = moment(notification.created_at).format();
-                    
-                    let formattedDate;
-                    if (!currentDate) {
-                      currentDate = notification.created_at;
-                    } else {
-                      if (
-                        moment(currentDate).isSame(
-                          moment(notification.created_at),
-                          "days"
-                        )
-                      ) {
-                        console.log("same current date");
-                      } else {
-                        currentDate = notification.created_at;
-    
-                        formattedDate = moment(notification.created_at).format(
-                          "MM/DD/YYYY"
+              {data?.pages.map((page) => (
+                <div key={page.nextId}>
+                  {page.result?.map((item: any) => (
+                    <div key={item.nextId}>
+                      {item.content?.map((notification: any) => {
+                        const props = {
+                          id: notification.id,
+                          body: notification.title,
+                          timestamp: notification.created_at,
+                          type: "student",
+                        };
+                        let created_notification = moment(
+                          notification.created_at
+                        ).format();
+
+                        let formattedDate;
+                        if (!currentDate) {
+                          currentDate = notification.created_at;
+                        } else {
+                          if (
+                            moment(currentDate).isSame(
+                              moment(notification.created_at),
+                              "days"
+                            )
+                          ) {
+                            console.log("same current date");
+                          } else {
+                            currentDate = notification.created_at;
+
+                            formattedDate = moment(
+                              notification.created_at
+                            ).format("MM/DD/YYYY");
+                          }
+                        }
+
+                        return (
+                          <>
+                            <h6 className="pt-4 text-dark">
+                              {moment(currentDate).isSame(
+                                moment(notification.created_at)
+                              ) && formatDate(notification.created_at)}
+                            </h6>
+                            <NotificationItem {...props} />
+                          </>
                         );
-                      }
-                    }
-    
-                    return (
-                      <>
-                        <h6 className="pt-4 text-dark">
-                          {moment(currentDate).isSame(
-                            moment(notification.created_at)
-                          ) && formatDate(notification.created_at)}
-                        </h6>
-                        <NotificationItem {...props} />
-                      </>
-                    );
-                  })}
-                  </div>
-                ))}
-                </div>  
-              )}
+                      })}
+                    </div>
+                  ))}
+                </div>
+              ))}
             </div>
             <br />
             <br />
