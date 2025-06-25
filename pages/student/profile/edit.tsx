@@ -238,7 +238,7 @@ function EditProfilePageStudent() {
                                         />
                                       </button>
                                       <img
-                                        src={user?.image}
+                                        src={user?.imageUrl}
                                         height={"100px"}
                                         onClick={onImageUpload}
                                         className="edit-profile__profile__image"
