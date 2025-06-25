@@ -27,7 +27,7 @@ const StudentHome = () => {
 
   const fetchClasses = async () => {
     const response = await v2api.get(
-      "/user/classes/bookings?types=accepted,requested,in-progress&limit=3"
+      "/user/classes/bookings?types=accepted,requested,in-progressc&limit=3"
     );
     // setclassesData(response);
     setclassesData(response.data.bookings);

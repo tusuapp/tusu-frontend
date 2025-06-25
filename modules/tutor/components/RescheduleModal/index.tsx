@@ -27,18 +27,12 @@ const RescheduleModal: React.FC<Props> = ({
   selectedClassId,
 }) => {
   const [selectedDate, setSelectedDate] = useState<any>(new Date());
-  // const [startTime, setStartTime] = useState<any>();
-  // const [endTime, setEndTime] = useState<any>();
-  const [selectedSlot, setSelectedSlot] = useState<any>(null);
-  const [selectedSchedule, setSelectedSchedule] = useState<any>();
   const { mutate } = useRescheduleClass();
-
-  console.log("selected data=====>", selectedDate);
 
   const [timeData, setTimeData] = useState({
     reschedule_date: "",
-    start_time: "",
-    end_time: "",
+    start_time: "00:00",
+    end_time: "01:00",
   });
 
   useEffect(() => {
@@ -46,26 +40,30 @@ const RescheduleModal: React.FC<Props> = ({
       reschedule_date: moment(selectedClassId?.reschedule_date).format(
         "YYYY-MM-DD"
       ),
-      start_time: selectedClassId?.start,
-      end_time: selectedClassId?.end,
+      start_time: moment(selectedClassId?.reschedule_date).format("hh:mm"),
+      end_time: moment(selectedClassId?.reschedule_date)
+        .add(60, "minutes")
+        .format("hh:mm"),
     };
+
     setTimeData(test);
     setSelectedDate(test?.reschedule_date);
   }, [selectedClassId]);
 
-  console.log("timeData : ", timeData);
   const { data, isLoading, isFetching } = useScheduledClasses(
     formatYYYYMMDD(selectedDate, "-")
   );
 
   const handleSaveSchedule = () => {
+    console.log("selectedclassId : ", selectedClassId);
+
     const schedule = {
       date:
         formatYYYYMMDD(selectedDate, "-") +
         ` ${moment(timeData?.start_time, "hh:mm:ss").format("HH:mm:ss")}`,
-      start_time: moment(timeData?.start_time, "hh:mm").format("HH:mm"),
-      end_time: moment(timeData?.end_time, "hh:mm").format("HH:mm"),
-      id: selectedClassId?.booking_details?.id,
+      startTime: moment(timeData?.start_time, "hh:mm").format("HH:mm"),
+      endTime: moment(timeData?.end_time, "hh:mm").format("HH:mm"),
+      bookingId: selectedClassId,
     };
     mutate(schedule, {
       onSuccess: () => {

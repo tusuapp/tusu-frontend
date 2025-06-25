@@ -3,7 +3,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import Head from "next/head";
 import Footer from "components/footer";
 
-const StudentDashboardLayout: React.FC = ({ children }) => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const StudentDashboardLayout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Head>

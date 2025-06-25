@@ -4,7 +4,11 @@ import Header from "@/tutor/components/Header";
 import { AnimatePresence, motion } from "framer-motion";
 import Head from "next/head";
 
-const TutorProfilePage: React.FC = ({ children }) => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const TutorProfilePage: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Head>

@@ -5,7 +5,11 @@ import Sidebar from "@/tutor/components/Sidebar";
 import { AnimatePresence, motion } from "framer-motion";
 import Head from "next/head";
 
-const TutorDashboardLayout: React.FC = ({ children }) => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const TutorDashboardLayout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Head>

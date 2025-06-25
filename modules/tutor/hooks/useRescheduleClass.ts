@@ -1,4 +1,4 @@
-import { api } from "api";
+import { api, v2api } from "api";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
@@ -6,15 +6,16 @@ const rescheduleClass = async (details: any) => {
   const resheduleDetails = {
     start_time: details.start_time,
     end_time: details.end_time,
-    date: details.date,
+    date: details.date.replace(" ", "T"),
   };
+  console.log("Reschedule payload ", details);
 
-  const { data } = await api.post(
-    `/tutor/booking/reschedule/${details.id}`,
-    resheduleDetails
-  );
+  const { data } = await v2api.post(`/user/classes/bookings/reschedule`, {
+    bookingId: details.bookingId,
+    startTime: details.date.replace(" ", "T"),
+  });
 
-  return data.result;
+  return data;
 };
 
 const useRescheduleClass = () => {
@@ -24,7 +25,7 @@ const useRescheduleClass = () => {
     // When mutate is called:
 
     onSuccess: async () => {
-      toast.success("Rescheduled successfully");
+      toast.success("Reschedule request sent!");
     },
 
     onMutate: async (newTodo) => {

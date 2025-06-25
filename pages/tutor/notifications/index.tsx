@@ -22,8 +22,6 @@ function Notifications() {
       <TutorDashboardLayout>
         <Container>
           <h2 className="tutor__dashboard__title mb-4">Notifications</h2>
-          {console.log(data?.pages)}
-          {console.log(data?.pageParams)}
           {data?.pages.map((page) => (
             <React.Fragment key={page.nextId}>
               {/* {JSON.stringify(page)} */}

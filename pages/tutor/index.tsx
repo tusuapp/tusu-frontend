@@ -65,17 +65,19 @@ function TutorDashboard() {
             {isLoading && <Spinner />}
             {dashData &&
               !isLoading &&
-              dashData.bookingRequests.map((booking: any) => (
-                <BookingRequestCard
-                  id={booking.id}
-                  name={booking.student.fullName}
-                  subject={booking.subject}
-                  amount={booking.totalAmount}
-                  date={booking.schedule?.date}
-                  startTime={booking.startTime}
-                  endTime={booking.endTime}
-                />
-              ))}
+              dashData.bookingRequests
+                .filter((r) => r.isRescheduled)
+                .map((booking: any) => (
+                  <BookingRequestCard
+                    id={booking.id}
+                    name={booking.student.fullName}
+                    subject={booking.subject}
+                    amount={booking.totalAmount}
+                    date={booking.schedule?.date}
+                    startTime={booking.startTime}
+                    endTime={booking.endTime}
+                  />
+                ))}
             <h4 style={{ fontSize: "22px" }} className="mb-3">
               Upcoming Classes
             </h4>
