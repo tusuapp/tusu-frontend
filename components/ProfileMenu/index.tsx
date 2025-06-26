@@ -17,7 +17,7 @@ const ProfileMenu = ({ userRole }: any) => {
         <Menu>
           <Menu.Button className="btn btn-brand ">
             <img
-              src={user.imageUrl}
+              src={user.imageUrl || "/image/img_avatar.png"}
               height="30px"
               width="30px"
               style={{ borderRadius: "50%", marginRight: "20px" }}

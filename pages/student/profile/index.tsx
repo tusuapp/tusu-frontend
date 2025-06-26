@@ -46,7 +46,7 @@ function Profile() {
         <div className="profile__wrap">
           <div className="profile__leftContainer">
             <div className="profile__leftContainer__top">
-              <img src={data?.imageUrl} />
+              <img src={data?.imageUrl || "/image/img_avatar.png"} />
               <h6>{data?.fullName}</h6>
               <p>{data?.email}</p>
             </div>
