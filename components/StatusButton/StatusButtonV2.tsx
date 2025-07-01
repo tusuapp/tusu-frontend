@@ -13,8 +13,6 @@ const StatusButtonV2: React.FC<IButton> = ({ url, text }) => {
     <button
       className="btn btn-brand"
       onClick={() => {
-        console.log(url);
-
         router.push(url);
       }}
     >

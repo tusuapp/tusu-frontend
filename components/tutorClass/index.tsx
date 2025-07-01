@@ -64,7 +64,7 @@ const TutorClass: React.FC<any> = ({ booking }) => {
               )}
               {booking.status === "in-progress" && (
                 <StatusButtonV2
-                  url={`tutor/classes/${booking.id}`}
+                  url={`/tutor/classes/${booking.id}`}
                   text="Start Class"
                 />
               )}

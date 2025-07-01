@@ -43,9 +43,12 @@ export const appendInputError = (name: string, message: string) => {
 export const arrayToSentence = (arr: any) => {
   if (!arr) return false;
 
-  const newArray = arr;
+  // const newArray = arr;
+  const newArray = arr.map((element: any) => {
+    return element["name"];
+  });
 
-  return newArray.join(", ");
+  return newArray;
 };
 
 export const formatTimePeriod = (timePeriod: any) => {

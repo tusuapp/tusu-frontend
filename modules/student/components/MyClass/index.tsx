@@ -59,9 +59,8 @@ const MyClass = ({ myclass }: any) => {
   let imagez = tutor.imageUrl ? tutor.imageUrl : "/image/img_avatar.png";
 
   let current_time = moment().utcOffset(user.timeZoneOffset);
-  let schedule_time = moment(schedule?.actual_time).utcOffset(
-    user.timeZoneOffset
-  );
+
+  let schedule_time = moment(schedule?.startTime);
   let whatLeft = moment.duration(schedule_time.diff(current_time));
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -209,7 +208,7 @@ const MyClass = ({ myclass }: any) => {
               <span className="clock__icon">
                 <FontAwesomeIcon icon={faClock} className="clock__icon me-1" />
               </span>{" "}
-              {schedule_time.format("DD, MMM | ddd | hh:mm:A")}
+              {moment(myclass?.startTime).format("hh:mm a DD/MM/YYYY")}
             </div>
           </div>
 

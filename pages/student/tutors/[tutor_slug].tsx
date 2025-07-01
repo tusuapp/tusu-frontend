@@ -156,6 +156,8 @@ function TutorProfile() {
     return <Error />;
   }
 
+  console.log(profile);
+
   return (
     <>
       <StudentDashboardLayout>
@@ -166,7 +168,7 @@ function TutorProfile() {
                 <div className="Student-tutor__profile__title__card">
                   <div className="me-3 tutor_image_card">
                     <img
-                      src={profile?.image}
+                      src={profile?.tutor?.imageUrl}
                       alt="..."
                       height="80px"
                       style={{ borderRadius: "7px" }}
@@ -192,13 +194,14 @@ function TutorProfile() {
                       className="Student-tutor__profile__title__card__experience"
                       style={{ color: "#4E5A64" }}
                     >
-                      {profile?.tutor_details?.experience} Years of experience
+                      {profile?.tutorDetails?.experience} Years of experience
                     </div>
                     <div className="mb-0" style={{ color: "#00213D" }}>
                       Discipline/Subject:
                       <br />
-                      {profile?.discipline.length === 0 && "No disciplines"}
-                      {profile?.discipline.map(
+                      {profile?.tutorDetails?.disciplines.length === 0 &&
+                        "No disciplines"}
+                      {profile?.tutorDetails?.disciplines.map(
                         (discipline: any) => `${discipline.name}, `
                       )}
                     </div>
@@ -219,11 +222,11 @@ function TutorProfile() {
                   </span>
                 </div>
                 <div className="Student-tutor__profile__about__title">
-                  About {profile?.fullname}
+                  About {profile?.tutor?.fullName}
                 </div>
 
                 <p className="Student-tutor__profile__about__content">
-                  {profile?.tutor_details?.description}
+                  {profile?.tutorDetails?.description}
                 </p>
                 <div>
                   <ReactPlayer
@@ -309,11 +312,13 @@ function TutorProfile() {
                             >
                               <option value="">Select</option>
 
-                              {profile.subjects.map((subject: any) => (
-                                <option value={subject.id}>
-                                  {subject.name}
-                                </option>
-                              ))}
+                              {profile?.tutorDetails?.subjects.map(
+                                (subject: any) => (
+                                  <option value={subject.id}>
+                                    {subject.name}
+                                  </option>
+                                )
+                              )}
                             </select>
                           </div>
                         </div>
@@ -431,7 +436,7 @@ function TutorProfile() {
               <div className="Pre-Requiesites">
                 <div className="Pre-Requiesites__title">Pre-Requiesites</div>
 
-                {profile?.pre_requiesites.map((item: string) => (
+                {profile?.pre_requiesites?.map((item: string) => (
                   <div
                     style={{ display: "flex", alignItems: "center" }}
                     className="Pre-Requiesites__item"

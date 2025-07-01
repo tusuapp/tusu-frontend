@@ -11,21 +11,25 @@ function BookingRequests() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const fetchRequests = async () => {
+    try {
+      const response = await v2api.get(
+        "/user/classes/bookings?types=requested"
+      );
+      setRequests(response.data.bookings);
+      console.log(requests);
+    } catch (error) {
+      console.log(error);
+      setError("Failed to fetch booking requests");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchRequests = async () => {
-      try {
-        const response = await v2api.get("/user/classes/bookings", {
-          params: { types: "requested" },
-        });
-        setRequests(response.data.bookings);
-        console.log(requests);
-      } catch (error) {
-        console.log(error);
-        setError("Failed to fetch booking requests");
-      } finally {
-        setLoading(false);
-      }
-    };
+    setTimeout(() => {
+      fetchRequests();
+    }, 100);
     fetchRequests();
   }, []);
 

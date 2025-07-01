@@ -81,8 +81,8 @@ const BookingRequestCard: React.FC<BookingRequestCardProps> = ({
         <br /> */}
         Choosen Schedule :{" "}
         <span style={{ color: "#82296E" }}>
-          {moment(startTime).format("HH:MM A")} -{" "}
-          {moment(endTime).format("HH:MM A DD-MM-YYYY")}
+          {moment(startTime).format("hh:mm a")} -
+          {moment(endTime).format("hh:mm a DD-MM-YYYY")}
         </span>
         {/* <div style={{ color: "#82296E" }}>
         <FontAwesomeIcon icon={faStickyNote} /> View note

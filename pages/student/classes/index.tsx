@@ -76,7 +76,7 @@ const FavouriteTutors: React.FC = () => {
                   </Tabs>
                 </Box>
                 <CustomTabPanel value={value} index={0}>
-                  <ActiveClassesTab type="accepted,requested" />
+                  <ActiveClassesTab type="accepted,requested,in-progress" />
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={1}>
                   <ActiveClassesTab type="completed" />

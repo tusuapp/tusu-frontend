@@ -43,7 +43,7 @@ const ProfileExtras = ({ profile }: any) => {
                   className="text-black"
                   style={{ fontSize: "12px", color: "#00213D" }}
                 >
-                  ${profile?.tutor_details?.hourly_charge} / Hour
+                  ${profile?.tutorDetails?.hourlyCharge} / Hour
                 </span>
               </div>
             </div>
@@ -99,8 +99,9 @@ const ProfileExtras = ({ profile }: any) => {
                   className="text-black"
                   style={{ fontSize: "12px", color: "#00213D" }}
                 >
-                  {!arrayToSentence(profile?.languages) && "No languages"}
-                  {arrayToSentence(profile?.languages)}
+                  {!arrayToSentence(profile?.tutorDetails?.languages) &&
+                    "No languages"}
+                  {arrayToSentence(profile?.tutorDetails?.languages)}
                 </div>
               </div>
             </div>
@@ -135,7 +136,7 @@ const ProfileExtras = ({ profile }: any) => {
                   Schedule
                 </div>
                 <span style={{ fontSize: "12px", color: "#00213D" }}>
-                  {profile.days}
+                  {profile?.days}1 Hour
                 </span>
               </div>
             </div>
@@ -177,7 +178,7 @@ const ProfileExtras = ({ profile }: any) => {
                   className="text-black"
                   style={{ fontSize: "12px", color: "#00213D" }}
                 >
-                  {profile.timezone}
+                  {profile?.tutor?.timeZone}
                 </span>
               </div>
             </div>

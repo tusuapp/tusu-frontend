@@ -147,13 +147,18 @@ const Checkout = () => {
                               <div className="d-flex ml-5 w-100 flex-grow-1">
                                 <div className="flex-shrink-0">
                                   <img
-                                    src="/image/tutorprofileimage.png"
+                                    src={
+                                      cartDetails?.tutor?.imageUrl ||
+                                      "/image/tutorprofileimage.png"
+                                    }
                                     alt="..."
+                                    height={80}
+                                    width={80}
                                   />
                                 </div>
                                 <div className="flex-grow-1 ms-3 w-50">
                                   <h3 className="small-header m-0">
-                                    {cartDetails?.tutor?.name}
+                                    {cartDetails?.tutor?.fullName}
                                   </h3>
                                   <p className="mb-0">
                                     <span style={{ color: "#8A959ECC" }}>

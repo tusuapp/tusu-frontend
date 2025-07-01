@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { AppState, AppThunk } from "store";
-import { api, setApplicationName } from "api";
+import { api, setApplicationName, v2api } from "api";
 
 const ROLE = "student";
 
@@ -67,9 +67,9 @@ export const fetchTutorProfile =
     try {
       setApplicationName(ROLE);
 
-      const response = await api.get(`/student/tutor-details/${tutor_id}`);
+      const response = await v2api.get(`/user/profile/tutor/${tutor_id}`);
 
-      dispatch(getTutorProfile(response.data.result));
+      dispatch(getTutorProfile(response.data));
       return true;
     } catch (e) {
       return false;

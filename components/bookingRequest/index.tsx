@@ -62,7 +62,7 @@ const BookingRequest: React.FC<BookingRequestProps> = ({
       {/* <div className="booking-card-content"> */}
       <b>{name}</b> booked you for <b>{subject}</b> class.
       <br />
-      asd Payment of <b>${amount}</b> Received.
+      Payment of <b>${amount}</b> Received.
       <br />
       Schedule : {date}, {startTime} - {endTime}
       <div className="d-flex justify-content-start mt-3">

@@ -16,10 +16,6 @@ const TimeRangePicker: React.FC<TimeRangePickerProps> = ({
   const [state, setState] = useState<any>([]);
 
   useEffect(() => {
-    console.log(timeslots);
-  }, []);
-
-  useEffect(() => {
     if (!timeslots) {
       return;
     }
@@ -28,8 +24,6 @@ const TimeRangePicker: React.FC<TimeRangePickerProps> = ({
   }, [timeslots]);
 
   const addNewTimeSlot = async () => {
-    console.log(state);
-
     const newState = [
       ...state,
       { id: uuid(), start: "00:00:00", end: "00:00:00", day: activeDay },
@@ -64,7 +58,6 @@ const TimeRangePicker: React.FC<TimeRangePickerProps> = ({
       }
     });
     onChange(state);
-    console.log(state);
   };
 
   return (

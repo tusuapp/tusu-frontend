@@ -14,7 +14,9 @@ function Bookings() {
   const [error, setError] = useState("");
 
   const fetchBookings = async () => {
-    const response = await v2api.get("/user/classes/bookings?types=accepted");
+    const response = await v2api.get(
+      "/user/classes/bookings?types=accepted,in-progress"
+    );
     if (response.status === 200) {
       setBookings(response.data.bookings);
       console.log(response.data.bookings);
