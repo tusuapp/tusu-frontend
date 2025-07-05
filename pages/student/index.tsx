@@ -161,7 +161,7 @@ const StudentHome = () => {
                         >
                           <TutorCard
                             tutorName={tutor.name}
-                            profilePicture={tutor.image}
+                            profilePicture={tutor.element.image_url}
                             tutorSubject={tutor.subject}
                             rating={tutor.ratting}
                           />
@@ -199,7 +199,7 @@ const StudentHome = () => {
                     >
                       <TutorCard
                         tutorName={tutor.fullname}
-                        profilePicture={tutor.image}
+                        profilePicture={tutor.image_url}
                         tutorSubject={tutor.subjects}
                         rating={tutor.rating}
                       />
