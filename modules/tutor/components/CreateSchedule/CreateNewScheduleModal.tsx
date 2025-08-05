@@ -48,8 +48,8 @@ const CreateNewScheduleModal: React.FC<Props> = ({
   selectedDate = "",
 }) => {
   const [data, setData] = useState({
-    start_time: "00:00",
-    end_time: "01:00",
+    start_time: new Date(new Date().setHours(0, 0)), // 12:00 AM
+    end_time: new Date(new Date().setHours(13, 0)), // 1:00 PM
     date: selectedDate,
   });
 
@@ -116,7 +116,7 @@ const CreateNewScheduleModal: React.FC<Props> = ({
                   value={data.start_time}
                   disableClock={true}
                   locale="hu-HU"
-                  // format={"HH:mm"}
+                  format="hh:mm a"
                 />
               </div>
             </div>
@@ -131,7 +131,7 @@ const CreateNewScheduleModal: React.FC<Props> = ({
                   value={data.end_time}
                   disableClock={true}
                   locale="hu-HU"
-                  // format={"HH:mm"}
+                  format="hh:mm a"
                   disabled={true}
                 />
               </div>

@@ -51,8 +51,16 @@ const customReviewStyles = {
 };
 
 const MyClass = ({ myclass }: any) => {
-  const { id, tutor, subject, schedule, bigbluebutton, status, notes } =
-    myclass;
+  const {
+    id,
+    tutor,
+    subject,
+    schedule,
+    rejectionReason,
+    studentMessage,
+    status,
+    notes,
+  } = myclass;
 
   const { user } = useSelector(selectAuth);
 
@@ -202,7 +210,7 @@ const MyClass = ({ myclass }: any) => {
               </div>
             </Modal>
           </div>
-          <div className="d-lg-flex d-block justify-content-between align-items-center mb-1 time-sub-box">
+          <div className="d-lg-flex d-block justify-content align-items-center mb-1 time-sub-box">
             <div>{subject}</div>
             <div>
               <span className="clock__icon">
@@ -212,7 +220,7 @@ const MyClass = ({ myclass }: any) => {
             </div>
           </div>
 
-          <div className="d-flex justify-content-end">
+          <div className="d-flex justify-content-start">
             {isLoading && <Spinner />}
 
             {isActionStatus() && (
@@ -229,6 +237,13 @@ const MyClass = ({ myclass }: any) => {
               </small>
             )}
           </div>
+
+          {rejectionReason && (
+            <div className="rejection-reason">
+              <span className="text-secondary">Rejection Reason: </span>
+              {rejectionReason}
+            </div>
+          )}
           <div>
             {notes ? (
               <button className="btn-view" onClick={openModal}>

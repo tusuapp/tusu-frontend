@@ -87,6 +87,7 @@ const BookingRequestCard: React.FC<BookingRequestCardProps> = ({
         {/* <div style={{ color: "#82296E" }}>
         <FontAwesomeIcon icon={faStickyNote} /> View note
       </div> */}
+        <div> Message : {notes}</div>
         <div className="d-flex justify-content-start mt-3">
           <ConfirmDialogueModal
             onConfirm={() => handleAccept(id)}

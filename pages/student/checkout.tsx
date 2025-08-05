@@ -19,7 +19,7 @@ const makePayment = async (
   try {
     console.log("cartId", cartId);
 
-    let url = `/user/classes/bookings/pay?bookingId=${cartId}`;
+    let url = `/user/classes/bookings/pay?bookingId=${cartId}&message=${notes}`;
     const response = await v2api.post(url);
     console.log("response", response.data);
     if (response.data.paid) {
@@ -251,7 +251,7 @@ const Checkout = () => {
                             </div>
                             <br />
                           </div>
-                          {/* <div
+                          <div
                             style={{ color: "#181818", marginBottom: "7px" }}
                           >
                             Additional Note (If Any)
@@ -262,7 +262,7 @@ const Checkout = () => {
                             rows={4}
                             cols={50}
                             onChange={(e) => setAdditionalNotes(e.target.value)}
-                          ></textarea> */}
+                          ></textarea>
                           <div className="Checkout-card__accentBg">
                             <div className="d-flex justify-content-between">
                               <div>Booked Hour(s):</div>

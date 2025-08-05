@@ -62,7 +62,7 @@ function BookingRequests() {
                     date={booking.schedule?.date}
                     startTime={booking.startTime}
                     endTime={booking.endTime}
-                    notes={booking.notes}
+                    notes={booking.studentMessage}
                     // onChange={() => {
                     //   // dispatch(fetchBookings("pending"));
                     // }}
