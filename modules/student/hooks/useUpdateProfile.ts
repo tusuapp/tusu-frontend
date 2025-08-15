@@ -1,10 +1,10 @@
-import { api } from "api";
+import { api, v2api } from "api";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { convertErrorsToArray } from "../../../utils";
 import { useRouter } from "next/router";
 const updateProfile = async (schedule: any) => {
-  const { data } = await api.put("/student/profile", schedule);
+  const { data } = await v2api.put("/user/profile", schedule);
   // console.log(data);
 
   return data.result;

@@ -132,11 +132,11 @@ function EditProfilePageStudent() {
   const handleSubmit = (values: any) => {
     const data = {
       // ...values,
-      fullname: values.fullname,
+      fullName: values.fullname,
       email: values.email,
       phone: values.phone,
-      country_id: parseInt(values.country.value),
-      country_code: parseInt(values.country.value),
+      countryId: parseInt(values.country.value),
+      countryCode: parseInt(values.country.value),
       timezone: values.timezone.value,
       address: values.address,
       image: picId,
