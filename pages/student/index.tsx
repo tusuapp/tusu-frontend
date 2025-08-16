@@ -86,7 +86,7 @@ const StudentHome = () => {
               })}
             </div>
 
-            <div className="d-flex justify-content-between align-items-center mb-5">
+            {/* <div className="d-flex justify-content-between align-items-center mb-5">
               <h2
                 className="discipline-head mb-5"
                 style={{
@@ -104,7 +104,7 @@ const StudentHome = () => {
               >
                 See More
               </a>
-            </div>
+            </div> */}
             <div className="row row-cols-2 row-cols-lg-5">
               {dashboard.subjects
                 .filter((item: any) => item.type == "subject")

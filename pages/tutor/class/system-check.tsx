@@ -46,7 +46,7 @@ function Home() {
                       <h6 className="m-0">Internet Connection</h6>
                       <p className="system-status">
                         Netwrok Quality:{" "}
-                        <span className="text-danger"> Ok</span>
+                        <span className="text-success"> Ok</span>
                       </p>
                     </div>
                   </div>
@@ -62,7 +62,7 @@ function Home() {
                       <h6 className="m-0">Microphone</h6>
                       <p className="system-status">
                         Netwrok Quality:{" "}
-                        <span className="text-danger"> Ok</span>
+                        <span className="text-success"> Ok</span>
                       </p>
                     </div>
                   </div>
