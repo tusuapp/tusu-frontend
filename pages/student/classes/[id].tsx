@@ -121,8 +121,7 @@ function SystemCheck({ params }: { params: { id: string } }) {
                   <div className="ms-4">
                     <h6 className="m-0">Internet Connection</h6>
                     <div className="system-status">
-                      Netwrok Quality:{" "}
-                      <span className="text-danger"> Poor</span>
+                      Netwrok Quality: <span className="text-danger"> Ok</span>
                     </div>
                   </div>
                 </div>
@@ -140,7 +139,7 @@ function SystemCheck({ params }: { params: { id: string } }) {
                     <h6 className="m-0">Microphone</h6>
                     <div className="system-status">
                       Netwrok Quality:
-                      <span className="text-danger"> Poor</span>
+                      <span className="text-danger"> Ok</span>
                     </div>
                   </div>
                 </div>

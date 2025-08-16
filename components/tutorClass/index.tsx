@@ -18,13 +18,8 @@ const TutorClass: React.FC<any> = ({ booking }) => {
     router.push(`/tutor/classes/${id}`);
   };
 
-  // current local time for the user
   let currentLocalTime = moment().utcOffset(user.timeZoneOffset);
-
-  // booking start time in user's local time
   let scheduleTime = moment(booking.startTime).utcOffset(user.timeZoneOffset);
-
-  // duration between booking start and now
   let duration = moment.duration(scheduleTime.diff(currentLocalTime));
   let hoursLeft = duration.asHours();
 
