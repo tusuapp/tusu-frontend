@@ -157,8 +157,12 @@ const Header: React.FC<Props> = ({ title }) => {
                 <ul className="navbar-nav ms-auto">
                   <li className="nav-item">
                     <div className="nav-button">
-                      <Button type="link" onClick={dispatch(signOutTutor)}>
-                        Logout
+                      <Button
+                        type="link"
+                        onClick={dispatch(signOutTutor)}
+                        disabled
+                      >
+                        Already signed in
                       </Button>
                     </div>
                   </li>
@@ -173,7 +177,7 @@ const Header: React.FC<Props> = ({ title }) => {
                         }
                         type="primary"
                       >
-                        Home
+                        Go to Dashboard
                       </Button>
                     </div>
                   </li>
