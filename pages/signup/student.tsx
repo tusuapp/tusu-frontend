@@ -27,7 +27,7 @@ const numericRegex = /(?=.*[0-9])/;
 const specialCharRegex = /(?=.*[!@#$%^&*])/;
 // const emailAddresses = [(data?.user?.email)];
 const SignUpSchema = Yup.object().shape({
-  full_name: Yup.string()
+  fullName: Yup.string()
     .required("Name is required")
     .matches(/[a-zA-z][a-zA-Z\s]*/, "Please enter valid name"),
 
@@ -77,7 +77,7 @@ const SignUpPage = () => {
   const initialValues = {
     email: "",
     phone: "",
-    full_name: "",
+    fullName: "",
     password: "",
     confirm_password: "",
   };
@@ -132,14 +132,14 @@ const SignUpPage = () => {
   const handleFormSubmit = async (data: any) => {
     const newData = {
       ...data,
-      country_id: 1,
-      timezone: "Asia/Kolkata",
+      countryId: 1,
+      role: "student",
       prefix: countryCode,
       callback_url: `${process.env.NEXT_PUBLIC_FRONTEND_HOME}/accounts/activate-email`,
     };
 
     setIsLoading(true);
-    await dispatch(signUp(newData, "student"));
+    await dispatch(signUp(newData));
     setIsLoading(false);
   };
   const togglePasswordVisiblity = () => {
@@ -194,17 +194,17 @@ const SignUpPage = () => {
                               <div className="form-floating mb-3">
                                 <Field
                                   type="text"
-                                  name="full_name"
-                                  id="full_name"
+                                  name="fullName"
+                                  id="fullName"
                                   className={
-                                    errors.full_name && touched.full_name
+                                    errors.fullName && touched.fullName
                                       ? "form-control input-error"
                                       : "form-control"
                                   }
                                 />
-                                <label htmlFor="full_name">Full name</label>
+                                <label htmlFor="fullName">Full name</label>
                                 <ErrorMessage
-                                  name="full_name"
+                                  name="fullName"
                                   component="div"
                                   className="error"
                                 />
@@ -395,11 +395,7 @@ const SignUpPage = () => {
                                 <Field name="timezone">
                                   {({
                                     field,
-                                    form: {
-                                      touched,
-                                      setFieldValue,
-                                      setTouched,
-                                    },
+                                    form: { setFieldValue, setTouched },
                                   }: any) => (
                                     <div className="mb-3">
                                       <Select
@@ -407,13 +403,18 @@ const SignUpPage = () => {
                                         options={timezoneOptions}
                                         styles={customStyles}
                                         placeholder="Choose timezone"
-                                        // isLoading={isFetching}
-                                        onChange={(option) =>
+                                        id="timezone"
+                                        value={
+                                          timezoneOptions.find(
+                                            (opt) => opt.value === field.value
+                                          ) || null
+                                        }
+                                        onChange={(option: any) => {
                                           setFieldValue(
                                             field.name,
-                                            (option as any).value
-                                          )
-                                        }
+                                            option.value
+                                          );
+                                        }}
                                         onBlur={() =>
                                           setTouched({
                                             ...touched,
@@ -425,6 +426,7 @@ const SignUpPage = () => {
                                     </div>
                                   )}
                                 </Field>
+
                                 <ErrorMessage
                                   name="timezone"
                                   component="div"
@@ -436,7 +438,12 @@ const SignUpPage = () => {
 
                           <div className="acceptTerms">
                             <input type="checkbox" />
-                            <p>I have read and accept <Link href="/student/terms-and-condition">Terms and Conditions</Link></p>
+                            <p>
+                              I have read and accept{" "}
+                              <Link href="/student/terms-and-condition">
+                                Terms and Conditions
+                              </Link>
+                            </p>
                           </div>
 
                           <Button
@@ -473,9 +480,9 @@ const SignUpPage = () => {
                 
                   <LoginGoogle /> */}
 
-                  {/* Sign in with Google */}
+              {/* Sign in with Google */}
 
-                {/* <div className="btn btn-social-auth facebook me-3">
+              {/* <div className="btn btn-social-auth facebook me-3">
                   <img src="/icons/facebook-icon.svg" className="me-2" /> Sign
                   in with Facebook
                 </div>

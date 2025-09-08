@@ -2,10 +2,7 @@ import { api, v2api } from "api";
 import { useQuery } from "react-query";
 
 const fetchScheduledClasses = async (date: any) => {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
-  const { data } = await v2api.get(
-    `/slots?date=${date}&tutorId=${currentUser.user.id}`
-  );
+  const { data } = await v2api.get(`/slots?date=${date}`);
   return data;
 };
 

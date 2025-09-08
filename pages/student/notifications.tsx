@@ -7,7 +7,7 @@ import moment from "moment";
 import NotificationItem from "../../components/notificationItem";
 
 function Notifications() {
-  const { data, fetchNextPage } = useNotifications();
+  const { data } = useNotifications();
   let currentDate: any;
   console.log(data);
 
@@ -32,57 +32,44 @@ function Notifications() {
               >
                 Notifications
               </h3>
-              {data?.pages.map((page) => (
-                <div key={page.nextId}>
-                  {page.result?.map((item: any) => (
-                    <div key={item.nextId}>
-                      {item.content?.map((notification: any) => {
-                        const props = {
-                          id: notification.id,
-                          body: notification.title,
-                          timestamp: notification.created_at,
-                          type: "student",
-                        };
-                        let created_notification = moment(
-                          notification.created_at
-                        ).format();
 
-                        let formattedDate;
-                        if (!currentDate) {
-                          currentDate = notification.created_at;
-                        } else {
-                          if (
-                            moment(currentDate).isSame(
-                              moment(notification.created_at),
-                              "days"
-                            )
-                          ) {
-                            console.log("same current date");
-                          } else {
-                            currentDate = notification.created_at;
+              {data?.map((notification: any, index: number) => {
+                const props = {
+                  id: notification.id,
+                  body: notification.title,
+                  timestamp: notification.createdAt,
+                  type: "student",
+                };
 
-                            formattedDate = moment(
-                              notification.created_at
-                            ).format("MM/DD/YYYY");
-                          }
-                        }
+                let formattedDate;
+                if (!currentDate) {
+                  currentDate = notification.createdAt;
+                } else {
+                  if (
+                    moment(currentDate).isSame(
+                      moment(notification.createdAt),
+                      "day"
+                    )
+                  ) {
+                  } else {
+                    currentDate = notification.createdAt;
+                    formattedDate = moment(notification.createdAt).format(
+                      "MM/DD/YYYY"
+                    );
+                  }
+                }
 
-                        return (
-                          <>
-                            <h6 className="pt-4 text-dark">
-                              {moment(currentDate).isSame(
-                                moment(notification.created_at)
-                              ) && formatDate(notification.created_at)}
-                            </h6>
-                            <NotificationItem {...props} />
-                          </>
-                        );
-                      })}
-                    </div>
-                  ))}
-                </div>
-              ))}
+                return (
+                  <div key={notification.id || index}>
+                    {formattedDate && (
+                      <h6 className="pt-4 text-dark">{formattedDate}</h6>
+                    )}
+                    <NotificationItem {...props} />
+                  </div>
+                );
+              })}
             </div>
+
             <br />
             <br />
             <br />

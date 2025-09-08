@@ -1,20 +1,11 @@
-import { api } from "api";
-import { useInfiniteQuery } from "react-query";
+import { api, v2api } from "api";
+import { useInfiniteQuery, useQuery } from "react-query";
 
 const useNotifications = () => {
-  return useInfiniteQuery(
-    "notificationsList",
-    async ({ pageParam = 1 }) => {
-      const res = await api.get(
-        "/notification/list?page=" + pageParam
-      );
-      return res.data;
-    },
-    {
-      getPreviousPageParam: (firstPage) => firstPage.previousId ?? false,
-      getNextPageParam: (lastPage) => lastPage.nextId ?? false,
-    }
-  );
+  return useQuery("notificationsList", async ({ pageParam = 1 }) => {
+    const res = await v2api.get("/notifications");
+    return res.data;
+  });
 };
 
 export default useNotifications;

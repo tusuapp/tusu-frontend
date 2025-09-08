@@ -4,7 +4,7 @@ import { api, setApplicationName, v2api } from "api";
 import { getErrorMessages, getSuccessMessages } from "../alerts/alertSlice";
 import { convertErrorsToArray } from "../../utils";
 import { toast } from "react-toastify";
-import router from "next/router";
+import router, { Router } from "next/router";
 import axios from "axios";
 
 export interface AuthState {
@@ -61,8 +61,8 @@ export const fetchUser = (): AppThunk => async (dispatch) => {
     dispatch(getUser(response.data));
   } catch (e: any) {
     console.log("Unable to fetch user");
-    // await localStorage.removeItem("accessToken");
-
+    router.replace("/signin");
+    toast("Please sign in again !");
     dispatch(getUser(null));
 
     dispatch(getToken(null));
@@ -78,22 +78,26 @@ export const signInTutor =
   async (dispatch) => {
     try {
       setApplicationName("tutor");
-
-      api
-        .post("/auth/login", data)
+      v2api
+        .post("/auth/login", data, {
+          headers: {
+            "Content-Type": "application/json",
+            "application-name": "tutor",
+          },
+        })
         .then((response) => {
           // console.log(response);
 
           dispatch(getSuccessMessages(["Login success"]));
 
-          dispatch(getToken(response.data.result.jwt));
+          dispatch(getToken(response.data.jwt));
 
-          dispatch(getUser(response.data.result.user));
+          dispatch(getUser(response.data.user));
 
-          localStorage.setItem("accessToken", response.data.result.jwt);
+          localStorage.setItem("accessToken", response.data.jwt);
           localStorage.setItem(
             "currentUser",
-            JSON.stringify(response.data.result)
+            JSON.stringify(response.data.user)
           );
 
           setIsLoading(false);
@@ -118,8 +122,8 @@ export const signIn =
   (data: any, role: any): AppThunk =>
   async (dispatch) => {
     setApplicationName(role);
-    return axios
-      .post("https://api.tusuapp.com/auth/login", data, {
+    return v2api
+      .post("/auth/login", data, {
         headers: {
           "Content-Type": "application/json",
           "application-name": "student",
@@ -130,31 +134,27 @@ export const signIn =
         dispatch(getToken(response.data.jwt));
         dispatch(getUser(response.data.user));
         localStorage.setItem("accessToken", response.data.jwt);
-        localStorage.setItem("currentUser", JSON.stringify(response.data));
+        localStorage.setItem("currentUser", JSON.stringify(response.data.user));
       });
   };
 
 export const signUp =
-  (data: any, role: any): AppThunk =>
+  (data: any): AppThunk =>
   async (dispatch) => {
     try {
-      setApplicationName(role);
-
-      const response = await api.post("/auth/local/register", data);
+      const response = await v2api.post("/auth/register", data);
 
       toast.success("Account created successfully");
 
-      dispatch(getUser(response.data.result.user));
+      dispatch(getUser(response.data.user));
 
       router.push(
-        `/accounts/verify-otp?token=${response.data.result.token}&type=student`
+        `/accounts/verify-otp?token=${response.data.jwt}&type=student`
       );
     } catch (e: any) {
       console.log("Res", e?.response);
 
-      const errorMessages = convertErrorsToArray(e?.response?.data?.error);
-
-      dispatch(getErrorMessages(errorMessages));
+      dispatch(getErrorMessages([e?.response?.data?.error]));
 
       return e?.response?.data?.error;
     }

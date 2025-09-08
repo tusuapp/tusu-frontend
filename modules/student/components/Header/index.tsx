@@ -10,6 +10,8 @@ import ActiveLink from "components/@next/atoms/activeLink";
 import { getUserRole } from "utils";
 import FilterDropdown from "../FilterDropdown";
 import Chat from "../../../../components/chat";
+import { v2api } from "api";
+import { toast } from "react-toastify";
 
 export const NavItem: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -50,6 +52,31 @@ const Header: React.FC<Props> = ({ title }) => {
     setUserRole(userRole);
   }, [user]);
 
+  const [notifications, setNotifications] = useState(0);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      if (!user && userRole != "student") return;
+      try {
+        const { data } = await v2api.get(`/notifications/poll`);
+
+        if (!data.count) {
+          return;
+        }
+        setNotifications(data.count);
+        toast(`You have ${data.count} new notifications`, {
+          type: "info",
+        });
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
+
+    fetchNotifications();
+    const interval = setInterval(fetchNotifications, 5 * 1000);
+    return () => clearInterval(interval);
+  }, [user]);
+
   return (
     <>
       <header>
@@ -84,18 +111,30 @@ const Header: React.FC<Props> = ({ title }) => {
               {user ? (
                 <ul className="navbar-nav ms-auto">
                   <li className="nav-item d-flex align-items-center">
-                    {/* <div
-                      className="nav-button mouse"
-                      onClick={dispatch(signOutTutor)}
-                    >
-                      Logout
-                    </div> */}
-                    <div className="me-3">
-                      <a href="/student/notifications">
-                        <img src="/icons/tutor/notification.svg" />
+                    <div className="me-3 position-relative">
+                      <a
+                        href="/student/notifications"
+                        className="position-relative"
+                      >
+                        <img
+                          src="/icons/tutor/notification.svg"
+                          alt="Notifications"
+                          style={{ width: "24px", height: "24px" }}
+                        />
+
+                        <span
+                          className="badge rounded-pill bg-danger text-white position-absolute top-0 start-100 translate-middle"
+                          style={{
+                            fontSize: "0.7rem",
+                            padding: "0.25em 0.4em",
+                          }}
+                        >
+                          {notifications}
+                        </span>
                       </a>
                     </div>
                   </li>
+
                   <li className="nav-item">
                     <div className="nav-button pe-0">
                       <ProfileMenu

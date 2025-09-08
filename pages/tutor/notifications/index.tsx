@@ -7,7 +7,7 @@ import moment from "moment";
 import React from "react";
 
 function Notifications() {
-  const { data, fetchNextPage } = useNotifications();
+  const { data } = useNotifications();
   let currentDate: any;
 
   const formatDate = (date: any) => {
@@ -22,64 +22,56 @@ function Notifications() {
       <TutorDashboardLayout>
         <Container>
           <h2 className="tutor__dashboard__title mb-4">Notifications</h2>
-          {data?.pages.map((page) => (
-            <React.Fragment key={page.nextId}>
-              {/* {JSON.stringify(page)} */}
-              {page.result?.map((item: any) => (
-                <React.Fragment key={item.nextId}>
-                  {item.content?.map((notification: any) => {
-                    const props = {
-                      id: notification.id,
-                      body: notification.title,
-                      timestamp: notification.created_at,
-                      type: "tutor",
-                    };
 
-                    let formattedDate;
+          {data?.map((notification: any) => {
+            const props = {
+              id: notification.id,
+              body: notification.title,
+              timestamp: notification.createdAt,
+              type: "tutor",
+            };
 
-                    if (!currentDate) {
-                      currentDate = notification.created_at;
-                    } else {
-                      console.log("current date", currentDate);
-                      console.log("craeetd", notification.created_at);
-                      if (
-                        moment(currentDate).isSame(
-                          moment(notification.created_at),
-                          "days"
-                        )
-                      ) {
-                        console.log("same curent date");
-                      } else {
-                        currentDate = notification.created_at;
+            let formattedDate;
 
-                        formattedDate = moment(notification.created_at).format(
-                          "MM/DD/YYYY"
-                        );
-                      }
-                    }
+            if (!currentDate) {
+              currentDate = notification.createdAt;
+            } else {
+              console.log("current date", currentDate);
+              console.log("craeetd", notification.createdAt);
+              if (
+                moment(currentDate).isSame(
+                  moment(notification.createdAt),
+                  "days"
+                )
+              ) {
+                console.log("same curent date");
+              } else {
+                currentDate = notification.createdAt;
 
-                    return (
-                      <>
-                        <div
-                          className="mb-3"
-                          style={{
-                            color: "#000000",
-                            fontSize: "15px",
-                            fontWeight: 500,
-                          }}
-                        >
-                          {moment(currentDate).isSame(
-                            moment(notification.created_at)
-                          ) && formatDate(notification.created_at)}
-                        </div>
-                        <NotificationItem {...props} />
-                      </>
-                    );
-                  })}
-                </React.Fragment>
-              ))}
-            </React.Fragment>
-          ))}
+                formattedDate = moment(notification.createdAt).format(
+                  "MM/DD/YYYY"
+                );
+              }
+            }
+
+            return (
+              <>
+                <div
+                  className="mb-3"
+                  style={{
+                    color: "#000000",
+                    fontSize: "15px",
+                    fontWeight: 500,
+                  }}
+                >
+                  {moment(currentDate).isSame(
+                    moment(notification.created_at)
+                  ) && formatDate(notification.created_at)}
+                </div>
+                <NotificationItem {...props} />
+              </>
+            );
+          })}
         </Container>
       </TutorDashboardLayout>
     </>

@@ -1,11 +1,12 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../../../../features/auth/authSlice";
 import ActiveLink from "components/@next/atoms/activeLink";
-
 import useBookings from "@/tutor/hooks/useBookings";
 import useEarnings from "@/tutor/hooks/useEarnings";
+import axios from "axios";
+import { v2api } from "api";
+import { toast } from "react-toastify";
 
 interface MenuItemProps {
   href: string;
@@ -39,13 +40,6 @@ const menuItems = [
     link: "/tutor/earnings",
     icon: "/icons/tutor/dollar.svg",
   },
-
-  // {
-  //   name: "Messages",
-  //   link: "/tutor/messages/sdds",
-  //   icon: "/icons/tutor/dollar.svg",
-  // },
-
   {
     name: "Class Schedule",
     link: "/tutor/class-schedules",
@@ -61,26 +55,7 @@ const menuItems = [
     link: "/tutor/notifications",
     icon: "/icons/tutor/notification.svg",
   },
-  {
-    name: "Help",
-    link: "/tutor/faq",
-    icon: "/icons/tutor/teacher.svg",
-  },
-  // {
-  //   name: "Contact Us",
-  //   link: "/tutor/contact",
-  //   icon: "/icons/tutor/teacher.svg",
-  // },
-  // {
-  //   name: "Legal",
-  //   link: "/tutor/privacy-policy",
-  //   icon: "/icons/tutor/teacher.svg",
-  // },
-  // {
-  //   name: "Terms and Conditions",
-  //   link: "/tutor/student-terms-and-conditions",
-  //   icon: "/icons/tutor/teacher.svg",
-  // },
+  { name: "Help", link: "/tutor/faq", icon: "/icons/tutor/teacher.svg" },
 ];
 
 const Sidebar = () => {
@@ -88,9 +63,32 @@ const Sidebar = () => {
   const { data } = useBookings();
   const earnings = useEarnings("all");
   const classCount = data?.bookings.filter(
-    (key: any) => key.status == "completed"
+    (key: any) => key.status === "completed"
   );
-  console.log(data);
+
+  const [notifications, setNotifications] = useState(0);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const { data } = await v2api.get(`/notifications/poll`);
+        if (!data.count) {
+          return;
+        }
+        setNotifications(data.count);
+        toast(`You have ${data.count} new notifications`, {
+          type: "info",
+        });
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
+
+    fetchNotifications();
+    const interval = setInterval(fetchNotifications, 30 * 1000);
+    return () => clearInterval(interval);
+  }, [user]);
+
   return (
     <div className="sidebar">
       <div
@@ -100,23 +98,18 @@ const Sidebar = () => {
         <div className="text-center">
           <img
             src={user?.imageUrl}
-            style={{
-              borderRadius: "15px",
-              paddingTop: "10px",
-              marginRight: "80px",
-            }}
+            style={{ borderRadius: "15px", paddingTop: "10px" }}
             height="25%"
             width="25%"
             alt="profile"
           />
         </div>
         <div
-          className=" "
           style={{
             color: "white",
             display: "flex",
             justifyContent: "start",
-            marginLeft: "83px",
+            marginLeft: "40px",
             marginTop: "10px",
             fontSize: "20px",
           }}
@@ -124,13 +117,11 @@ const Sidebar = () => {
           {user?.fullName}
         </div>
         <div
-          className=" "
           style={{
             color: "white",
             display: "flex",
             justifyContent: "start",
-            marginLeft: "83px",
-
+            marginLeft: "40px",
             fontWeight: "lighter",
           }}
         >
@@ -151,11 +142,8 @@ const Sidebar = () => {
               <img src="/icons/tutor/dollar.svg" />
             </div>
             <div>
-              <h6>
-                {earnings?.data?.currency}{" "}
-                {earnings?.data?.getEarnings?.total_earnings}
-              </h6>
-              <p>Earnings</p>
+              <h6>{notifications || 0}</h6>
+              <p>Notifications</p>
             </div>
           </div>
         </div>
