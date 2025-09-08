@@ -78,8 +78,8 @@ export const signInTutor =
   async (dispatch) => {
     try {
       setApplicationName("tutor");
-      v2api
-        .post("/auth/login", data, {
+      axios
+        .post("https://api.tusuapp.com/auth/login", data, {
           headers: {
             "Content-Type": "application/json",
             "application-name": "tutor",
@@ -122,8 +122,8 @@ export const signIn =
   (data: any, role: any): AppThunk =>
   async (dispatch) => {
     setApplicationName(role);
-    return v2api
-      .post("/auth/login", data, {
+    return axios
+      .post("https://api.tusuapp.com/auth/login", data, {
         headers: {
           "Content-Type": "application/json",
           "application-name": "student",
