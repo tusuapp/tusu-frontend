@@ -79,7 +79,7 @@ export const signInTutor =
     try {
       setApplicationName("tutor");
       axios
-        .post("https://api.tusuapp.com/auth/login", data, {
+        .post("https://v2api.tusuapp.com/auth/login", data, {
           headers: {
             "Content-Type": "application/json",
             "application-name": "tutor",
@@ -123,7 +123,7 @@ export const signIn =
   async (dispatch) => {
     setApplicationName(role);
     return axios
-      .post("https://api.tusuapp.com/auth/login", data, {
+      .post("https://v2api.tusuapp.com/auth/login", data, {
         headers: {
           "Content-Type": "application/json",
           "application-name": "student",
