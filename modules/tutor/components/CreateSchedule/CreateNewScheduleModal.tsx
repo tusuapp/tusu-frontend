@@ -3,30 +3,15 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Modal from "react-modal";
 import { toast } from "react-toastify";
 import Button from "../../../../components/button";
 import TimePicker from "react-time-picker/dist/entry.nostyle";
 import moment from "moment";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
-    border: "none",
-    borderRadius: "20px",
-    width: "400px",
-    maxWidth: "90%",
-    height: "auto",
-    maxHeight: "90vh",
-    padding: "35px 40px",
-    boxShadow: "0px 3px 6px #00000029",
-    overflow: "hidden",
-  },
-};
+
 
 interface Props {
   isOpen: boolean;
@@ -110,7 +95,7 @@ const CreateNewScheduleModal: React.FC<Props> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} style={customStyles} contentLabel="Create Schedule Modal">
+    <Modal isOpen={isOpen} className={"scheduling-modal"} style={customStyles} contentLabel="Create Schedule Modal">
       <AnimatePresence>
         <motion.div
           key="CreateScheduleModal"
@@ -170,37 +155,18 @@ const CreateNewScheduleModal: React.FC<Props> = ({
             <br />
 
             {/* Trial Checkbox */}
-            <span>
-              <label
-  style={{
-    display: "inline-flex",
-    alignItems: "center",
-    backgroundColor: "#f8f9fa",
-    border: "1px solid #dee2e6",
-    borderRadius: "8px",
-    padding: "8px 12px",
-    cursor: "pointer",
-    fontFamily: "Poppins, sans-serif",
-    fontSize: "14px",
-    color: "#333",
-    transition: "all 0.3s ease",
-  }}
->
-  <input
-    type="checkbox"
-    checked={isShortSlot}
-    onChange={handleCheckboxChange}
-    style={{
-      accentColor: "#1976d2", // Blue checkbox color
-      marginRight: "10px",
-      width: "18px",
-      height: "18px",
-      cursor: "pointer",
-    }}
-  />
-  <span>This is a trial</span>
-</label>
-            </span>
+            <div style={{ marginTop: 8 }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={isShortSlot}
+                    onChange={handleCheckboxChange}
+                    color="primary"
+                  />
+                }
+                label="This is a trial"
+              />
+            </div>
 
             <Button
               className="mt-3 w-100 btn-lg"
