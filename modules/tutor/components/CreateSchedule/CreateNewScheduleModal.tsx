@@ -95,7 +95,7 @@ const CreateNewScheduleModal: React.FC<Props> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} className={"scheduling-modal"} style={customStyles} contentLabel="Create Schedule Modal">
+    <Modal isOpen={isOpen} className={"scheduling-modal"}  contentLabel="Create Schedule Modal">
       <AnimatePresence>
         <motion.div
           key="CreateScheduleModal"
