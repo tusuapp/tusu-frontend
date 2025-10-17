@@ -219,3 +219,42 @@
     }
   }
 }
+
+.create-schedule-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-schedule-modal {
+  background: #fff;
+  border: none;
+  border-radius: 20px;
+  width: 400px;
+  max-width: 90%;
+  max-height: 90vh;
+  padding: 35px 40px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+  overflow: hidden;
+}
+
+
+.scheduling-modal {
+  background-color: white;
+  opacity: 100;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 20px;
+  width: 400px;
+  max-width: 90%;
+  height: auto;
+  max-height: 90vh;
+  padding: 35px 40px;
+  box-shadow: 0px 3px 6px #00000029;
+  overflow: hidden;
+}

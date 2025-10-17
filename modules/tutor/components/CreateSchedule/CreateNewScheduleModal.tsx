@@ -2,31 +2,16 @@ import useCreateTutorSlots from "@/tutor/hooks/useCreateTutorSlots";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Modal from "react-modal";
-import TimeField from "react-simple-timefield";
 import { toast } from "react-toastify";
-import { boolean } from "yup/lib/locale";
 import Button from "../../../../components/button";
 import TimePicker from "react-time-picker/dist/entry.nostyle";
 import moment from "moment";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    border: "none",
-    borderRadius: "20px",
-    width: "399px",
-    height: "470px",
-    padding: "40px",
-    boxShadow: "0px 3px 6px #00000029",
-  },
-};
+
 
 interface Props {
   isOpen: boolean;
@@ -47,64 +32,94 @@ const CreateNewScheduleModal: React.FC<Props> = ({
   description = "Create a new time schedule for your class by adding your class timing",
   selectedDate = "",
 }) => {
+  const { mutate } = useCreateTutorSlots();
+  const [isShortSlot, setIsShortSlot] = useState(false);
+
   const [data, setData] = useState({
-    start_time: new Date(new Date().setHours(0, 0)), // 12:00 AM
-    end_time: new Date(new Date().setHours(13, 0)), // 1:00 PM
+    start_time: moment().set({ hour: 9, minute: 0 }).format("HH:mm"), // default 9 AM
+    end_time: moment().set({ hour: 10, minute: 0 }).format("HH:mm"), // default +1 hr
     date: selectedDate,
   });
 
-  console.log("Modal date = ", selectedDate);
+  // 🕐 When user changes start time
+  const handleStartTimeChange = (value: string | null) => {
+    if (!value) return;
 
-  const { mutate } = useCreateTutorSlots();
+    const startMoment = moment(value, "HH:mm");
+    const newEnd = isShortSlot
+      ? startMoment.clone().add(15, "minutes")
+      : startMoment.clone().add(1, "hours");
 
+    setData({
+      ...data,
+      start_time: startMoment.format("HH:mm"),
+      end_time: newEnd.format("HH:mm"),
+    });
+  };
+
+  // ✅ Checkbox handler for short slot
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    setIsShortSlot(checked);
+
+    const startMoment = moment(data.start_time, "HH:mm");
+    const newEnd = checked
+      ? startMoment.clone().add(15, "minutes")
+      : startMoment.clone().add(1, "hours");
+
+    setData((prev) => ({
+      ...prev,
+      end_time: newEnd.format("HH:mm"),
+    }));
+  };
+
+  // 💾 Save schedule
   const handleSaveSchedule = () => {
     const schedulePayload = {
-      fromDateTime: `${selectedDate}T${data.start_time}`,
-      toDateTime: `${selectedDate}T${data.end_time}`,
+      fromDateTime: `${selectedDate}T${data.start_time}:00`,
+      toDateTime: `${selectedDate}T${data.end_time}:00`,
+      isTrialSlot : isShortSlot
     };
+
     mutate(schedulePayload, {
       onSuccess: () => {
-        setData({ start_time: "", end_time: "", date: selectedDate });
+        toast.success("Schedule saved successfully!");
+        setData({
+          start_time: moment().set({ hour: 9, minute: 0 }).format("HH:mm"),
+          end_time: moment().set({ hour: 10, minute: 0 }).format("HH:mm"),
+          date: selectedDate,
+        });
+        setIsShortSlot(false);
         onClose();
       },
     });
   };
 
-  const handleStartTimeChange = (value: any) => {
-    if (value == null) {
-      return;
-    }
-    setData({
-      ...data,
-
-      start_time: moment(value, "hh:mm").format("HH:mm:ss"),
-      end_time: moment(value, "hh:mm").add(1, "hours").format("HH:mm:ss"),
-    });
-  };
-
   return (
-    <Modal isOpen={isOpen} style={customStyles} contentLabel="Example Modal">
+    <Modal isOpen={isOpen} className={"scheduling-modal"}  contentLabel="Create Schedule Modal">
       <AnimatePresence>
         <motion.div
-          key="ConfirmDialogueBox"
+          key="CreateScheduleModal"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <div className="d-flex justify-content-end">
             <div
-              style={{ fontSize: "22px", position: "absolute", top: "20px" }}
+              style={{ fontSize: "22px", position: "absolute", top: "20px", cursor: "pointer" }}
               onClick={() => {
-                setData({ start_time: "", end_time: "" });
                 onClose(false);
               }}
             >
               <FontAwesomeIcon icon={faTimes} />
             </div>
           </div>
+
           <div className="Create-schedule__modal__title">{title}</div>
           <p className="Create-schedule__modal__desc">{description}</p>
+
           <form onSubmit={(e) => e.preventDefault()}>
+            {/* Start Time */}
             <div className="Create-schedule__modal__fields">
               <label>Start time</label>
               <div>
@@ -112,36 +127,52 @@ const CreateNewScheduleModal: React.FC<Props> = ({
                   onChange={handleStartTimeChange}
                   clockIcon={null}
                   clearIcon={null}
-                  // amPmAriaLabel={"Select AM/PM"}
                   value={data.start_time}
                   disableClock={true}
-                  locale="hu-HU"
+                  locale="en-US"
                   format="hh:mm a"
                 />
               </div>
             </div>
+
             <br />
+
+            {/* End Time */}
             <div className="Create-schedule__modal__fields">
               <label>End time</label>
               <div>
                 <TimePicker
                   clockIcon={null}
                   clearIcon={null}
-                  // amPmAriaLabel={"Select AM/PM"}
                   value={data.end_time}
                   disableClock={true}
-                  locale="hu-HU"
+                  locale="en-US"
                   format="hh:mm a"
                   disabled={true}
                 />
               </div>
             </div>
+
             <br />
+
+            {/* Trial Checkbox */}
+            <div style={{ marginTop: 8 }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={isShortSlot}
+                    onChange={handleCheckboxChange}
+                    color="primary"
+                  />
+                }
+                label="This is a trial"
+              />
+            </div>
+
             <Button
-              className="mt-1 w-100 btn-lg"
+              className="mt-3 w-100 btn-lg"
               type="primary"
               onClick={handleSaveSchedule}
-              // loading={true}
             >
               Save Schedule
             </Button>
