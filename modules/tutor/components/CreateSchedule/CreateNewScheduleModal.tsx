@@ -78,6 +78,7 @@ const CreateNewScheduleModal: React.FC<Props> = ({
     const schedulePayload = {
       fromDateTime: `${selectedDate}T${data.start_time}:00`,
       toDateTime: `${selectedDate}T${data.end_time}:00`,
+      isTrialSlot : isShortSlot
     };
 
     mutate(schedulePayload, {
