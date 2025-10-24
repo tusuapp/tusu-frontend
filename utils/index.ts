@@ -69,10 +69,11 @@ export const formatYYYYMMDD = function (date: Date, seperator: string = "/") {
 export const convertApiToStateFormat = (data: any, type: any) => {
   const convertedData: any = [];
 
-  if (type === "descipline") {
+  if (type === "discipline") {
     data.forEach((item: any) => {
       convertedData.push({ label: item.name, value: item.id });
     });
+    console.log(data);
   }
 
   if (type === "subject") {
@@ -84,6 +85,18 @@ export const convertApiToStateFormat = (data: any, type: any) => {
   if (type === "timezone") {
     data.forEach((item: any) => {
       convertedData.push({ label: item, value: item });
+    });
+  }
+
+  if (type === "languages") {
+    data.forEach((item: any) => {
+      convertedData.push({ label: item.name, value: item.id });
+    });
+  }
+
+  if (type === "countries") {
+    data.forEach((item: any) => {
+      convertedData.push({ label: item.name, value: item.id });
     });
   }
 

@@ -124,7 +124,7 @@ const Header: React.FC = () => {
                       <Link href="/tutor">
                         <Button type="primary">
                           <img
-                            src={user.imageUrl}
+                            src={user?.imageUrl || "/icons/tutor/user.svg"}
                             height="30px"
                             width="30px"
                             style={{ borderRadius: "50%", marginRight: "20px" }}
@@ -183,7 +183,7 @@ const Header: React.FC = () => {
                 <Link href="/tutor">
                   <Button type="primary">
                     <img
-                      src={user.imageUrl}
+                      src={user?.imageUrl || "/icons/tutor/user.svg"}
                       height="30px"
                       width="30px"
                       style={{ borderRadius: "50%", marginRight: "20px" }}

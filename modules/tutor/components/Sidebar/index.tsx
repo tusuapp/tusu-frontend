@@ -97,10 +97,11 @@ const Sidebar = () => {
       >
         <div className="text-center">
           <img
-            src={user?.imageUrl}
+            className=" mt-2"
+            src={user?.imageUrl || "/icons/tutor/user.svg"}
             style={{ borderRadius: "15px", paddingTop: "10px" }}
-            height="25%"
-            width="25%"
+            height="50px"
+            width="50px"
             alt="profile"
           />
         </div>

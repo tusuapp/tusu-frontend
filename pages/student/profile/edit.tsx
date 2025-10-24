@@ -28,22 +28,6 @@ import useInitialFormData from "@/student/hooks/useInitialFormData";
 
 import { useRouter } from "next/router";
 
-const convertApiToStateFormat = (data: any, type: any) => {
-  const convertedData: any = [];
-  if (type === "descipline") {
-    data.forEach((item: any) => {
-      convertedData.push({ label: item.name, value: item.id });
-    });
-  }
-
-  if (type === "subject") {
-    data.forEach((item: any) => {
-      convertedData.push({ label: item.name, value: item.id });
-    });
-  }
-  return convertedData;
-};
-
 const ProfileSchema = Yup.object().shape({
   fullname: Yup.string().required("Full name is required"),
   country: Yup.object()
@@ -240,7 +224,7 @@ function EditProfilePageStudent() {
                                       <img
                                         src={
                                           user?.imageUrl ||
-                                          "/image/img_avatar.png"
+                                          "/icons/tutor/user.svg"
                                         }
                                         height={"100px"}
                                         onClick={onImageUpload}

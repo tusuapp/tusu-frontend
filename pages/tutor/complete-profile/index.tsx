@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Header from "../../../components/header";
-
-import withAuthNew from "../../../HOC/withAuthNew";
 import CreateSchedule from "../../../modules/tutor/components/CreateSchedule";
 import StepOne from "@/tutor/components/CompleteProfile/StepOne";
 import StepTwo from "@/tutor/components/CompleteProfile/StepTwo";
@@ -9,9 +7,7 @@ import Button from "components/button";
 import useInitialFormData from "@/tutor/hooks/useInitialFormData";
 import { AnimatePresence, motion } from "framer-motion";
 import useCompleteTutorProfile from "@/tutor/hooks/useCompleteTutorProfile";
-
 import { Step, Stepper } from "react-form-stepper";
-import { activateEmail } from "features/auth/authSlice";
 
 interface ExtraProfile {
   description: string;
@@ -19,21 +15,9 @@ interface ExtraProfile {
   disciplines: number[];
   languages: number[];
   experience: number;
-  hourly_charge: number;
+  hourlyCharge: number;
   gender: "male" | "female" | "others";
 }
-
-const stepStyleDefaults = {
-  activeBgColor: "#ed1d24",
-  activeTextColor: "#ffffff",
-  completedBgColor: "#a10308",
-  completedTextColor: "#ffffff",
-  inactiveBgColor: "#e0e0e0",
-  inactiveTextColor: "#ffffff",
-  size: "2em",
-  circleFontSize: "1rem",
-  borderRadius: "50%",
-};
 
 const ChooseSchedulePage = () => {
   const [step, setStep] = useState(1);
@@ -80,44 +64,38 @@ const ChooseSchedulePage = () => {
                   }}
                 >
                   {step === 1 && (
-                    <AnimatePresence>
-                      <motion.img
-                        key="CreateScheduleImage"
-                        initial={{ x: 300, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: -300, opacity: 0 }}
-                        className="img-fluid"
-                        src="/image/tutor/complete-profile/1.png"
-                        height="100%"
-                      />
-                    </AnimatePresence>
+                    <motion.img
+                      key="CreateScheduleImage"
+                      initial={{ x: 300, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: -300, opacity: 0 }}
+                      className="img-fluid"
+                      src="/image/tutor/complete-profile/1.png"
+                      height="100%"
+                    />
                   )}
                   {step === 2 && (
-                    <AnimatePresence>
-                      <motion.img
-                        key="CreateScheduleImage"
-                        initial={{ x: 300, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: -300, opacity: 0 }}
-                        src="/image/tutor/complete-profile/2.png"
-                        className="img-fluid"
-                        height="100%"
-                      />
-                    </AnimatePresence>
+                    <motion.img
+                      key="CreateScheduleImage"
+                      initial={{ x: 300, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: -300, opacity: 0 }}
+                      src="/image/tutor/complete-profile/2.png"
+                      className="img-fluid"
+                      height="100%"
+                    />
                   )}
                   {step === 3 && (
-                    <AnimatePresence>
-                      <motion.img
-                        key="CreateScheduleImage"
-                        initial={{ x: 300, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: -300, opacity: 0 }}
-                        className="img-fluid"
-                        src="/image/tutorschedule.svg"
-                        height="100%"
-                        style={{ maxWidth: "80%" }}
-                      />
-                    </AnimatePresence>
+                    <motion.img
+                      key="CreateScheduleImage"
+                      initial={{ x: 300, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: -300, opacity: 0 }}
+                      className="img-fluid"
+                      src="/image/tutorschedule.svg"
+                      height="100%"
+                      style={{ maxWidth: "80%" }}
+                    />
                   )}
                 </div>
                 <div
@@ -171,7 +149,7 @@ const ChooseSchedulePage = () => {
                   {step === 2 && (
                     <>
                       <StepTwo
-                        initialFormData={data}
+                        fetchedApiData={data}
                         onSubmit={handleSecondPageSubmit}
                         isFetching={isFetching}
                       />

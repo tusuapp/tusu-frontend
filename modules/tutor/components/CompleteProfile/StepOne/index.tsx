@@ -68,9 +68,9 @@ const StepOne: React.FC<Props> = ({
   const getInitialFormData = () => {
     if (!initialFormData) return;
 
-    const { disciplines } = initialFormData;
+    const disciplines = initialFormData.discipline;
 
-    setDisciplineOptions(convertApiToStateFormat(disciplines, "descipline"));
+    setDisciplineOptions(convertApiToStateFormat(disciplines, "discipline"));
   };
 
   const handleFormSubmit = (values: any) => {

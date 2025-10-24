@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import TutorDashboardLayout from "layouts/TutorDashboard";
 import withAuthNew from "HOC/withAuthNew";
 import useTutorProfile from "@/tutor/hooks/useTutorProfile";
 import ImageUploading from "react-images-uploading";
@@ -24,13 +23,11 @@ import TutorProfilePage from "layouts/TutorProfilePage";
 import DoneIcon from "@mui/icons-material/Done";
 import useUpdateProfileVideo from "@/tutor/hooks/useUpdateProfileVideo";
 import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
 import { api, v2api } from "../../../api";
 import { useQuery } from "react-query";
 import ReactPlayer from "react-player";
-import { useSelector } from "react-redux";
-import { selectStudentTutorProfile } from "features/students/TutorProfileSlice";
 import { toast } from "react-toastify";
+import MultiSelectField from "components/multiselect/MultiSelectProps";
 
 const PAGE_PERMISSION_ROLE = "tutor";
 const EditProfileSchema = Yup.object().shape({
@@ -44,10 +41,7 @@ const EditProfileSchema = Yup.object().shape({
 
 function Profile() {
   const [images, setImages] = useState<any>([]);
-  const [video, setVideo] = useState<any>([]);
-  const [value, setValue] = useState<any>("");
   const [promptOpen, setPromptOpen] = useState<boolean>(false);
-  const [promptCancel, setPromptCancel] = useState<boolean>(false);
   const [initialValues, setInitialValues] = useState<any>(null);
   const [isVideoUploading, setIsVideoUploading] = useState<any>(false);
   const [imageId, setImageId] = useState<number>();
@@ -63,11 +57,6 @@ function Profile() {
   const initialFormData = useInitialFormData();
   const router = useRouter();
   const inputEl = useRef<HTMLInputElement>(null);
-  const allCountries = useQuery("allCountries", () =>
-    api.get("/countries").then((res) => res.data)
-  );
-
-  // console.log("profile data edit page =====>", userProfile);
 
   useEffect(() => {
     getInitialFormData();
@@ -76,7 +65,6 @@ function Profile() {
   const getInitialFormData = () => {
     if (!userProfile.data) return;
     const { data } = userProfile;
-    console.log(data);
 
     setInitialValues({
       name: data?.tutor?.fullName,
@@ -135,12 +123,13 @@ function Profile() {
     inputEl.current?.click();
   };
   const handleSubmit = async (values: any) => {
-    console.log("Values", values);
+    console.log(values);
 
     const data = {
       fullName: values.name,
       email: values.email,
       phone: values.phone,
+      gender: values.gender.label,
       description: values?.description,
       countryId: values.country.value,
       countryCode: values.country.value,
@@ -313,6 +302,10 @@ function Profile() {
                         <div>
                           <button
                             type="submit"
+                            onClick={(e) => {
+                              e.preventDefault(); // stops page reload
+                              handleSubmit(values);
+                            }}
                             className="btn btn-default mb-2"
                             style={{
                               backgroundColor: "#FBB017",
@@ -582,7 +575,7 @@ function Profile() {
                                     <div className="mb-3">
                                       <Select
                                         instanceId="country-select"
-                                        options={allCountries?.data?.result
+                                        options={initialFormData?.data?.countries
                                           .sort((a: any, b: any) =>
                                             a.name > b.name ? 1 : -1
                                           )
@@ -632,7 +625,7 @@ function Profile() {
                                   <div className="mb-3">
                                     <Select
                                       instanceId="timezone-select"
-                                      options={initialFormData?.data?.timezone.map(
+                                      options={initialFormData?.data?.timezones?.map(
                                         (item: any) => ({
                                           label: item,
                                           value: item,
@@ -690,114 +683,32 @@ function Profile() {
                                 className="error"
                               />
                             </div>
-                            <div
-                              className="col-12 col-sm-4"
-                              style={{
-                                width: "330px",
-                                height: "100px",
-                              }}
-                            >
-                              <div className="profile__field__label">
-                                Disciplines
-                              </div>
-                              <div className="profile__field__value">
-                                <Field name="disciplines">
-                                  {({
-                                    field,
-                                    form: {
-                                      touched,
-                                      setFieldValue,
-                                      setTouched,
-                                    },
-                                  }: any) => (
-                                    <div className="mb-3">
-                                      <Select
-                                        instanceId="disciplines-select"
-                                        options={initialFormData?.data?.disciplines.map(
-                                          (item: any) => ({
-                                            label: item.name,
-                                            value: item.id,
-                                          })
-                                        )}
-                                        styles={customStyles}
-                                        isLoading={initialFormData.isFetching}
-                                        onChange={(value: any) => {
-                                          setFieldValue(field.name, value);
-                                        }}
-                                        defaultValue={initialValues.disciplines}
-                                        isMulti={true}
-                                        onBlur={() =>
-                                          setTouched({
-                                            ...touched,
-                                            [field.name]: true,
-                                          })
-                                        }
-                                        menuPlacement="top"
-                                      />
-                                    </div>
-                                  )}
-                                </Field>
-                                <ErrorMessage
-                                  name="disciplines"
-                                  component="div"
-                                  className="error"
-                                />
-                              </div>
-                            </div>
-                            <div
-                              className="col-12 col-sm-4"
-                              style={{
-                                width: "330px",
-                                height: "100px",
-                              }}
-                            >
-                              <div className="profile__field__label">
-                                Subjects
-                              </div>
-                              <div className="profile__field__value">
-                                <Field name="subjects">
-                                  {({
-                                    field,
-                                    form: {
-                                      touched,
-                                      setFieldValue,
-                                      setTouched,
-                                    },
-                                  }: any) => (
-                                    <div className="mb-3">
-                                      <Select
-                                        instanceId="subjects-select"
-                                        options={initialFormData?.data?.subjects.map(
-                                          (item: any) => ({
-                                            label: item.name,
-                                            value: item.id,
-                                          })
-                                        )}
-                                        styles={customStyles}
-                                        isLoading={initialFormData.isFetching}
-                                        onChange={(value: any) => {
-                                          setFieldValue(field.name, value);
-                                        }}
-                                        defaultValue={initialValues.subjects}
-                                        isMulti={true}
-                                        onBlur={() =>
-                                          setTouched({
-                                            ...touched,
-                                            [field.name]: true,
-                                          })
-                                        }
-                                        menuPlacement="top"
-                                      />
-                                    </div>
-                                  )}
-                                </Field>
-                                <ErrorMessage
-                                  name="subjects"
-                                  component="div"
-                                  className="error"
-                                />
-                              </div>
-                            </div>
+                            <MultiSelectField
+                              name="disciplines"
+                              label="Disciplines"
+                              options={initialFormData?.data?.discipline?.map(
+                                (i: any) => ({
+                                  label: i.name,
+                                  value: i.id,
+                                })
+                              )}
+                              isLoading={initialFormData.isFetching}
+                              menuPlacement="top"
+                            />
+                            <MultiSelectField
+                              name="subjects"
+                              label="Subjects"
+                              options={
+                                initialFormData?.data?.subject?.map(
+                                  (item: any) => ({
+                                    label: item.name,
+                                    value: item.id,
+                                  })
+                                ) || []
+                              }
+                              isLoading={initialFormData.isFetching}
+                              menuPlacement="top"
+                            />
                             <div
                               className="col-12 col-sm-4"
                               style={{
@@ -824,7 +735,6 @@ function Profile() {
                                         instanceId="gender-select"
                                         options={genderOptions}
                                         styles={customStyles}
-                                        isLoading={initialFormData.isFetching}
                                         onChange={(options: any) => {
                                           setFieldValue(field.name, options);
                                         }}
@@ -876,63 +786,18 @@ function Profile() {
                                 className="error"
                               />
                             </div>
-                            <div
-                              className="col-12 col-sm-4"
-                              style={{
-                                width: "330px",
-                                height: "100px",
-                              }}
-                            >
-                              <div className="profile__field__label">
-                                Known languages
-                              </div>
-                              <div className="profile__field__value">
-                                {/* ${data?.tutor_details?.hourly_charge} */}
-                                <Field name="knownLanguages">
-                                  {({
-                                    field,
-                                    form: {
-                                      touched,
-                                      setFieldValue,
-                                      setTouched,
-                                    },
-                                  }: any) => (
-                                    <div className="mb-3">
-                                      <Select
-                                        instanceId="disciplines-select"
-                                        options={initialFormData?.data?.languages.map(
-                                          (item: any) => ({
-                                            label: item.name,
-                                            value: item.id,
-                                          })
-                                        )}
-                                        styles={customStyles}
-                                        isLoading={initialFormData.isFetching}
-                                        onChange={(value: any) => {
-                                          setFieldValue(field.name, value);
-                                        }}
-                                        defaultValue={
-                                          initialValues.knownLanguages
-                                        }
-                                        isMulti={true}
-                                        onBlur={() =>
-                                          setTouched({
-                                            ...touched,
-                                            [field.name]: true,
-                                          })
-                                        }
-                                        menuPlacement="top"
-                                      />
-                                    </div>
-                                  )}
-                                </Field>
-                                <ErrorMessage
-                                  name="knownLanguages"
-                                  component="div"
-                                  className="error"
-                                />
-                              </div>
-                            </div>
+                            <MultiSelectField
+                              name="knownLanguages"
+                              label="Known Languages"
+                              options={initialFormData?.data?.languages?.map(
+                                (i: any) => ({
+                                  label: i.name,
+                                  value: i.id,
+                                })
+                              )}
+                              isLoading={initialFormData.isFetching}
+                              menuPlacement="top"
+                            />
                           </div>
                         </div>
                       </div>
