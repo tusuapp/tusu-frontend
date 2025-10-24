@@ -20,23 +20,22 @@ import MyClass from "@/student/components/MyClass";
 const StudentHome = () => {
   const dispatch = useDispatch();
   const { user } = useSelector(selectAuth);
-  const { dashboard, all_tutors } = useSelector(selectStudentDashboard);
   const [classesData, setclassesData] = useState([]);
-
+  const [allTutors, setAllTutors] = useState<any>([]);
   // console.log("classData ======>", classesData);
 
-  const fetchClasses = async () => {
-    const response = await v2api.get(
-      "/user/classes/bookings?types=accepted,requested,in-progressc&limit=3"
-    );
-    // setclassesData(response);
-    setclassesData(response.data.bookings);
+  const dashboard = {
+    recommended_tutors: [],
+    popular_tutors: [],
+  };
+  const fetchDashboardData = async () => {
+    const response = await v2api.get("/student/dashboard");
+    setAllTutors(response.data.popularTutors);
+    setclassesData(response.data.upcomingClasses);
   };
 
   useEffect(() => {
-    dispatch(fetchDashboard());
-    dispatch(fetchAllTutors());
-    fetchClasses();
+    fetchDashboardData();
   }, []);
 
   return (
@@ -105,7 +104,7 @@ const StudentHome = () => {
                 See More
               </a>
             </div> */}
-            <div className="row row-cols-2 row-cols-lg-5">
+            {/* TODO <div className="row row-cols-2 row-cols-lg-5">
               {dashboard.subjects
                 .filter((item: any) => item.type == "subject")
                 .map((descipline: any, index: number) => (
@@ -124,7 +123,7 @@ const StudentHome = () => {
                     </div>
                   </Link>
                 ))}
-            </div>
+            </div> */}
           </section>
           <section>
             <div className="d-flex  justify-content-between mb-5 mt-5">
@@ -150,25 +149,23 @@ const StudentHome = () => {
               </Link>
             </div>
             <div className="row row-cols-2  row-cols-lg-5 row-cols-xl-5  row-cols-md-2">
-              {all_tutors &&
-                all_tutors.map((tutor: any, index: any) => {
-                  if (tutor.element.tutor_slots.length > 0) {
-                    return (
-                      <Link href={`/student/tutors/${tutor.id}`} key={index}>
-                        <div
-                          className="col mb-5 tutor__list_column mouse"
-                          key={index}
-                        >
-                          <TutorCard
-                            tutorName={tutor.name}
-                            profilePicture={tutor.element.image_url}
-                            tutorSubject={tutor.subject}
-                            rating={tutor.ratting}
-                          />
-                        </div>
-                      </Link>
-                    );
-                  }
+              {allTutors &&
+                allTutors.map((tutor: any, index: any) => {
+                  return (
+                    <Link href={`/student/tutors/${tutor.id}`} key={index}>
+                      <div
+                        className="col mb-5 tutor__list_column mouse"
+                        key={index}
+                      >
+                        <TutorCard
+                          tutorName={tutor.fullName}
+                          profilePicture={tutor.imageUrl}
+                          tutorSubject={tutor.subject}
+                          rating={tutor.ratting}
+                        />
+                      </div>
+                    </Link>
+                  );
                 })}
             </div>
           </section>

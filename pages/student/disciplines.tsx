@@ -50,7 +50,7 @@ const Disciplines = () => {
           </div>
 
           <div className="row row-cols-2 row-cols-lg-5">
-            {dashboard.subjects.filter((item: any) => item.type == "subject").map((descipline: any, index: number) => (
+            {/* {dashboard.subjects.filter((item: any) => item.type == "subject").map((descipline: any, index: number) => (
               <Link
                 href={`/student/subjects/tutors/${descipline.id}?subject=${descipline?.name}`}
                 key={index}
@@ -65,7 +65,7 @@ const Disciplines = () => {
                   />
                 </div>
               </Link>
-            ))}
+            ))} TODO */}
           </div>
         </section>
 

@@ -50,7 +50,7 @@ const AuthContainer: React.FC<Props> = ({ title = "", children }) => {
                     className=" mt-2"
                   >
                     New to TUSU ?&nbsp;
-                    <Link href="/signup/">
+                    <Link href="/signup/student">
                       <a
                         style={{
                           color: "#924781",

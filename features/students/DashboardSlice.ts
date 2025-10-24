@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { AppState, AppThunk } from "store";
-import { api, setApplicationName } from "api";
+import { api, setApplicationName, v2api } from "api";
 
 const ROLE = "student";
 
@@ -22,7 +22,7 @@ const initialState: studentDaashboardState = {
   disciplines: null,
   all_tutors: null,
   recomended_tutors: null,
-  popular_tutors: null,
+  popularTutors: null,
   dashboard: {
     popular_tutors: [],
     recommended_tutors: [],
@@ -65,9 +65,11 @@ export const studentDashboardSlice = createSlice({
 export const fetchAllTutors = (): AppThunk => async (dispatch) => {
   try {
     setApplicationName(ROLE);
-    const response = await api.get("/student/tutors?type=all-tutors&limit=1000");
+    const response = await api.get(
+      "/student/tutors?type=all-tutors&limit=1000"
+    );
     dispatch(getAllTutors(response.data.result));
-  } catch (e:any) {
+  } catch (e: any) {
     return console.log(e.message);
   }
 };
@@ -79,7 +81,7 @@ export const fetchPopularTutors = (): AppThunk => async (dispatch) => {
     const response = await api.get("/student/tutors?type=my-tutors");
 
     dispatch(getPopularTutors(response.data.result));
-  } catch (e:any) {
+  } catch (e: any) {
     return console.log(e.message);
   }
 };
@@ -91,7 +93,7 @@ export const fetchRecomendedTutors = (): AppThunk => async (dispatch) => {
     const response = await api.get("/student/tutors?type=my-tutors");
 
     dispatch(getRecomendedTutors(response.data.result));
-  } catch (e:any) {
+  } catch (e: any) {
     return console.log(e.message);
   }
 };
@@ -103,7 +105,7 @@ export const fetchDisciplines = (): AppThunk => async (dispatch) => {
     const response = await api.get("/student/tutors?type=my-tutors");
 
     dispatch(getDisciplines(response.data.result));
-  } catch (e:any) {
+  } catch (e: any) {
     return console.log(e.message);
   }
 };
@@ -111,9 +113,9 @@ export const fetchDisciplines = (): AppThunk => async (dispatch) => {
 export const fetchDashboard = (): AppThunk => async (dispatch) => {
   try {
     setApplicationName(ROLE);
-    const response = await api.get("/student/dashboard");
-    dispatch(getDashboard(response.data.result));
-  } catch (e:any) {
+    const response = await v2api.get("/student/dashboard");
+    dispatch(getDashboard(response.data));
+  } catch (e: any) {
     return console.log(e.message);
   }
 };
