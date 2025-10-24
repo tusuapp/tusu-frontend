@@ -77,7 +77,7 @@ export const signInTutor =
     try {
       setApplicationName("tutor");
       axios
-        .post("https://v2.api.tusuapp.com/auth/login", data, {
+        .post(`${process.env.NEXT_PUBLIC_V2_API_ENDPOINT}auth/login`, data, {
           headers: {
             "Content-Type": "application/json",
             "application-name": "tutor",
