@@ -25,14 +25,12 @@ const SignIn = () => {
   const { user } = useSelector(selectAuth);
 
   useEffect(() => {
-    if (!user) return;
-
-    if (!isEmailVerfied(user)) {
-      Router.replace("/accounts/verify-email");
-      return;
-    }
-
-    Router.replace("/student");
+    // if (!user) return;
+    // if (!isEmailVerfied(user)) {
+    //   Router.replace("/accounts/verify-email");
+    //   return;
+    // }
+    // Router.replace("/student");
   }, [user]);
 
   const dispatch = useDispatch<any>();
