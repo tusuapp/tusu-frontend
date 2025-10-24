@@ -437,8 +437,6 @@ const SignUpPage = () => {
                               type="checkbox"
                               checked={isTnCAccepted}
                               onChange={(value) => {
-                                console.log(value.target.checked);
-
                                 setIsTnCAccepted(value.target.checked);
                               }}
                             />

@@ -200,9 +200,9 @@ const SignUpPage = () => {
                     }}
                   >
                     New to TUSU?{" "}
-                    <Link href="/signup">
+                    <Link href="/signup/tutor">
                       <a
-                        href="/signup"
+                        href="/signup/tutor"
                         style={{
                           color: "#924781",
                         }}

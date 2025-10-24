@@ -27,7 +27,7 @@ const numericRegex = /(?=.*[0-9])/;
 const specialCharRegex = /(?=.*[!@#$%^&*])/;
 
 const SignUpSchema = Yup.object().shape({
-  full_name: Yup.string()
+  fullName: Yup.string()
     .required("Name is required")
     .matches(/[a-zA-z][a-zA-Z\s]*/, "Please enter valid name"),
 
@@ -56,6 +56,7 @@ const SignUpPage = () => {
   const dispatch = useDispatch<any>();
   const { user } = useSelector(selectAuth);
   const [isLoading, setIsLoading] = useState(false);
+  const [isTnCAccepted, setIsTnCAccepted] = useState(false);
 
   const [countryCode, setCountryCode] = useState<number>();
 
@@ -67,7 +68,7 @@ const SignUpPage = () => {
   const initialValues = {
     email: "",
     phone: "",
-    full_name: "",
+    fullName: "",
     password: "",
     confirm_password: "",
   };
@@ -82,17 +83,11 @@ const SignUpPage = () => {
     setIsLoading(true);
 
     const response = await dispatch(signUpTutor(newData));
-
-    // console.log(response);
-
     setIsLoading(false);
 
     if (response.status === 200) {
-      // Router.push("/accounts/verify-email");
-      // console.log(response);
-
       Router.push(
-        `/accounts/verify-otp?token=${response.data.result.token}&type=tutor`
+        `/accounts/verify-otp?session=${response.data.sessionId}&type=tutor`
       );
     }
   };
@@ -118,14 +113,27 @@ const SignUpPage = () => {
         <div className="container">
           <div className="auth-container-inner d-flex justify-content-center align-content-center h-100 flex-column">
             <div className="row align-content-center">
-              <div className="col-md-7 col-lg-7 col-xs-12">
-                <img
-                  src="/image/signup.png"
-                  className="image-fluid pl-5 w-100"
-                  alt=""
-                  width="auto"
-                />
+              <div className="col-lg-6 d-none d-lg-flex flex-column justify-content-center align-items-center text-center">
+                <div className="p-4">
+                  <img
+                    src="/image/signup.png"
+                    className="img-fluid"
+                    alt="Tusu icon"
+                    style={{ maxWidth: "50%", height: "auto" }}
+                  />
+
+                  <div className="mt-5 px-5">
+                    <h1 className="display-6 fw-bold ">
+                      Learn, Connect, Grow.
+                    </h1>
+                    <p className="lead text-muted mt-3">
+                      Join our global network of tutors and students. Signing up
+                      takes just a minute!
+                    </p>
+                  </div>
+                </div>
               </div>
+
               <div className="col-md-12 mt-md-5 mt-lg-0 col-lg-5 col-xs-12">
                 <div className="card bg-white sign-up-form">
                   <div className="auth-page__title">Sign Up</div>
@@ -150,17 +158,17 @@ const SignUpPage = () => {
                               <div className="form-floating mb-3">
                                 <Field
                                   type="text"
-                                  name="full_name"
-                                  id="full_name"
+                                  name="fullName"
+                                  id="fullName"
                                   className={
-                                    errors.full_name && touched.full_name
+                                    errors.fullName && touched.fullName
                                       ? "form-control input-error"
                                       : "form-control"
                                   }
                                 />
-                                <label htmlFor="full_name">Full name</label>
+                                <label htmlFor="fullName">Full name</label>
                                 <ErrorMessage
-                                  name="full_name"
+                                  name="fullName"
                                   component="div"
                                   className="error"
                                 />
@@ -361,8 +369,19 @@ const SignUpPage = () => {
                           </div>
 
                           <div className="acceptTerms">
-                            <input type="checkbox"/>
-                            <p>I have read and accept <Link href="/student/terms-and-condition">Terms and Conditions</Link></p>
+                            <input
+                              type="checkbox"
+                              checked={isTnCAccepted}
+                              onChange={(value) => {
+                                setIsTnCAccepted(value.target.checked);
+                              }}
+                            />
+                            <p>
+                              I have read and accept{" "}
+                              <Link href="/student/terms-and-condition">
+                                Terms and Conditions
+                              </Link>
+                            </p>
                           </div>
 
                           <Button
@@ -381,7 +400,13 @@ const SignUpPage = () => {
               </div>
             </div>
             <div className="d-lg-flex d-block justify-content-lg-between justify-content-center align-items-center mt-5 text-center">
-              <div style={{ color: "#515259", fontSize: "16px", marginBottom: "5px"}}>
+              <div
+                style={{
+                  color: "#515259",
+                  fontSize: "16px",
+                  marginBottom: "5px",
+                }}
+              >
                 Already have an account?{" "}
                 <Link href="/signin/tutor">
                   <a
@@ -398,10 +423,9 @@ const SignUpPage = () => {
                 
                   <LoginGoogle /> */}
 
-                  {/* Sign in with Google */}
-                
+              {/* Sign in with Google */}
 
-                {/* <div className="btn btn-social-auth facebook me-lg-2">
+              {/* <div className="btn btn-social-auth facebook me-lg-2">
                   <img src="/icons/facebook-icon.svg" className="me-2" /> Sign
                   in with Facebook
                 </div>

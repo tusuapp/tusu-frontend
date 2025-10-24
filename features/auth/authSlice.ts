@@ -187,10 +187,15 @@ export const requestResetPassWordLink =
 export const signUpTutor =
   (data: any): AppThunk =>
   async (dispatch) => {
-    setApplicationName("tutor");
+    data = {
+      ...data,
+      countryId: 1,
+      role: "tutor",
+    };
 
-    return api
-      .post("/auth/local/register", data)
+    setApplicationName("tutor");
+    return v2api
+      .post("/auth/register", data)
       .then((res) => {
         toast.success("Account created successfully");
         return res;
@@ -203,11 +208,7 @@ export const signUpTutor =
           return error;
         }
 
-        const errorMessages = convertErrorsToArray(
-          error?.response?.data?.error
-        );
-
-        dispatch(getErrorMessages(errorMessages));
+        dispatch(getErrorMessages([error?.response?.data?.error]));
 
         return error?.response?.data?.error;
       });

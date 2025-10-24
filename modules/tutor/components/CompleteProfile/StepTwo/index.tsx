@@ -311,6 +311,49 @@ const StepTwo: React.FC<Props> = ({
                       </div>
                     </div>
 
+                    <div className="row">
+                      <div className="col-md-12">
+                        <h2
+                          style={{
+                            fontSize: "16px",
+                            color: "#000",
+                          }}
+                          className="mb-1 mt-3 text-dark"
+                        >
+                          Country
+                        </h2>
+                        <Field name="languages">
+                          {({
+                            field,
+                            form: { touched, setFieldValue, setTouched },
+                          }: any) => (
+                            <div>
+                              <Select
+                                instanceId="languages-select"
+                                options={langauageOptions}
+                                isLoading={isFetching}
+                                styles={customStyles}
+                                onChange={(options: any) => {
+                                  const optionIds = options.map(
+                                    (option: any) => option.value
+                                  );
+
+                                  setFieldValue(field.name, optionIds);
+                                }}
+                                isMulti={true}
+                                onBlur={() =>
+                                  setTouched({
+                                    ...touched,
+                                    [field.name]: true,
+                                  })
+                                }
+                                menuPlacement="top"
+                              />
+                            </div>
+                          )}
+                        </Field>
+                      </div>
+                    </div>
                     <div className="mt-auto">
                       <div className="d-flex justify-content-end">
                         <Button

@@ -1,9 +1,9 @@
-import { api } from "api";
+import { api, v2api } from "api";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
 const completeTutorProfile = async (schedule: any) => {
-  const { data } = await api.put("/tutor/profile", schedule);
+  const { data } = await v2api.put("/user/profile/tutor", schedule);
 
   return data.result;
 };
