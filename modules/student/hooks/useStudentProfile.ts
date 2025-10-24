@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 
 const useStudentProfile = () => {
   return useQuery("studentProfile", async () => {
-    const { data } = await v2api.get("/auth/user");
+    const { data } = await v2api.get("/user/profile/me");
     return data;
   });
 };

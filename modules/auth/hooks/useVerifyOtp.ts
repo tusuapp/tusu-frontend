@@ -1,15 +1,16 @@
-import {api, setApplicationName} from "api";
+import { api, setApplicationName, v2api } from "api";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
-const verifyOtp = async (data: any) => {
+const verifyOtp = async (session: string, otp: string) => {
   setApplicationName("student");
 
-  const res = await api.post("/auth/otp/verification", data);
+  const res = await v2api.post(
+    `/auth/otp/verify-phone?session=${session}&otp=${otp}`
+  );
 
   return res.data.result;
 };
-
 
 export const resendOtp = async (data: any) => {
   setApplicationName("student");
@@ -22,7 +23,7 @@ export const resendOtp = async (data: any) => {
 const useVerifyOtp = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((data: any) => verifyOtp(data), {
+  return useMutation((data: any) => verifyOtp(data.session, data.otp), {
     onSuccess: async () => {
       toast.success("OTP verified successfully");
     },

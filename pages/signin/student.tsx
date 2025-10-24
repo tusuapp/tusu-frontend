@@ -57,8 +57,15 @@ const SignIn = () => {
         Router.replace("/student");
       })
       .catch((error: any) => {
-        appendInputError("email", error);
+        console.error(error);
         setIsLoading(false);
+        if (error?.status === 401) {
+          appendInputError("email", "Invalid credentials");
+        } else if (error?.message) {
+          appendInputError("email", error.message);
+        } else {
+          appendInputError("email", "Something went wrong. Please try again.");
+        }
       });
   };
 

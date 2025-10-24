@@ -40,8 +40,18 @@ function MyApp({ Component, pageProps }: Props) {
   // const getLayout = Component.getLayout ?? ((page) => page);
   const Layout = Component.layout ?? Fragment;
 
-  // Initialise firebase
-  // Firebase.initializeApp(firebaseConfig);
+  const publicRoutes = [
+    "/",
+    "/signin",
+    "/signup/verification/email-verify",
+    "/signup",
+    "/signup/student",
+    "/signup/tutor",
+    "/verify-email",
+    "/accounts/verify-otpaccounts/verify-otp",
+    "/forgot-password",
+    "/reset-password",
+  ];
 
   if (!Firebase.apps.length) {
     Firebase.initializeApp(firebaseConfig);
@@ -50,7 +60,11 @@ function MyApp({ Component, pageProps }: Props) {
   }
 
   useEffect(() => {
-    // Gets the access token from the local stoarge if it exits.
+    const path = Router.pathname;
+    if (publicRoutes.includes(path)) {
+      return;
+    }
+
     getTokenFromLocalStorage()
       .then((persistedState) => {
         // Updates sate redux state with persisted state.

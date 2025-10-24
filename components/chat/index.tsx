@@ -46,14 +46,6 @@ const Chat: React.FC<Props> = (props) => {
     }
   };
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const response = await v2api.get("/auth/user");
-  //     console.log("response", response.data);
-  //     setUser(response.data);
-  //   })();
-  // }, []);
-
   useEffect(() => {
     if (user && user.uuid) {
       if (!isSocket) {

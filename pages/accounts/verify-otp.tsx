@@ -3,34 +3,19 @@ import Header from "../../components/header";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Button from "../../components/button";
-import * as Yup from "yup";
-import { ErrorMessage, Field, Form, Formik } from "formik";
 import useVerifyOtp, { resendOtp } from "modules/auth/hooks/useVerifyOtp";
 import OtpField from "react-otp-field";
-import Input from "../../components/@next/atoms/input";
-import { api } from "../../api";
-
-const SignInSchema = Yup.object().shape({
-  otp: Yup.number().required("OTP is required"),
-});
 
 const SignUpPage = () => {
   const { data, mutate, isLoading } = useVerifyOtp();
   const router = useRouter();
 
-  const token = router.query.token;
-
-  const [newToken, setNewToken] = useState("");
-
-  const initialValues = {
-    email: "",
-  };
+  const [newToken, setNewToken] = useState<string>();
 
   useEffect(() => {
     if (!router.query) return;
 
-    // @ts-ignore
-    setNewToken(router.query.token);
+    setNewToken(router.query.session as string);
   }, [router.query]);
 
   const [value, setValue] = useState("");
@@ -43,9 +28,10 @@ const SignUpPage = () => {
     isTypeNumber: false,
     hasErrored: false,
   });
+
   const handleFormSubmit = async (data: any) => {
     mutate(
-      { token: newToken, otp: value },
+      { session: newToken, otp: value },
       {
         onSuccess: (res) => {
           console.log("res", res);
@@ -90,7 +76,7 @@ const SignUpPage = () => {
                 <h4 className="sign-in-title text-center">OTP verfication</h4>
                 <br />
                 <p className="text-center px-5">
-                Please enter the OTP sent to your mobile number & Check your registered email to verify the account.
+                  Please enter the OTP sent to your mobile number
                 </p>
 
                 <div className="otp col-12 col-sm-4 d-flex justify-content-center align-items-center">

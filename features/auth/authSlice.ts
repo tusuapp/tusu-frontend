@@ -57,14 +57,12 @@ export const authSlice = createSlice({
 
 export const fetchUser = (): AppThunk => async (dispatch) => {
   try {
-    const response = await v2api.get("/auth/user");
+    const response = await v2api.get("/user/profile/me");
     dispatch(getUser(response.data));
   } catch (e: any) {
     console.log("Unable to fetch user");
     router.replace("/signin");
-    toast("Please sign in again !");
     dispatch(getUser(null));
-
     dispatch(getToken(null));
 
     return console.error(e.message);
@@ -118,25 +116,36 @@ export const signInTutor =
     }
   };
 
-export const signIn =
-  (data: any, role: any): AppThunk =>
-  async (dispatch) => {
+export const signIn = (data: any, role: string) => async (dispatch: any) => {
+  try {
     setApplicationName(role);
-    return axios
-      .post("https://v2.api.tusuapp.com/auth/login", data, {
+
+    const response = await axios.post(
+      "https://v2.api.tusuapp.com/auth/login",
+      data,
+      {
         headers: {
           "Content-Type": "application/json",
-          "application-name": "student",
+          "application-name": role,
         },
-      })
-      .then((response) => {
-        dispatch(getSuccessMessages(["Login success"]));
-        dispatch(getToken(response.data.jwt));
-        dispatch(getUser(response.data.user));
-        localStorage.setItem("accessToken", response.data.jwt);
-        localStorage.setItem("currentUser", JSON.stringify(response.data.user));
-      });
-  };
+      }
+    );
+    dispatch(getSuccessMessages(["Login success"]));
+    dispatch(getToken(response.data.jwt));
+    dispatch(getUser(response.data.user));
+    localStorage.setItem("accessToken", response.data.jwt);
+    localStorage.setItem("currentUser", JSON.stringify(response.data.user));
+    return response.data;
+  } catch (error: any) {
+    const status = error?.response?.status;
+    const message =
+      error?.response?.data?.message ||
+      error?.message ||
+      "Something went wrong";
+
+    throw { status, message };
+  }
+};
 
 export const signUp =
   (data: any): AppThunk =>
@@ -149,7 +158,7 @@ export const signUp =
       dispatch(getUser(response.data.user));
 
       router.push(
-        `/accounts/verify-otp?token=${response.data.jwt}&type=student`
+        `/accounts/verify-otp?session=${response.data.sessionId}&type=student`
       );
     } catch (e: any) {
       console.log("Res", e?.response);

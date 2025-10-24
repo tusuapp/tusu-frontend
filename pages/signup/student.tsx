@@ -16,7 +16,6 @@ import PhoneInTalkOutlinedIcon from "@mui/icons-material/PhoneInTalkOutlined";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import Select from "react-select";
 import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
 import { timezones } from "consts/timezones";
 import { useQuery } from "react-query";
 import { api } from "api";
@@ -60,19 +59,7 @@ const SignUpPage = () => {
   const dispatch = useDispatch();
   const { user } = useSelector(selectAuth);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (!user) return;
-
-    if (!isEmailVerfied(user)) {
-      Router.replace("/accounts/verify-email");
-      return;
-    }
-
-    Router.replace("/student");
-
-    return;
-  }, [user]);
+  const [isTnCAccepted, setIsTnCAccepted] = useState(false);
 
   const initialValues = {
     email: "",
@@ -111,10 +98,6 @@ const SignUpPage = () => {
       "text-overflow": "ellipsis",
     }),
   };
-
-  const allCountries = useQuery("allCountries", () =>
-    api.get("/countries").then((res) => res.data)
-  );
 
   interface TimeZoneOptions {
     label: String;
@@ -159,17 +142,30 @@ const SignUpPage = () => {
 
       <div className="auth-container">
         <div className="container">
-          <div className="auth-container-inner d-flex justify-content-center align-content-center h-100 flex-column">
+          <div className="auth-container-inner d-flex justify-content-center align-content-center flex-column">
             <div className="row align-content-center">
-              <div className="col-md-7 col-lg-7 col-xs-12">
-                <img
-                  src="/image/signup.png"
-                  className="image-fluid pl-5 w-100"
-                  alt=""
-                  width="auto"
-                />
+              <div className="col-lg-6 d-none d-lg-flex flex-column justify-content-center align-items-center text-center">
+                <div className="p-4">
+                  <img
+                    src="/image/signup.png"
+                    className="img-fluid"
+                    alt="Tusu icon"
+                    style={{ maxWidth: "50%", height: "auto" }}
+                  />
+
+                  <div className="mt-5 px-5">
+                    <h1 className="display-6 fw-bold ">
+                      Learn, Connect, Grow.
+                    </h1>
+                    <p className="lead text-muted mt-3">
+                      Join our global network of tutors and students. Signing up
+                      takes just a minute!
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="col-md-12 mt-md-5 mt-lg-0 col-lg-5 col-xs-12">
+
+              <div className="col-md-12 mt-md-3 mt-lg-0 col-lg-6 col-xs-12">
                 <div className="card bg-white sign-up-form">
                   <div className="auth-page__title">Sign Up</div>
                   <br />
@@ -186,8 +182,8 @@ const SignUpPage = () => {
                             <div className="form-field-icon me-3">
                               <img
                                 src="/icons/name.svg"
-                                height="23px"
-                                width="23px"
+                                height="20px"
+                                width="20px"
                               />
                             </div>
                             <div className="flex-grow-1">
@@ -262,7 +258,7 @@ const SignUpPage = () => {
                                   }: any) => (
                                     <div className="mb-3">
                                       <PhoneInput
-                                        country={"us"}
+                                        country={"in"}
                                         value={field.value}
                                         onChange={(val, country: any) => {
                                           setFieldValue(field.name, val);
@@ -437,7 +433,15 @@ const SignUpPage = () => {
                           </div>
 
                           <div className="acceptTerms">
-                            <input type="checkbox" />
+                            <input
+                              type="checkbox"
+                              checked={isTnCAccepted}
+                              onChange={(value) => {
+                                console.log(value.target.checked);
+
+                                setIsTnCAccepted(value.target.checked);
+                              }}
+                            />
                             <p>
                               I have read and accept{" "}
                               <Link href="/student/terms-and-condition">
@@ -450,7 +454,7 @@ const SignUpPage = () => {
                             type="primary"
                             className="w-100 mt-4"
                             loading={isLoading}
-                            disabled={!(dirty && isValid)}
+                            disabled={!(dirty && isValid) || !isTnCAccepted}
                           >
                             Sign Up
                           </Button>
@@ -458,6 +462,25 @@ const SignUpPage = () => {
                       );
                     }}
                   </Formik>
+                  <div
+                    style={{
+                      color: "#515259",
+                      fontSize: "14px",
+                      textAlign: "center",
+                    }}
+                  >
+                    Already have an account?{" "}
+                    <Link href="/signin">
+                      <a
+                        href="/signin"
+                        style={{
+                          color: "#924781",
+                        }}
+                      >
+                        Sign in
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

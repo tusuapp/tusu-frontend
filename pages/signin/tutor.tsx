@@ -67,17 +67,24 @@ const SignUpPage = () => {
       <div className="auth-container">
         <div className="container">
           <div className="auth-container-inner d-flex justify-content-center align-content-center h-100 flex-column">
-            <div className="row align-content-center">
-              <div className="col-sm-12 col-md-12 col-lg-7 col-xs-12">
-                <div>
+            <div className="row justify-content-center align-items-center">
+              <div className="col-12 col-md-8 col-lg-7 d-flex justify-content-center align-items-center">
+                <div className="text-center">
                   <img
                     src="/image/signin.png"
-                    className="image-fluid pl-5 w-100"
-                    alt=""
-                    width="auto"
+                    alt="Sign In"
+                    className="img-fluid"
+                    style={{ maxWidth: "150px", width: "100%" }} // reduce size and keep responsive
                   />
+                  <div className="mt-5 px-5">
+                    <h1 className="display-6 fw-bold ">Welcome back, Tutor!</h1>
+                    <p className="lead text-muted mt-3">
+                      Sign in to continue managing your classes and students.
+                    </p>
+                  </div>
                 </div>
               </div>
+
               <div className="col-md-12 mt-md-5 mt-lg-0 col-lg-5 col-xs-12">
                 <div className="card bg-white sign-up-form">
                   <div className="auth-page__title">Sign In</div>
@@ -184,24 +191,30 @@ const SignUpPage = () => {
                       );
                     }}
                   </Formik>
+                  <div
+                    className="mt-4"
+                    style={{
+                      color: "#515259",
+                      fontSize: "14px",
+                      textAlign: "center",
+                    }}
+                  >
+                    New to TUSU?{" "}
+                    <Link href="/signup">
+                      <a
+                        href="/signup"
+                        style={{
+                          color: "#924781",
+                        }}
+                      >
+                        Sign Up
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="d-flex flex-wrap flex-sm-wrap flex-lg-row flex-md-column flex-sm-column justify-content-between mt-5">
-              <div style={{ color: "#515259", fontSize: "18px" }}>
-                New to TUSU?{" "}
-                <Link href="/signup">
-                  <a
-                    href="/signup"
-                    style={{
-                      color: "#924781",
-                    }}
-                  >
-                    Sign Up
-                  </a>
-                </Link>
-              </div>
-
               <div
                 style={{
                   maxWidth: "800px",
