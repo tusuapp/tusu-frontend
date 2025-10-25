@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterDropdown from "@/student/components/FilterDropdown";
 import { useRouter } from "next/router";
-import { fetch } from "../../../../api";
+import { fetch, v2api } from "../../../../api";
 import { useDispatch, useSelector } from "react-redux";
 import {
   initialState,
@@ -38,18 +38,20 @@ const SearchBar = () => {
     if (router.pathname === "/student/search") search(getQry(), 2);
   }, [filter, searchResults.pagination.page]);
 
-  function search(q: string, mod: number) {
+  async function search(q: string, mod: number) {
     console.log("searching", q, mod);
     if (!q || q === "&page=1") return;
-    let token = localStorage.getItem("accessToken") || "";
-    fetch(token)
-      .get("/student/tutor/search?fullname_contains=" + q)
-      .then((resp) => {
-        if (resp.data.result) {
-          dispatch(setSearchResults(resp.data.result));
-        }
-      })
-      .catch((err) => {});
+    try {
+      const response = await v2api.get("/search/tutors?key=" + q);
+      dispatch(
+        setSearchResults({
+          ...searchResults,
+          data: response.data,
+        })
+      );
+    } catch (e) {
+      console.log("Failed to search tutors");
+    }
   }
 
   function getQry(q?: string): string {

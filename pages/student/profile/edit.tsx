@@ -15,9 +15,7 @@ import * as Yup from "yup";
 // import { selectAuth, updateProfile } from "../../../features/auth/authSlice";
 import { selectAuth, updateProfile } from "../../../features/auth/authSlice";
 import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
-
-import { api } from "../../../api";
+import { api, v2api } from "../../../api";
 import { useQuery } from "react-query";
 import DoneIcon from "@mui/icons-material/Done";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -68,9 +66,6 @@ function EditProfilePageStudent() {
 
   const inputEl = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const allCountries = useQuery("allCountries", () =>
-    api.get("/countries").then((res) => res.data)
-  );
 
   useEffect(() => {
     getInitialFormData();
@@ -95,6 +90,7 @@ function EditProfilePageStudent() {
       timezone: { label: data?.timeZone, value: data?.timeZone },
       country_code: data?.country?.country_code,
     });
+    console.log(data);
   };
 
   const onChange = (imageList: any, addUpdateIndex: any) => {
@@ -292,7 +288,7 @@ function EditProfilePageStudent() {
                                 form: { touched, setFieldValue, setTouched },
                               }: any) => (
                                 <Select
-                                  options={allCountries?.data?.result
+                                  options={initialFormData?.data?.countries
                                     .sort((a: any, b: any) =>
                                       a.name > b.name ? 1 : -1
                                     )
@@ -347,7 +343,7 @@ function EditProfilePageStudent() {
                                 form: { touched, setFieldValue, setTouched },
                               }: any) => (
                                 <Select
-                                  options={initialFormData?.data?.timezone.map(
+                                  options={initialFormData?.data?.timezones.map(
                                     (item: any) => ({
                                       label: item,
                                       value: item,

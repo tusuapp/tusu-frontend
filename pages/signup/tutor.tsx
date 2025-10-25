@@ -388,7 +388,7 @@ const SignUpPage = () => {
                             type="primary"
                             className="w-100 mt-4"
                             loading={isLoading}
-                            disabled={!(dirty && isValid)}
+                            disabled={!(dirty && isValid) || !isTnCAccepted}
                           >
                             Sign Up
                           </Button>
