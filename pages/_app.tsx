@@ -49,8 +49,8 @@ function MyApp({ Component, pageProps }: Props) {
     "/signup/tutor",
     "/verify-email",
     "/accounts/verify-otpaccounts/verify-otp",
-    "/forgot-password",
-    "/reset-password",
+    "/accounts/forgot-password",
+    "/accounts/reset-password",
   ];
 
   if (!Firebase.apps.length) {

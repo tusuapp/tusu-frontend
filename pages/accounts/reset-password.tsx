@@ -9,8 +9,9 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import useResetPassword from "modules/auth/hooks/useResetPassword";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import "react-password-strength-bar-indicator/lib/main.css";
 import PasswordInput from "react-password-strength-bar";
+import { v2api } from "api";
+import { toast } from "react-toastify";
 
 const ResetPasswordSchema = Yup.object().shape({
   password: Yup.string()
@@ -51,20 +52,25 @@ const ResetPassword = () => {
   }, [router.query]);
 
   const handleFormSubmit = async (values: any) => {
-    mutate(
-      {
-        token,
-        password: values.password,
-        password_confirmation: values.password,
-      },
-      {
-        onSuccess: () => {
-          setTimeout(() => {
-            router.push(`/signin`);
-          }, 2000);
+    try {
+      const response = await v2api.post(
+        `/user/profile/reset-password`,
+        {
+          token: token,
+          password: values.password,
+          confirmPassword: values.confirm_password,
         },
-      }
-    );
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Password has been reset successfully!");
+    } catch (error) {
+      console.error("Error resetting password:", error);
+    }
   };
 
   return (
@@ -139,18 +145,7 @@ const ResetPassword = () => {
                             </div>
                           </div>
                         </div>
-                        <div>
-                          <PasswordInput
-                            barColors={["#924781", "#57335B33"]}
-                            password="password"
-                          />
-                          {/* <PasswordInput
-                                       value={password}
-                                       onChange={e => setPassword(e.target.value)
-                                       passwordStrength={value => setPasswordStrength(value)
-                                       placeholder="Password"
-                                       type="password" /> */}
-                        </div>
+                        <div></div>
 
                         <div className="d-flex mb-3 align-items-center">
                           <div className="flex-grow-1">

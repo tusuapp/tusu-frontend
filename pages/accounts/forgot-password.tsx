@@ -10,13 +10,16 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import useRequestPasswordReset from "modules/auth/hooks/useRequestPasswordReset";
 import { useSelector } from "react-redux";
 import { selectAuth } from "features/auth/authSlice";
+import { v2api } from "api";
+import { set } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email().required("Email is required"),
 });
 
 const SignUpPage = () => {
-  const { data, mutate, isLoading } = useRequestPasswordReset();
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const [selected, setSelected] = useState("");
   const { user } = useSelector(selectAuth);
@@ -26,20 +29,17 @@ const SignUpPage = () => {
   };
   const [value, setValue] = useState();
   const handleFormSubmit = async ({ email }: any) => {
-    // const identifier = phoneNumber === "" ? email : phoneNumber;
-
-    mutate(
-      { identifier: email },
-      {
-        onSuccess: (res) => {
-          console.log("data");
-
-          setTimeout(() => {
-            router.push(`/accounts/verify-otp?token=${res.token}`);
-          }, 2000);
-        },
-      }
-    );
+    try {
+      setIsLoading(true);
+      const response = await v2api.post(`/auth/forgot-password?email=${email}`);
+      toast.success(
+        "If an account with that email exists, a password reset link has been sent."
+      );
+      router.push("/signin");
+    } catch (error) {
+      console.error("Error requesting password reset:", error);
+    }
+    setIsLoading(false);
   };
 
   return (
