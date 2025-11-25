@@ -18,7 +18,7 @@ interface ExtraProfile {
   disciplines: number[];
   languages: number[];
   experience: number;
-  hourly_charge: number;
+  hourlyCharge: number;
   gender: "male" | "female" | "others";
 }
 

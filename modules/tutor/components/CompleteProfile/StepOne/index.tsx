@@ -78,7 +78,7 @@ const StepOne: React.FC<Props> = ({
       description: values.description,
       disciplines: values.disciplines,
       experience: Number(values.experienceYears),
-      hourly_charge: Number(values.hourlyCharges),
+      hourlyCharge: Number(values.hourlyCharges),
     };
 
     onSubmit(data);

@@ -85,7 +85,7 @@ const FilterDropdown: React.FC<IFilterDropdown> = ({
           );
         }
         if (key == "hourlyCharges" && val && val[1] > 0) {
-          let xx = `tutor_details.hourly_charge_lte=${val[1]}&tutor_details.hourly_charge_gte=${val[0]}`;
+          let xx = `tutor_details.hourlyCharge_lte=${val[1]}&tutor_details.hourlyCharge_gte=${val[0]}`;
           _where.push(xx);
         }
       });
@@ -144,7 +144,7 @@ const FilterDropdown: React.FC<IFilterDropdown> = ({
                         <div className="col-12 col-sm-4">
                           <div className="filter__field__value">Languages</div>
                           <div className="profile__field__value">
-                            {/* ${data?.tutor_details?.hourly_charge} */}
+                            {/* ${data?.tutor_details?.hourlyCharge} */}
                             <Field name="knownLanguages">
                               {({
                                 field,

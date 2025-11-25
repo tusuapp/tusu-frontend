@@ -34,7 +34,7 @@ const initialState: any = {
   tutor_details: {
     description: "",
     experience: 0,
-    hourly_charge: "0",
+    hourlyCharge: "0",
     gender: "",
     video: null,
     address: null,

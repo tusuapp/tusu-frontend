@@ -158,7 +158,7 @@ function Profile() {
                     {data?.tutorDetails?.languages.map(
                       (language: any) => `${language.name}, `
                     )}
-                    {/* ${data?.tutor_details?.hourly_charge} */}
+                    {/* ${data?.tutor_details?.hourlyCharge} */}
                   </div>
                 </div>
               </div>
