@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LoadingScreen from "../components/loadingScreen";
 import { selectAuth } from "../features/auth/authSlice";
-import { isEmailVerfied, isProfileCompleted } from "../utils";
+import {
+  isEmailVerfied,
+  isProfileCompleted,
+  isTutorApprovalPending,
+} from "../utils";
 
 const verifyToken = (token: string | null) => {
   return token;

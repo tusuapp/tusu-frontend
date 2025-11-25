@@ -8,9 +8,21 @@ import TutorClass from "../../components/tutorClass";
 import withAuth from "../../HOC/withAuth";
 import { api, fetch, v2api } from "../../api";
 import Spinner from "components/Spinner";
+import { isEmailVerfied, isTutorApprovalPending } from "utils";
+import { useSelector } from "react-redux";
+import { selectAuth } from "features/auth/authSlice";
+import { Router, useRouter } from "next/router";
+import { BookingRequest } from "models/BookingRequest";
 
 function TutorDashboard() {
-  const [dashData, setDashData] = useState({});
+  const { user, token } = useSelector(selectAuth);
+  const Router = useRouter();
+
+  const [dashData, setDashData] = useState({
+    totalEarning: 0,
+    bookingRequests: [] as BookingRequest[],
+    upcomingClasses: [],
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchDashboard = async () => {
@@ -25,6 +37,10 @@ function TutorDashboard() {
   };
 
   useEffect(() => {
+    if (isEmailVerfied(user) && isTutorApprovalPending(user)) {
+      Router.replace("/accounts/approval-pending");
+      return;
+    }
     fetchDashboard();
   }, []);
 
@@ -34,10 +50,7 @@ function TutorDashboard() {
         <div className="row">
           <div className="col-lg-7">
             <h2 className="tutor__dashboard__title">My Earnings</h2>
-            <Filter
-              options={null}
-              onChange={(value: any) => setFilter(value.value)}
-            />
+            <Filter options={null} onChange={(value: any) => {}} />
             <div className="total-earnings">
               <div className="title">Your total earnings</div>
               <div className="earnings">

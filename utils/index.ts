@@ -14,6 +14,10 @@ export const isEmailVerfied = (user: any) => {
   return user.emailVerified || user.is_mobile_verified;
 };
 
+export const isTutorApprovalPending = (user: any) => {
+  return user.role.type === "tutor" && user.tutorApprovalPending;
+};
+
 export const verifyToken = (token: string) => {
   return token;
 };

@@ -60,11 +60,11 @@ const menuItems = [
 
 const Sidebar = () => {
   const { user } = useSelector(selectAuth);
-  const { data } = useBookings();
+  // const { data } = useBookings();
   const earnings = useEarnings("all");
-  const classCount = data?.bookings.filter(
-    (key: any) => key.status === "completed"
-  );
+  // const classCount = data?.bookings.filter(
+  //   (key: any) => key.status === "completed"
+  // );
 
   const [notifications, setNotifications] = useState(0);
 
@@ -129,7 +129,7 @@ const Sidebar = () => {
           {user?.email}
         </div>
         <div className="tutor_sidebar_top_count">
-          <div className="tutor_class__count">
+          {/* <div className="tutor_class__count">
             <div className="svg_container">
               <img src="/icons/tutor/teacher.svg" />
             </div>
@@ -137,7 +137,7 @@ const Sidebar = () => {
               <h6>{classCount?.length}</h6>
               <p>Classes</p>
             </div>
-          </div>
+          </div> */}
           <div className="tutor_earnings__count">
             <div className="svg_container">
               <img src="/icons/tutor/dollar.svg" />
