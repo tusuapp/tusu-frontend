@@ -41,7 +41,7 @@ function TutorDashboard() {
             <div className="total-earnings">
               <div className="title">Your total earnings</div>
               <div className="earnings">
-                ${`${dashData.totalEarning || "."}`}
+                ${`${dashData.totalEarning || "0"}`}
               </div>
             </div>
             {/* <EarningsChart data={dashData} filter={filter} /> */}
