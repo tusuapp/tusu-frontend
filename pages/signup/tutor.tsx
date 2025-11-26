@@ -226,7 +226,7 @@ const SignUpPage = () => {
                                   }: any) => (
                                     <div className="mb-3">
                                       <PhoneInput
-                                        country={"us"}
+                                        country={"in"}
                                         value={field.value}
                                         onChange={(val, country: any) => {
                                           setFieldValue(field.name, val);

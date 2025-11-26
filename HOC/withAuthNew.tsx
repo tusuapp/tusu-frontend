@@ -4,7 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LoadingScreen from "../components/loadingScreen";
 import { selectAuth } from "../features/auth/authSlice";
-import { getUserRole, isEmailVerfied, isProfileCompleted } from "../utils";
+import {
+  getUserRole,
+  isEmailVerfied,
+  isMobileVerified,
+  isProfileCompleted,
+} from "../utils";
 
 const verifyToken = (token: string | null) => {
   return token;
@@ -48,6 +53,11 @@ const withAuthNew = (WrappedComponent: React.FC, role: any) => {
 
       if (!isEmailVerfied(user)) {
         Router.replace("/accounts/verify-email");
+        return;
+      }
+
+      if (!isMobileVerified(user)) {
+        Router.replace("/accounts/verify-otp");
         return;
       }
 

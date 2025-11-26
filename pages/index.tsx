@@ -12,6 +12,7 @@ import { selectAuth } from "../features/auth/authSlice";
 import TutorCard from "components/TutorCard";
 import { useForm } from "react-hook-form";
 import router from "next/router";
+import "react-phone-input-2/lib/style.css";
 
 function Home() {
   const { user } = useSelector(selectAuth);

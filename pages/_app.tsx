@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }: Props) {
     "/signup/student",
     "/signup/tutor",
     "/verify-email",
-    "/accounts/verify-otpaccounts/verify-otp",
+    "/accounts/verify-otp",
     "/accounts/forgot-password",
     "/accounts/reset-password",
   ];

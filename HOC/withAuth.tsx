@@ -5,6 +5,7 @@ import LoadingScreen from "../components/loadingScreen";
 import { selectAuth } from "../features/auth/authSlice";
 import {
   isEmailVerfied,
+  isMobileVerified,
   isProfileCompleted,
   isTutorApprovalPending,
 } from "../utils";
@@ -50,13 +51,23 @@ const withAuth = (WrappedComponent: React.FC) => {
         return;
       }
 
+      if (!isMobileVerified(user)) {
+        // alert("Email not verified")
+        Router.replace("/accounts/verify-otp");
+        return;
+      }
+
       if (!isProfileCompleted(user)) {
         // alert("profile not completed")
         Router.replace("/tutor/complete-profile");
         return;
       }
 
-      if (isEmailVerfied(user) && isProfileCompleted(user)) {
+      if (
+        isEmailVerfied(user) &&
+        isMobileVerified(user) &&
+        isProfileCompleted(user)
+      ) {
         setVerified(true);
         return;
       }

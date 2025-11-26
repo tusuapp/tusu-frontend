@@ -19,7 +19,8 @@ import PhoneInput from "react-phone-input-2";
 import { timezones } from "consts/timezones";
 import { useQuery } from "react-query";
 import { api } from "api";
-
+import zIndex from "@mui/material/styles/zIndex";
+import "react-phone-input-2/lib/style.css";
 const lowercaseRegex = /(?=.*[a-z])/;
 const uppercaseRegex = /(?=.*[A-Z])/;
 const numericRegex = /(?=.*[0-9])/;
@@ -97,6 +98,11 @@ const SignUpPage = () => {
       overflow: "hidden",
       "text-overflow": "ellipsis",
     }),
+    menu: (base: any) => ({
+      ...base,
+      zIndex: 99999, // Extremely high Z-index on the menu component itself
+    }),
+    menuPortal: (base: any) => ({ ...base, zIndex: 99999 }), // Also ensure the portal wrapper is high
   };
 
   interface TimeZoneOptions {
@@ -387,7 +393,7 @@ const SignUpPage = () => {
                               <PublicOutlinedIcon />
                             </div>
                             <div className="flex-grow-1">
-                              <div className="form-floating mb-3">
+                              <div className=" mb-3">
                                 <Field name="timezone">
                                   {({
                                     field,
