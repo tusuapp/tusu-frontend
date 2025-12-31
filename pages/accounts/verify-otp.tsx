@@ -76,7 +76,7 @@ const SignUpPage = () => {
                 <h4 className="sign-in-title text-center">OTP verfication</h4>
                 <br />
                 <p className="text-center px-5">
-                  Please enter the OTP sent to your mobile number
+                  Please enter the OTP sent to your email address
                 </p>
 
                 <div className="otp col-12 col-sm-4 d-flex justify-content-center align-items-center">

@@ -6,7 +6,7 @@ const verifyOtp = async (session: string, otp: string) => {
   setApplicationName("student");
 
   const res = await v2api.post(
-    `/auth/otp/verify-phone?session=${session}&otp=${otp}`
+    `/auth/otp/verify-email?session=${session}&otp=${otp}`
   );
 
   return res.data.result;
