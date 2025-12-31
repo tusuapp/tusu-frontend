@@ -7,7 +7,6 @@ import { selectAuth } from "../features/auth/authSlice";
 import {
   getUserRole,
   isEmailVerfied,
-  isMobileVerified,
   isProfileCompleted,
 } from "../utils";
 
@@ -56,10 +55,10 @@ const withAuthNew = (WrappedComponent: React.FC, role: any) => {
         return;
       }
 
-      if (!isMobileVerified(user)) {
-        Router.replace("/accounts/verify-otp");
-        return;
-      }
+      // if (!isMobileVerified(user)) {
+      //   Router.replace("/accounts/verify-otp");
+      //   return;
+      // }
 
       if (getUserRole(user) !== role) {
         Router.replace("/");

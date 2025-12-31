@@ -10,12 +10,6 @@ export const isProfileCompleted = (user: any) => {
   return user.completeProfile;
 };
 
-export const isMobileVerified = (user: any) => {
-  console.log(user);
-
-  return user.mobileVerified;
-};
-
 export const isEmailVerfied = (user: any) => {
   return user.emailVerified || user.is_mobile_verified;
 };
