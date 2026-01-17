@@ -41,6 +41,11 @@ const menuItems = [
     icon: "/icons/tutor/dollar.svg",
   },
   {
+    name: "Payouts",
+    link: "/tutor/payouts",
+    icon: "/icons/tutor/dollar.svg",
+  },
+  {
     name: "Class Schedule",
     link: "/tutor/class-schedules",
     icon: "/icons/tutor/online-class.svg",
