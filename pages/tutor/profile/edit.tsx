@@ -103,13 +103,13 @@ function Profile() {
     setImages(imageList);
 
     var formData = new FormData();
-    formData.append("files", imageList[0]?.file);
+    formData.append("file", imageList[0]?.file);
     updateProfilePicture.mutate(formData);
   };
   const handleUpdateProfilePicture = () => {
     setPromptOpen(false);
     var formData = new FormData();
-    formData.append("files", images[0]?.file);
+    formData.append("file", images[0]?.file);
     updateProfilePicture.mutate(formData);
   };
   const handleUpdateProfileVideo = (e: any) => {

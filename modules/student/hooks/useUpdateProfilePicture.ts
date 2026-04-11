@@ -1,10 +1,9 @@
-import { api } from "api";
+import { v2api } from "api";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
 const updateProfilePicture = async (form: any, setImageId: any) => {
-  console.log("updateProfilePicture", form);
-  const { data } = await api.post("/upload-auth-profile", form);
+  const { data } = await v2api.post("/user/profile/photo", form);
   setImageId(data?.result?.id);
   return data.result;
 };
