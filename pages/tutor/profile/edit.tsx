@@ -267,7 +267,7 @@ function Profile() {
                               </div>
                             )}
                           </ImageUploading>
-                          <div className="me-1 d-flex align-items-end">
+                          {/* <div className="me-1 d-flex align-items-end">
                             <div className="ms-3">
                               <input
                                 ref={inputEl}
@@ -296,7 +296,7 @@ function Profile() {
                                 Update Profile Video
                               </div>
                             </div>
-                          </div>
+                          </div> */}
                         </div>
 
                         <div>

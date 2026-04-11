@@ -1,9 +1,11 @@
 import { RadioGroup } from "@headlessui/react";
 import moment from "moment";
+import { TrialTag } from "components/tutorClass";
 
 interface TimePeriod {
   start: string;
   end: string;
+  isTrialSlot?: boolean;
 }
 
 interface TimeSlotData {
@@ -11,6 +13,7 @@ interface TimeSlotData {
   fromDatetime: string;
   toDatetime: string;
   isBooked: boolean;
+  isTrialSlot?: boolean;
 }
 
 interface TimeSlotsProps {
@@ -23,17 +26,21 @@ const TimeSlot = ({
   timePeriod,
   isChecked,
   onClick,
+  isTrialSlot,
 }: {
   timePeriod: TimePeriod;
   isChecked: boolean;
   onClick: () => void;
+  isTrialSlot?: boolean;
 }) => {
   return (
     <div
       className={isChecked ? "tutor__timeslot--active" : "tutor__timeslot"}
       onClick={onClick}
+      style={{ display: "flex", alignItems: "center", gap: "8px" }}
     >
       {timePeriod.start} - {timePeriod.end}
+      {isTrialSlot && <TrialTag />}
     </div>
   );
 };
@@ -46,9 +53,16 @@ const TimeSlots = ({ data, onChange, setSelectedSlot }: TimeSlotsProps) => {
       {data
         .filter((slot) => !slot.isBooked)
         .map((slot) => {
-          const timePeriod = {
+          const slotDuration = moment(slot.toDatetime).diff(
+            moment(slot.fromDatetime),
+            "minutes"
+          );
+          const isTrialSlot = slot.isTrialSlot || slotDuration <= 15;
+
+          const timePeriod: TimePeriod = {
             start: moment(slot.fromDatetime).format("hh:mm a"),
             end: moment(slot.toDatetime).format("hh:mm a"),
+            isTrialSlot,
           };
 
           return (
@@ -59,6 +73,7 @@ const TimeSlots = ({ data, onChange, setSelectedSlot }: TimeSlotsProps) => {
                     timePeriod={timePeriod}
                     isChecked={active}
                     onClick={() => setSelectedSlot(slot.id)}
+                    isTrialSlot={isTrialSlot}
                   />
                 )}
               </RadioGroup.Option>

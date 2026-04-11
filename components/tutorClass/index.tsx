@@ -6,6 +6,23 @@ import { useSelector } from "react-redux";
 import { selectAuth } from "../../features/auth/authSlice";
 import StatusButtonV2 from "components/StatusButton/StatusButtonV2";
 
+export const TrialTag = () => (
+  <span
+    style={{
+      backgroundColor: "#924781",
+      color: "#fff",
+      borderRadius: "20px",
+      padding: "2px 10px",
+      fontSize: "11px",
+      fontWeight: 600,
+      letterSpacing: "0.3px",
+      whiteSpace: "nowrap",
+    }}
+  >
+    Trial
+  </span>
+);
+
 const TutorClass: React.FC<any> = ({ booking }) => {
   const { user } = useSelector(selectAuth);
 
@@ -15,6 +32,7 @@ const TutorClass: React.FC<any> = ({ booking }) => {
   let duration = moment.duration(scheduleTime.diff(currentLocalTime));
   let hoursLeft = duration.asHours();
   let classDuration = moment.duration(endTime.diff(scheduleTime)).asMinutes();
+  const isTrialSlot = booking.isTrialSlot || classDuration <= 15;
 
   const statusClass =
     booking.status === "in-progress"
@@ -26,7 +44,10 @@ const TutorClass: React.FC<any> = ({ booking }) => {
   return (
     <div className={`tutor-my__class ${statusClass}`}>
       <div className="d-flex flex-column gap-2">
-        <div className="student__name">{booking.student.fullName}</div>
+        <div className="d-flex align-items-center gap-2">
+          <div className="student__name">{booking.student.fullName}</div>
+          {isTrialSlot && <TrialTag />}
+        </div>
         <div className="d-flex align-items-center gap-2 text-muted" style={{ fontSize: "14px" }}>
           <FontAwesomeIcon icon={faCalendarAlt} />
           <span>{scheduleTime.format("hh:mm a · DD MMM YYYY")}</span>

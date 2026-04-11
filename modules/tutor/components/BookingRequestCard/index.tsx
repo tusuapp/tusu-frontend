@@ -10,6 +10,7 @@ import useChangeBookingActions from "@/tutor/hooks/useChangeBookingActions";
 import RescheduleModal from "../RescheduleModal";
 import router, { useRouter } from "next/router";
 import moment from "moment";
+import { TrialTag } from "components/tutorClass";
 
 interface BookingRequestCardProps {
   id?: any;
@@ -21,6 +22,7 @@ interface BookingRequestCardProps {
   endTime?: any;
   onChange?: any;
   notes?: string;
+  isTrialSlot?: boolean;
 }
 
 const BookingRequestCard: React.FC<BookingRequestCardProps> = ({
@@ -33,7 +35,11 @@ const BookingRequestCard: React.FC<BookingRequestCardProps> = ({
   endTime,
   notes,
   onChange,
+  isTrialSlot: isTrialSlotProp,
 }) => {
+  const isTrialSlot =
+    isTrialSlotProp ||
+    moment(endTime).diff(moment(startTime), "minutes") <= 15;
   const [isRejectionModalOpen, setIsRejectionModalOpen] = useState(false);
   const [isRescheduleModalOpen, setIsRescheduleModalOpen] = useState(false);
 
@@ -72,9 +78,11 @@ const BookingRequestCard: React.FC<BookingRequestCardProps> = ({
   return (
     <div className="booking-card mb-5 d-flex justify-content-center">
       <div className="booking-card-content">
-        <b>{name}</b> booked you for{" "}
-        <span style={{ color: "#82296E" }}>{subject} class.</span>
-        <br />
+        <div className="d-flex align-items-center gap-2 mb-1">
+          <b>{name}</b> booked you for{" "}
+          <span style={{ color: "#82296E" }}>{subject} class.</span>
+          {isTrialSlot && <TrialTag />}
+        </div>
         Payment of <span style={{ color: "#82296E" }}>${amount}</span> Received.
         <br />
         {/* Message : {notes}

@@ -24,6 +24,7 @@ import ReactPlayer from "react-player";
 import CircleIcon from "@mui/icons-material/Circle";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import withAuthNew from "../../../HOC/withAuthNew";
+import { TrialTag } from "components/tutorClass";
 
 const MAX_DATE = new Date(); // Now
 
@@ -408,7 +409,7 @@ function TutorProfile() {
                                     Chosen Time
                                   </p>
                                 </div>
-                                <div className="me-4 mt-3">
+                                <div className="me-4 mt-3 d-flex align-items-center gap-2">
                                   <span
                                     style={{
                                       color: "#361C30",
@@ -419,6 +420,7 @@ function TutorProfile() {
                                       ? `${selectedSchedule.start} - ${selectedSchedule.end}`
                                       : "Choose a schedule"}
                                   </span>
+                                  {selectedSchedule?.isTrialSlot && <TrialTag />}
                                 </div>
                               </div>
                             </div>

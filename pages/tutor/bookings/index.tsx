@@ -15,7 +15,7 @@ function Bookings() {
 
   const fetchBookings = async () => {
     const response = await v2api.get(
-      "/user/classes/bookings?types=accepted,in-progress"
+      "/user/classes/bookings?types=accepted,in-progress,completed,rejected,cancelled"
     );
     if (response.status === 200) {
       setBookings(response.data.bookings);

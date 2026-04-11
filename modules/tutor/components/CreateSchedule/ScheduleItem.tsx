@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import ConfirmDialogueModal from "../../../../components/ConfirmDialogueModal";
 import moment from "moment";
+import { TrialTag } from "components/tutorClass";
 
 interface Props {
   onEdit: () => void;
@@ -10,6 +11,7 @@ interface Props {
   id: any;
   startTime: any;
   endTime: any;
+  isTrialSlot?: boolean;
 }
 
 const ScheduleItem: React.FC<Props> = ({
@@ -18,7 +20,14 @@ const ScheduleItem: React.FC<Props> = ({
   id,
   startTime,
   endTime,
+  isTrialSlot: isTrialSlotProp,
 }) => {
+  const durationMinutes = moment(new Date(endTime)).diff(
+    moment(new Date(startTime)),
+    "minutes"
+  );
+  const isTrialSlot = isTrialSlotProp || durationMinutes <= 15;
+
   startTime = moment(new Date(startTime)).format("hh:mm a");
   endTime = moment(new Date(endTime)).format("hh:mm a");
   return (
@@ -28,8 +37,9 @@ const ScheduleItem: React.FC<Props> = ({
         {/* <div className="line"></div> */}
       </div>
       <div className="Schedule__item__right__wrapper">
-        <div className="Schedule__item__time">
+        <div className="Schedule__item__time d-flex align-items-center gap-2">
           {startTime} - {endTime}
+          {isTrialSlot && <TrialTag />}
         </div>
         <div className="Schedule__item__controls">
           <ConfirmDialogueModal

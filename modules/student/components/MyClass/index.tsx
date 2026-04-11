@@ -16,6 +16,7 @@ import Link from "next/link";
 import styles from "./myclass.module.css";
 import StatusButtonV2 from "components/StatusButton/StatusButtonV2";
 import Spinner from "components/Spinner";
+import { TrialTag } from "components/tutorClass";
 
 const customStyles = {
   content: {
@@ -66,10 +67,12 @@ const MyClass = ({ myclass }: any) => {
 
   let imagez = tutor.imageUrl ? tutor.imageUrl : "/image/img_avatar.png";
 
-  let current_time = moment().utcOffset(user.timeZoneOffset);
-
-  let schedule_time = moment(schedule?.startTime);
+  let current_time = moment();
+  let schedule_time = moment(myclass?.startTime ?? schedule?.startTime);
   let whatLeft = moment.duration(schedule_time.diff(current_time));
+
+  const classDuration = moment(myclass?.endTime).diff(moment(myclass?.startTime), "minutes");
+  const isTrialSlot = myclass?.isTrialSlot || classDuration <= 15;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isReviewOpen, setisReviewOpen] = useState<boolean>(false);
@@ -157,7 +160,10 @@ const MyClass = ({ myclass }: any) => {
         </div>
         <div className="flex-grow-1">
           <div className="d-flex justify-content-between align-items-center">
-            <div className="Student__my-class__name">{tutor.fullName}</div>
+            <div className="d-flex align-items-center gap-2">
+              <div className="Student__my-class__name">{tutor.fullName}</div>
+              {isTrialSlot && <TrialTag />}
+            </div>
             <FontAwesomeIcon
               icon={faStar}
               style={{ color: "#FBB017" }}
