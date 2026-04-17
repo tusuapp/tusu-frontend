@@ -12,6 +12,8 @@ import FilterDropdown from "../FilterDropdown";
 import Chat from "../../../../components/chat";
 import { v2api } from "api";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 export const NavItem: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -116,10 +118,9 @@ const Header: React.FC<Props> = ({ title }) => {
                         href="/student/notifications"
                         className="position-relative"
                       >
-                        <img
-                          src="/icons/tutor/notification.svg"
-                          alt="Notifications"
-                          style={{ width: "24px", height: "24px" }}
+                        <FontAwesomeIcon
+                          icon={faBell}
+                          style={{ width: "24px", height: "24px", color: "#5A294F" }}
                         />
 
                         <span

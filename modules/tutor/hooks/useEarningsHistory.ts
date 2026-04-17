@@ -1,11 +1,12 @@
-import { api } from "api";
+import { v2api } from "api";
 import { useQuery } from "react-query";
 
-const useEarningsHistory = () => {
-  return useQuery("tutorEarningsHistory", async () => {
-    const { data } = await api.get("/tutor/my-earnings-history");
-    
-    return data.result;
+const useEarningsHistory = (page = 0, size = 20) => {
+  return useQuery(["tutorEarningsHistory", page, size], async () => {
+    const { data } = await v2api.get(
+      `/user/profile/tutor/earnings?page=${page}&size=${size}`
+    );
+    return data;
   });
 };
 

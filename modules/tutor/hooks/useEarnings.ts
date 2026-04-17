@@ -1,11 +1,14 @@
-import { api } from "api";
+import { v2api } from "api";
 import { useQuery } from "react-query";
 
-const useEarnings = (filter: string) => {
-  // return useQuery(["tutorEarnings", filter], async () => {
-  //   const { data } = await api.get(`/tutor/my-earnings?filter=${filter}`);
-  //   return data.result;
-  // });
+// Fetches summary only (page=0&size=1) — used by sidebar
+const useEarnings = (_filter?: string) => {
+  return useQuery("tutorEarnings", async () => {
+    const { data } = await v2api.get(
+      "/user/profile/tutor/earnings?page=0&size=1"
+    );
+    return data?.summary ?? {};
+  });
 };
 
 export default useEarnings;

@@ -83,10 +83,6 @@ function Profile() {
         value: data?.tutorDetails?.gender,
       },
       experienceYears: data?.tutorDetails?.experience,
-      disciplines: data?.tutorDetails.disciplines.map((item: any) => ({
-        label: item.name,
-        value: item.id,
-      })),
       subjects: data?.tutorDetails?.subjects.map((item: any) => ({
         label: item.name,
         value: item.id,
@@ -132,13 +128,11 @@ function Profile() {
       gender: values.gender.label,
       description: values?.description,
       countryId: values.country.value,
-      countryCode: values.country.value,
       timezone: values.timezone.value,
       experience: Number(values.experienceYears),
       address: values.address,
       subjects: values.subjects.map((item: any) => Number(item.value)),
       languages: values.knownLanguages.map((item: any) => Number(item.value)),
-      disciplines: values.disciplines.map((item: any) => Number(item.value)),
       hourlyCharge: values.hourlyCharges,
       video: videoId,
     };
@@ -369,6 +363,9 @@ function Profile() {
                               style={{
                                 width: "330px",
                                 height: "100px",
+                                opacity: 0.5,
+                                pointerEvents: "none",
+                                cursor: "not-allowed",
                               }}
                             >
                               <div className="profile__field__label">
@@ -379,17 +376,8 @@ function Profile() {
                                 type="email"
                                 name="email"
                                 id="email"
-                                className={`edit-profile__field__input__text ${
-                                  errors.email && touched.email
-                                    ? "input-error"
-                                    : null
-                                }`}
+                                className="edit-profile__field__input__text"
                                 disabled
-                              />
-                              <ErrorMessage
-                                name="email"
-                                component="div"
-                                className="error"
                               />
                             </div>
                             <div
@@ -397,7 +385,9 @@ function Profile() {
                               style={{
                                 width: "330px",
                                 height: "100px",
+                                opacity: 0.5,
                                 pointerEvents: "none",
+                                cursor: "not-allowed",
                               }}
                             >
                               <div className="profile__field__label">
@@ -407,11 +397,7 @@ function Profile() {
                                 type="number"
                                 name="phone"
                                 id="phone"
-                                className={`edit-profile__field__input__text ${
-                                  errors.phone && touched.phone
-                                    ? "input-error"
-                                    : null
-                                }`}
+                                className="edit-profile__field__input__text"
                                 disabled
                               >
                                 {({ field, form: { setFieldValue } }: any) => (
@@ -425,25 +411,22 @@ function Profile() {
                                     inputStyle={{
                                       width: "405px",
                                       borderRadius: "12px",
+                                      backgroundColor: "#f5f5f5",
+                                      color: "#888",
                                     }}
                                     buttonStyle={{
                                       borderTopLeftRadius: "12px",
                                       borderBottomLeftRadius: "12px",
-                                      backgroundColor: "#fff",
+                                      backgroundColor: "#f5f5f5",
                                     }}
                                     inputProps={{
                                       name: field.name,
                                     }}
                                     specialLabel=""
-                                    disabled={setFieldValue}
+                                    disabled
                                   />
                                 )}
                               </Field>
-                              <ErrorMessage
-                                name="phone"
-                                component="div"
-                                className="error"
-                              />
                             </div>
                             <div
                               className="col-12 col-sm-4"
@@ -683,18 +666,6 @@ function Profile() {
                                 className="error"
                               />
                             </div>
-                            <MultiSelectField
-                              name="disciplines"
-                              label="Disciplines"
-                              options={initialFormData?.data?.discipline?.map(
-                                (i: any) => ({
-                                  label: i.name,
-                                  value: i.id,
-                                })
-                              )}
-                              isLoading={initialFormData.isFetching}
-                              menuPlacement="top"
-                            />
                             <MultiSelectField
                               name="subjects"
                               label="Subjects"

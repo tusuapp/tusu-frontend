@@ -313,23 +313,21 @@ function EditProfilePageStudent() {
                       </div>
                       <div className="row">
                         <div className="col-md-4">
-                          <div className="p-1 form-field-3 mb-3">
+                          <div
+                            className="p-1 form-field-3 mb-3"
+                            style={{
+                              opacity: 0.5,
+                              pointerEvents: "none",
+                              cursor: "not-allowed",
+                            }}
+                          >
                             <label htmlFor="email">Email</label>
                             <Field
                               type="email"
                               name="email"
                               id="email"
-                              className={`${
-                                errors.fullname && touched.fullname
-                                  ? "input-error"
-                                  : null
-                              } w-100`}
+                              className="w-100"
                               disabled
-                            />
-                            <ErrorMessage
-                              name="email"
-                              component="div"
-                              className="error"
                             />
                           </div>
                         </div>
@@ -412,17 +410,20 @@ function EditProfilePageStudent() {
                       </div>
                       <div className="row">
                         <div className="col-md-4">
-                          <div className="p-1 form-field-3  mb-3 pe-none">
+                          <div
+                            className="p-1 form-field-3 mb-3"
+                            style={{
+                              opacity: 0.5,
+                              pointerEvents: "none",
+                              cursor: "not-allowed",
+                            }}
+                          >
                             <label htmlFor="phone">Phone Number</label>
                             <Field
                               type="number"
                               name="phone"
                               id="phone"
-                              className={`${
-                                errors.fullname && touched.fullname
-                                  ? "input-error"
-                                  : null
-                              } w-100`}
+                              className="w-100"
                               disabled
                             >
                               {({ field, form: { setFieldValue } }: any) => (
@@ -438,26 +439,23 @@ function EditProfilePageStudent() {
                                     boxShadow: "0 3px 6px rgb(0 0 0 / 7%)",
                                     borderRadius: "8px",
                                     border: 0,
+                                    backgroundColor: "#f5f5f5",
+                                    color: "#888",
                                   }}
                                   buttonStyle={{
                                     border: 0,
                                     borderTopLeftRadius: "8px",
                                     borderBottomLeftRadius: "8px",
-                                    backgroundColor: "#fff",
+                                    backgroundColor: "#f5f5f5",
                                   }}
                                   inputProps={{
                                     name: field.name,
                                   }}
                                   specialLabel=""
-                                  disabled={setFieldValue}
+                                  disabled
                                 />
                               )}
                             </Field>
-                            <ErrorMessage
-                              name="phone"
-                              component="div"
-                              className="error"
-                            />
                           </div>
                         </div>
                         <div className="col-md-1"></div>

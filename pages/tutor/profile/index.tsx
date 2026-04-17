@@ -131,14 +131,6 @@ function Profile() {
                   </div>
                 </div>
                 <div className="col-12 mb-5">
-                  <div className="profile__field__label">Disciplines</div>
-                  <div className="profile__field__value">
-                    {data?.tutorDetails?.disciplines.map(
-                      (discipline: any) => `${discipline.name}, `
-                    )}
-                  </div>
-                </div>
-                <div className="col-12 mb-5">
                   <div className="profile__field__label">Subjects/Modules</div>
                   <div className="profile__field__value">
                     {data?.tutorDetails?.subjects.map(

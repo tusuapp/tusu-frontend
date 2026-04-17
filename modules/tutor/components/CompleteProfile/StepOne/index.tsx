@@ -1,16 +1,8 @@
-import React, { useEffect, useState } from "react";
-import Router from "next/router";
+import React from "react";
 import Button from "components/button";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import withAuthNew from "HOC/withAuthNew";
-import { api } from "api";
-import { useMutation, useQueryClient } from "react-query";
-import { toast } from "react-toastify";
-import Select from "react-select";
-import { customStyles } from "../styles";
 import { AnimatePresence, motion } from "framer-motion";
-import { convertApiToStateFormat } from "utils";
 // TODO convert initial data fetching to react query
 
 const ROLE = "tutor";
@@ -23,18 +15,11 @@ const ExtraProfileSchema = Yup.object().shape({
 
   experienceYears: Yup.number()
     .typeError("Invalid format")
-    // .max(160, "More than 160 characters not allowed")
     .required("Experience is required"),
 
   hourlyCharges: Yup.number()
     .typeError("Invalid format")
-    // .max(160, "More than 160 characters not allowed")
     .required("Hourly charges is required"),
-
-  disciplines: Yup.array()
-    .of(Yup.number())
-    .typeError("Invalid type")
-    .required("Disciplines is required"),
 });
 
 interface Props {
@@ -48,35 +33,16 @@ const StepOne: React.FC<Props> = ({
   initialFormData,
   isFetching,
 }) => {
-  const [disciplineOptions, setDisciplineOptions] = useState([]);
-
   // Initial form value
-
   const initialValues = {
     description: "",
     hourlyCharges: null,
     experienceYears: null,
-    disciplines: [],
-  };
-
-  // Fetches the initial form data from the API only if user object is there
-
-  useEffect(() => {
-    getInitialFormData();
-  }, [initialFormData]);
-
-  const getInitialFormData = () => {
-    if (!initialFormData) return;
-
-    const disciplines = initialFormData.discipline;
-
-    setDisciplineOptions(convertApiToStateFormat(disciplines, "discipline"));
   };
 
   const handleFormSubmit = (values: any) => {
     const data = {
       description: values.description,
-      disciplines: values.disciplines,
       experience: Number(values.experienceYears),
       hourlyCharge: Number(values.hourlyCharges),
     };
@@ -177,48 +143,6 @@ const StepOne: React.FC<Props> = ({
                         />
                         <ErrorMessage
                           name="hourlyCharges"
-                          component="div"
-                          className="error"
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-12">
-                        <h2 className="Form__input__label mt-3">
-                          Disciplines you are teaching
-                        </h2>
-                        <Field name="disciplines">
-                          {({
-                            field,
-                            form: { touched, setFieldValue, setTouched },
-                          }: any) => (
-                            <div className="mb-3">
-                              <Select
-                                instanceId="disciplines-select"
-                                options={disciplineOptions}
-                                styles={customStyles}
-                                isLoading={isFetching}
-                                onChange={(options: any) => {
-                                  const optionIds = options.map(
-                                    (option: any) => option.value
-                                  );
-
-                                  setFieldValue(field.name, optionIds);
-                                }}
-                                isMulti={true}
-                                onBlur={() =>
-                                  setTouched({
-                                    ...touched,
-                                    [field.name]: true,
-                                  })
-                                }
-                                menuPlacement="top"
-                              />
-                            </div>
-                          )}
-                        </Field>
-                        <ErrorMessage
-                          name="disciplines"
                           component="div"
                           className="error"
                         />

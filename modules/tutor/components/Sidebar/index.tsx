@@ -7,18 +7,21 @@ import useEarnings from "@/tutor/hooks/useEarnings";
 import axios from "axios";
 import { v2api } from "api";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 interface MenuItemProps {
   href: string;
-  icon: string;
+  icon?: string;
+  iconComponent?: React.ReactNode;
   children: string;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ icon, href, children }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ icon, iconComponent, href, children }) => {
   return (
     <div className="sidebar__menu__item">
       <div className="sidebar__menu__item__image">
-        <img src={icon} />
+        {iconComponent ?? <img src={icon} />}
       </div>
       <ActiveLink activeClassName="active" href={href}>
         <a className="sidebar__menu__item__link">{children}</a>
@@ -145,7 +148,7 @@ const Sidebar = () => {
           </div> */}
           <div className="tutor_earnings__count">
             <div className="svg_container">
-              <img src="/icons/tutor/dollar.svg" />
+              <FontAwesomeIcon icon={faBell} style={{ width: "16px", height: "16px", color: "#5A294F" }} />
             </div>
             <div>
               <h6>{notifications || 0}</h6>
@@ -156,7 +159,16 @@ const Sidebar = () => {
       </div>
       <div className="sidebar__menu">
         {menuItems.map((menuItem, index) => (
-          <MenuItem href={menuItem.link} icon={menuItem.icon} key={index}>
+          <MenuItem
+            href={menuItem.link}
+            icon={menuItem.icon}
+            iconComponent={
+              menuItem.name === "Notifications" ? (
+                <FontAwesomeIcon icon={faBell} style={{ width: "20px", height: "20px", color: "#924781" }} />
+              ) : undefined
+            }
+            key={index}
+          >
             {menuItem.name}
           </MenuItem>
         ))}

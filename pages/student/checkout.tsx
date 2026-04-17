@@ -2,7 +2,7 @@ import Header from "../../components/header";
 import Container from "../../components/container";
 import Footer from "../../components/footer";
 import Head from "next/head";
-import { api, v2api } from "../../api";
+import { v2api } from "../../api";
 import { useEffect, useState } from "react";
 import router, { useRouter } from "next/router";
 import Button from "../../components/button";
@@ -53,7 +53,6 @@ const Checkout = () => {
       return;
     }
     fetchCartDetails(query.id);
-    getOurTutors();
   }, [query]);
 
   const handlePayNow = async () => {
@@ -98,14 +97,6 @@ const Checkout = () => {
       .catch(() => {
         return null;
       });
-  };
-
-  const getOurTutors = async () => {
-    try {
-      const { data } = await api.get("/student/tutors?type=all-tutors");
-      setGetTutors(data.result);
-      return data.result;
-    } catch (e) {}
   };
 
   return (
@@ -342,7 +333,7 @@ const Checkout = () => {
                                 }}
                               />{" "}
                               Pay using credit ({" "}
-                              {creditPoints?.data?.credit_points} )
+                              {creditPoints?.data?.balance ?? 0} credits)
                             </div>
                           </div>
 

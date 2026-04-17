@@ -74,7 +74,7 @@ function CreditPoints() {
                               {creditPoints.isLoading ? (
                                 <Spinner />
                               ) : (
-                                creditPoints?.data?.credit_points
+                                creditPoints?.data?.balance ?? 0
                               )}
                             </h3>
                             <h6
@@ -94,9 +94,7 @@ function CreditPoints() {
                               className="font-w600 text-wallet m-0 font-16"
                               style={{ fontWeight: "normal", color: "white" }}
                             >
-                              1 Credit ={" "}
-                              {`${creditPoints.data?.one_credit_point} 
-                              ${creditPoints.data?.default_currency}`}
+                              Credit Balance
                             </p>
                           </div>
                         </div>
