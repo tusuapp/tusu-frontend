@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import { api } from "api";
-import Head from "next/head";
+import Seo from "../components/seo";
 import Container from "../components/container";
 import Footer from "../components/footer";
 import Header from "../components/header";
@@ -23,10 +23,11 @@ export default function OurTutorsPage({ tutors }: any) {
   }, []);
   return (
     <>
-      <Head>
-        <title>Our tutors | Tusu</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <Seo
+        title="Our Tutors"
+        description="Browse Tusu's expert tutors across a wide range of subjects. Compare profiles, reviews and availability, then book a 1-on-1 online class."
+        canonical="/our-tutors"
+      />
       <Header />
 
       <Container>

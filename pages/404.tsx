@@ -1,14 +1,15 @@
 import Header from "../components/header";
 import Container from "../components/container";
-import Head from "next/head";
+import Seo from "../components/seo";
 
 function Custom404() {
   return (
     <>
-      <Head>
-        <title>Tusu - Student | Dashboard</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <Seo
+        title="Page Not Found"
+        description="The page you are looking for could not be found."
+        noindex
+      />
       <Header />
 
       <Container>

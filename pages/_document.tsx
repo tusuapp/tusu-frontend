@@ -15,9 +15,12 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <>
+            <link rel="icon" href="/image/logo.svg" type="image/svg+xml" />
+            <link rel="apple-touch-icon" href="/icons/apple-icon.svg" />
+            <meta name="theme-color" content="#ffffff" />
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link
               rel="preconnect"

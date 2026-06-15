@@ -1,14 +1,15 @@
 import Header from "../components/header";
 import Container from "../components/container";
-import Head from "next/head";
+import Seo from "../components/seo";
 
 function Error() {
   return (
     <>
-      <Head>
-        <title>Tusu - Student | Dashboard</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <Seo
+        title="Something Went Wrong"
+        description="An unexpected error occurred. Please try again."
+        noindex
+      />
       <Header />
 
       <Container>

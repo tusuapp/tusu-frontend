@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Private / authenticated areas — keep out of the index
+Disallow: /student/
+Disallow: /tutor/
+Disallow: /accounts/
+Disallow: /signup/verification/
+Disallow: /api/
+
+Sitemap: https://tusuapp.com/sitemap.xml

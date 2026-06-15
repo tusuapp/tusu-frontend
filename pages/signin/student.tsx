@@ -3,6 +3,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import InputText from "../../modules/auth/components/InputText";
 import AuthContainer from "../../modules/auth/components/AuthContainer";
 import Button from "../../components/button";
+import Seo from "../../components/seo";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn, selectAuth } from "../../features/auth/authSlice";
@@ -69,6 +70,11 @@ const SignIn = () => {
 
   return (
     <>
+      <Seo
+        title="Student Sign In"
+        description="Sign in to your Tusu student account to book classes, message tutors and manage your online learning."
+        canonical="/signin/student"
+      />
       <AuthContainer title="Sign In">
         <Formik
           initialValues={initialValues}

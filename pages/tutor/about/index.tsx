@@ -1,6 +1,6 @@
 import Header from "components/header";
 import Container from "components/container";
-import Head from "next/head";
+import Seo from "components/seo";
 import HeroSection from "components/@next/templates/heroSection";
 import { useQuery } from "react-query";
 import { api } from "api";
@@ -14,10 +14,11 @@ import TutorCardWithHover from "modules/landing-page/components/TutorCardWithHov
 function About() {
     return (
       <>
-        <Head>
-          <title>Tusu - Student | Dashboard</title>
-          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        </Head>
+        <Seo
+          title="About Us"
+          description="Learn about Tusu — our mission to make quality, personalised online tutoring accessible to every student, and the expert tutors who make it happen."
+          canonical="/tutor/about"
+        />
         <Container>
           <section id="about" className="bg-white mt-5">
             <div className="container">

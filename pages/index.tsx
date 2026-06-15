@@ -1,8 +1,9 @@
 import Header from "../components/header";
 import Container from "../components/container";
 import Footer from "../components/footer";
-import Head from "next/head";
+import Seo from "../components/seo";
 import HeroSection from "../components/@next/templates/heroSection";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../consts/site";
 import { useQuery } from "react-query";
 import { api } from "../api";
 import TutorCardWithHover from "../modules/landing-page/components/TutorCardWithHover";
@@ -33,10 +34,32 @@ function Home() {
 
   return (
     <>
-      <Head>
-        <title>Tusu - Student | Dashboard</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <Seo
+        titleAsIs
+        title="Tusu — Find Expert Online Tutors & Book 1-on-1 Classes"
+        description={SITE_DESCRIPTION}
+        canonical="/"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: SITE_NAME,
+            url: SITE_URL,
+            logo: `${SITE_URL}/image/logo.svg`,
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: SITE_NAME,
+            url: SITE_URL,
+            potentialAction: {
+              "@type": "SearchAction",
+              target: `${SITE_URL}/our-tutors?search={search_term_string}`,
+              "query-input": "required name=search_term_string",
+            },
+          },
+        ]}
+      />
       <Header />
       <HeroSection />
       <Container>

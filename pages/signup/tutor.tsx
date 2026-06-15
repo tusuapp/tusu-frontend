@@ -6,7 +6,7 @@ import Header from "components/header";
 import { selectAuth, signUpTutor } from "features/auth/authSlice";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import LoginGoogle from "modules/auth/components/SocialMediaLinks/Google";
-import Head from "next/head";
+import Seo from "components/seo";
 import Link from "next/link";
 import Router from "next/router";
 import { useEffect, useState } from "react";
@@ -103,10 +103,11 @@ const SignUpPage = () => {
   };
   return (
     <>
-      <Head>
-        <title>Register as a new Tutor | Tusu</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <Seo
+        title="Become a Tutor"
+        description="Sign up as a Tusu tutor to teach online, set your own schedule and earn by sharing your expertise with students worldwide."
+        canonical="/signup/tutor"
+      />
       <Header />
 
       <div className="auth-container">

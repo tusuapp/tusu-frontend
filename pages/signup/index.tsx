@@ -1,11 +1,16 @@
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import Head from "next/head";
+import Seo from "../../components/seo";
 import Link from "next/link";
 
 const ChooseLogin: React.FC = () => {
   return (
     <>
+      <Seo
+        title="Sign Up"
+        description="Join Tusu as a student to learn from expert tutors, or sign up as a tutor to teach online and grow your income."
+        canonical="/signup"
+      />
       <Header title={"Choose sign up"} />
       <div className="min-full-height bg-login-page d-flex justify-content-center align-items-center">
         <div className="container">

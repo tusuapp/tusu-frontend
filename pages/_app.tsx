@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import store from "store";
 import { Fragment, useEffect } from "react";
 import AlertProvider from "../components/AlertProvider";
+import Seo from "../components/seo";
 import { getTokenFromLocalStorage } from "../utils";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Page } from "../@types/page";
@@ -82,6 +83,8 @@ function MyApp({ Component, pageProps }: Props) {
         <QueryClientProvider client={queryClient}>
           <Provider store={store}>
             <AlertProvider>
+              {/* Baseline metadata; pages override via matching next/head keys. */}
+              <Seo />
               <Layout>
                 <Component {...pageProps} />
               </Layout>

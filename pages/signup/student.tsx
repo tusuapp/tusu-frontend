@@ -3,7 +3,7 @@ import Header from "../../components/header";
 import Router from "next/router";
 import { selectAuth, signUp, signUpTutor } from "../../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Head from "next/head";
+import Seo from "../../components/seo";
 import { faEye, faPhoneAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../../components/button";
@@ -140,10 +140,11 @@ const SignUpPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Register as a new Tutor | Tusu</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <Seo
+        title="Sign Up as a Student"
+        description="Create your free Tusu student account to find expert tutors, book 1-on-1 online classes and start learning your way."
+        canonical="/signup/student"
+      />
       <Header />
 
       <div className="auth-container">

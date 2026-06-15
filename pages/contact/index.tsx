@@ -1,7 +1,7 @@
 import Header from "components/header";
 import Container from "components/container";
 import Footer from "components/footer";
-import Head from "next/head";
+import Seo from "components/seo";
 import React from "react";
 import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,10 +35,11 @@ function Home() {
 
   return (
     <>
-      <Head>
-        <title>Tusu -Contact us</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <Seo
+        title="Contact Us"
+        description="Get in touch with the Tusu team. Reach out by email or phone for help with tutoring, bookings, or becoming a tutor on Tusu."
+        canonical="/contact"
+      />
       <Header />
       <Container>
         <div className="mt-5"></div>
