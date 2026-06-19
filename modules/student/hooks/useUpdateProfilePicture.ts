@@ -3,7 +3,19 @@ import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
 const updateProfilePicture = async (form: any, setImageId: any) => {
-  const { data } = await v2api.post("/user/profile/photo", form);
+  // The v2api instance has Content-Type: application/json as a default header.
+  // axios calls xhr.setRequestHeader() with that value BEFORE xhr.send(formData),
+  // and Chrome respects the explicit header — so the multipart boundary never gets
+  // set and the server returns 400. transformRequest runs before setRequestHeader,
+  // so deleting from the (deep-copied) headers object here is the reliable fix.
+  const { data } = await v2api.post("/user/profile/photo", form, {
+    transformRequest: [(data: any, headers: any) => {
+      delete headers["Content-Type"];
+      if (headers.common) delete headers.common["Content-Type"];
+      if (headers.post) delete headers.post["Content-Type"];
+      return data;
+    }],
+  });
   setImageId(data?.result?.id);
   return data.result;
 };
@@ -13,49 +25,12 @@ const useUpdateProfiePicture = (setImageId: any) => {
 
   return useMutation((data: any) => updateProfilePicture(data, setImageId), {
     onSuccess: () => {
-      //toast.success("Profile picture changed successfully");
+      toast.success("Profile picture updated successfully");
     },
 
-    onMutate: async (newTodo) => {
-      // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-
-      await queryClient.cancelQueries("tutorSlots");
-
-      // Snapshot the previous value
-
-      const previousTodos = queryClient.getQueryData("tutorSlots");
-
-      // Optimistically update to the new value
-
-      // queryClient.setQueryData("tutorSlots", (old: any) => [...old, newTodo]);
-
-      // Return a context object with the snapshotted value
-
-      return { previousTodos };
+    onError: () => {
+      toast.error("Profile photo update failed. Please try again.");
     },
-
-    // If the mutation fails, use the context returned from onMutate to roll back
-
-    onError: async (err: any, newTodo, context: any) => {
-      const errorMessage = err.response.data.message;
-
-      if (
-        Object.keys(errorMessage).length === 0 &&
-        errorMessage.constructor === Object
-      ) {
-        toast.error("Empty message from server");
-      }
-
-      if (errorMessage) {
-        toast.error(err.response.data.message);
-      } else {
-        toast.error("Unknown error occured");
-      }
-
-      queryClient.setQueryData("tutorSlots", context.previousTodos);
-    },
-
-    // Always refetch after error or success:
 
     onSettled: () => {
       queryClient.invalidateQueries("tutorSlots");
