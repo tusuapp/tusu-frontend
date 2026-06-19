@@ -16,6 +16,7 @@ import Button from "../../../components/button";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import useAddFavourite from "@/student/hooks/useAddFavourite";
 import moment from "moment";
 import StudentDashboardLayout from "layouts/StudentDashboard";
 import useTutorReviews from "@/student/hooks/useTutorReviews";
@@ -142,15 +143,12 @@ function TutorProfile() {
   };
 
   const [favAdd, setFavAdd] = useState(false);
+  const addFavouriteMutation = useAddFavourite();
+
   const addTutorToFavourites = () => {
-    setFavAdd(true);
-    api
-      .post(`/student/favorite-tutors`, { tutor_id: tutor_slug })
-      .then(() => toast.success("Tutor added to favourites"))
-      .catch((error) => {
-        console.log(error);
-        toast.error("Failed to add tutor to favourites");
-      });
+    if (favAdd || profile?.is_favorite) return;
+    setFavAdd(true); // optimistic
+    addFavouriteMutation.mutate(tutor_slug);
   };
 
   if (!hasTutorFound) {
@@ -207,16 +205,22 @@ function TutorProfile() {
                       )}
                     </div>
                   </div>
-                  <span className="Student-tutor__profile__title__card__favourite__button">
+                  <span
+                    className="Student-tutor__profile__title__card__favourite__button"
+                    title={profile?.is_favorite || favAdd ? "Added to favourites" : "Add to favourites"}
+                  >
                     <FontAwesomeIcon
                       className="ms-3"
                       icon={faBookmark}
                       style={{
                         fontSize: "22px",
+                        cursor: addFavouriteMutation.isLoading ? "wait" : "pointer",
                         color:
                           profile?.is_favorite || favAdd
                             ? "#fbb017"
                             : "#BBBBBB",
+                        opacity: addFavouriteMutation.isLoading ? 0.6 : 1,
+                        transition: "color 0.2s, opacity 0.2s",
                       }}
                       onClick={addTutorToFavourites}
                     />
