@@ -2,6 +2,7 @@ import Header from "components/header";
 import Container from "components/container";
 import Footer from "components/footer";
 import Seo from "components/seo";
+import { buildBreadcrumbs } from "consts/site";
 import React from "react";
 import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,8 +38,12 @@ function Home() {
     <>
       <Seo
         title="Contact Us"
-        description="Get in touch with the Tusu team. Reach out by email or phone for help with tutoring, bookings, or becoming a tutor on Tusu."
+        description="Have questions about your language journey? Get in touch with the Tusu team by email or phone for help with lessons, IELTS prep, bookings, or teaching on Tusu."
         canonical="/contact"
+        jsonLd={buildBreadcrumbs([
+          { name: "Home", path: "/" },
+          { name: "Contact Us", path: "/contact" },
+        ])}
       />
       <Header />
       <Container>

@@ -13,9 +13,9 @@ const Footer = () => {
                   alt=""
                 />
                 <p className="mt-3">
-                  We are providing something unique, useful and most importantly
-                  fun. By giving students a tool to find instant solutions to
-                  their doubts.
+                  Tusu empowers learners worldwide with personalised 1-to-1
+                  language coaching and IELTS preparation — turning hesitation
+                  into fluency.
                 </p>
               </div>
               <div className="col-lg-3 col-md-6 col-6 mb-4 mb-md-0 mt-23">
@@ -38,21 +38,27 @@ const Footer = () => {
                 <h5 className="footer-head">Useful Links</h5>
                 <ul className="list-unstyled mb-0">
                   <li className="footer-item">
-                    <a href="/our-tutors">Tutors</a>
+                    <a href="/our-tutors">Browse Language Tutors</a>
                   </li>
                   <li className="footer-item">
-                    <a href="/student/privacy-policy">Legal</a>
+                    <a href="/signup/tutor">Become a Tutor</a>
                   </li>
                   <li className="footer-item">
                     <a href="/student/terms-and-condition">
-                      Terms and condition
+                      Terms &amp; Conditions
                     </a>
+                  </li>
+                  <li className="footer-item">
+                    <a href="/student/privacy-policy">Privacy Policy</a>
                   </li>
                 </ul>
               </div>
               <div className="col-lg-3 col-md-6 mb-4 mb-md-0 mt-23">
                 <h5 className="footer-head mb-2">Follow Us</h5>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                <p>
+                  Practice tips, IELTS strategies and learner stories — straight
+                  to your feed.
+                </p>
                 <div className="social-media-icons">
                   <a href="#!" className="pr-1">
                     <img src="/image/social/twitter.png" />
@@ -84,7 +90,7 @@ const Footer = () => {
         >
           <div className="container">
             <div className="copyright	p-3">
-              Copyright © 2021 Tusu. All Rights Reserved.
+              Copyright © 2026 Tusu. All Rights Reserved.
             </div>
           </div>
         </div>

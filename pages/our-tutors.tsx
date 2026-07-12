@@ -1,6 +1,7 @@
 import {useEffect} from "react";
 import { api } from "api";
 import Seo from "../components/seo";
+import { buildBreadcrumbs } from "../consts/site";
 import Container from "../components/container";
 import Footer from "../components/footer";
 import Header from "../components/header";
@@ -24,9 +25,13 @@ export default function OurTutorsPage({ tutors }: any) {
   return (
     <>
       <Seo
-        title="Our Tutors"
-        description="Browse Tusu's expert tutors across a wide range of subjects. Compare profiles, reviews and availability, then book a 1-on-1 online class."
+        title="Language Tutors & IELTS Instructors"
+        description="Browse Tusu's certified language tutors and IELTS specialists. Compare native speakers, reviews and availability, then book a personalised 1-on-1 online lesson."
         canonical="/our-tutors"
+        jsonLd={buildBreadcrumbs([
+          { name: "Home", path: "/" },
+          { name: "Language Tutors", path: "/our-tutors" },
+        ])}
       />
       <Header />
 

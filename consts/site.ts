@@ -10,10 +10,10 @@ export const SITE_URL = rawSiteUrl.replace(/\/+$/, "");
 export const SITE_NAME = "Tusu";
 
 export const SITE_TITLE =
-  "Tusu — Find Expert Online Tutors & Book 1-on-1 Classes";
+  "Tusu — Expert Language Tutors & IELTS Preparation, 1-on-1 Online";
 
 export const SITE_DESCRIPTION =
-  "Tusu connects students with expert tutors for personalised online classes. Browse tutors by subject, book 1-on-1 sessions and learn at your own pace.";
+  "Tusu connects you with certified, native-speaking language tutors and IELTS specialists for personalised 1-on-1 online lessons. Reach fluency faster or hit your target band score.";
 
 // Default social share image (Open Graph / Twitter). 1200x630 is ideal;
 // the current banner is 411x307, so cards render as a smaller summary.
@@ -29,3 +29,20 @@ export const absoluteUrl = (path = "/") => {
   if (!path || path === "/") return SITE_URL;
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 };
+
+// Build a schema.org BreadcrumbList object for JSON-LD. Google uses this to
+// render the breadcrumb trail (Home › Language Tutors) in search results.
+// Pass the trail from the site root to the current page, e.g.
+//   buildBreadcrumbs([{ name: "Home", path: "/" }, { name: "Language Tutors", path: "/our-tutors" }])
+export const buildBreadcrumbs = (
+  items: { name: string; path: string }[]
+): Record<string, unknown> => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.name,
+    item: absoluteUrl(item.path),
+  })),
+});

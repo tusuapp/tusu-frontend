@@ -279,3 +279,439 @@ footer .footer {
     margin-top: 80px;
   }
 }
+
+/* =====================================================================
+   Landing page — Language & IELTS refresh
+   Scoped, self-contained styling for the marketing sections.
+   Brand: #924781 (plum)
+   ===================================================================== */
+$brand: #924781;
+$brand-dark: #6f3363;
+$ink: #2b2430;
+$muted: #6b6570;
+
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $brand;
+  margin-bottom: 14px;
+
+  &--light {
+    color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+.section-head {
+  max-width: 640px;
+  margin: 0 auto 48px;
+
+  .sub-heading {
+    color: $muted;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  height: auto;
+  min-height: 82vh;
+  z-index: 0; // was -2: keep content clickable while bg sits behind
+  padding: 40px 0 72px;
+
+  .hero-bg {
+    z-index: -1;
+    opacity: 0.9;
+  }
+
+  .container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+.hero-copy {
+  .hero-title {
+    font-size: 46px;
+    line-height: 1.12;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: $ink;
+    margin-bottom: 20px;
+
+    .text-brand {
+      color: $brand !important;
+    }
+  }
+
+  .hero-lead {
+    font-size: 18px;
+    line-height: 1.6;
+    color: $muted;
+    max-width: 520px;
+    margin-bottom: 30px;
+  }
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.hero-cta {
+  border-radius: 999px;
+  padding: 13px 28px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &.btn-brand {
+    box-shadow: 0 12px 24px rgba(146, 71, 129, 0.25);
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &--ghost {
+    background: #fff;
+    color: $brand;
+    border: 1.5px solid rgba(146, 71, 129, 0.28);
+
+    &:hover {
+      border-color: $brand;
+      color: $brand-dark;
+    }
+  }
+}
+
+.hero-proof {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: $ink;
+  }
+}
+
+.hero-visual {
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* ---------- About ---------- */
+.about-us {
+  padding: 70px 0 40px;
+
+  .about-media {
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 24px 48px rgba(43, 36, 48, 0.12);
+
+    img {
+      display: block;
+      border-radius: 22px;
+    }
+  }
+
+  .banner-text {
+    color: $muted;
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+
+  .about-cta {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 12px 26px;
+    font-weight: 600;
+    margin-top: 8px;
+    box-shadow: 0 12px 24px rgba(146, 71, 129, 0.22);
+    transition: transform 0.15s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* ---------- Why choose Tusu ---------- */
+.why-tusu {
+  padding: 72px 0;
+
+  .feature-card {
+    padding: 8px 26px 8px 0;
+
+    // Thin separator between columns instead of boxed cards
+    border-left: 1px solid #ece7ee;
+    padding-left: 34px;
+
+    &__icon {
+      display: inline-flex;
+      color: $brand;
+      margin-bottom: 22px;
+
+      svg {
+        width: 38px;
+        height: 38px;
+      }
+    }
+
+    &__title {
+      position: relative;
+      font-size: 20px;
+      font-weight: 700;
+      color: $ink;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 34px;
+        height: 3px;
+        border-radius: 3px;
+        background: $brand;
+      }
+    }
+
+    &__text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: $muted;
+      margin-bottom: 0;
+    }
+  }
+
+  // First column has no left divider
+  .col-md-4:first-child .feature-card {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .why-tusu .feature-card {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+
+/* ---------- IELTS band ---------- */
+.ielts-band {
+  padding: 20px 0 84px;
+
+  &__inner {
+    background: $brand;
+    border-radius: 28px;
+    padding: 56px 52px;
+    color: #fff;
+    box-shadow: 0 30px 60px rgba(111, 51, 99, 0.3);
+    overflow: hidden;
+  }
+
+  &__title {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+
+  &__text {
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 540px;
+    margin-bottom: 26px;
+  }
+
+  &__cta {
+    background: #fff;
+    color: $brand-dark;
+    border-radius: 999px;
+    padding: 13px 30px;
+    font-weight: 700;
+    transition: transform 0.15s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      color: $brand-dark;
+    }
+  }
+}
+
+.ielts-skills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.ielts-skill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 16px 18px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+}
+
+/* ---------- Our tutors ---------- */
+#our-tutors {
+  .tutors__head {
+    max-width: 560px;
+  }
+  .tutors__sub {
+    color: $muted;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 6px 0 0;
+  }
+  .tutors__viewall {
+    white-space: nowrap;
+    transition: color 0.15s ease;
+    &:hover {
+      color: $brand !important;
+    }
+  }
+}
+
+/* ---------- Testimonials ---------- */
+.testimonials-clean {
+  .testimonials-bg {
+    background: #f6f2f7;
+    padding: 76px 0;
+  }
+
+  .review-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 34px 32px;
+    margin: 0;
+    box-shadow: 0 18px 44px rgba(43, 36, 48, 0.08);
+    display: flex;
+    flex-direction: column;
+
+    &__stars {
+      color: #f6b429;
+      font-size: 18px;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+
+    &__quote {
+      font-size: 17px;
+      line-height: 1.65;
+      color: $ink;
+      font-weight: 500;
+      margin: 0 0 26px;
+      flex: 1;
+    }
+
+    &__author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    &__avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(146, 71, 129, 0.2);
+    }
+
+    &__author span {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.35;
+
+      strong {
+        color: $ink;
+        font-size: 15px;
+      }
+      em {
+        font-style: normal;
+        color: $muted;
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991px) {
+  .hero {
+    min-height: auto;
+    text-align: center;
+  }
+  .hero-copy {
+    .hero-lead {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-title {
+      font-size: 36px;
+    }
+  }
+  .hero-badge,
+  .hero-actions,
+  .hero-proof {
+    justify-content: center;
+  }
+  .hero-visual {
+    margin-top: 40px;
+  }
+  .ielts-band__inner {
+    padding: 40px 28px;
+  }
+  .ielts-band__title {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero-copy .hero-title {
+    font-size: 29px;
+  }
+  .hero-float--rating {
+    left: 6px;
+  }
+  .hero-float--band {
+    right: 6px;
+  }
+  .ielts-skills {
+    grid-template-columns: 1fr;
+  }
+  .why-tusu,
+  .about-us {
+    padding: 44px 0;
+  }
+}

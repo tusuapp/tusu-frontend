@@ -1,6 +1,7 @@
 import Header from "components/header";
 import Container from "components/container";
 import Seo from "components/seo";
+import { buildBreadcrumbs } from "consts/site";
 import HeroSection from "components/@next/templates/heroSection";
 import { useQuery } from "react-query";
 import { api } from "api";
@@ -16,8 +17,12 @@ function About() {
     <>
       <Seo
         title="About Us"
-        description="Learn about Tusu — our mission to make quality, personalised online tutoring accessible to every student, and the expert tutors who make it happen."
+        description="Learn about Tusu — our mission to make expert, personalised language coaching and IELTS preparation accessible to every learner, through dedicated 1-on-1 tutoring."
         canonical="/about"
+        jsonLd={buildBreadcrumbs([
+          { name: "Home", path: "/" },
+          { name: "About Us", path: "/about" },
+        ])}
       />
       <Header />
       <Container>
@@ -25,49 +30,45 @@ function About() {
           <div className="container">
             <div className="about-us">
               <h2 className="heading text-brand section-title text-center font-weight-bold">
-                About Tusu
+                Redefining language learning
               </h2>
               <p className="sub-heading text-center mb-5">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. <br />
-                Lorem Ipsum has been the industry's standard dummy text ever
-                since the 1500s
+                We connect motivated learners with world-class language
+                educators for dedicated, 1-on-1 tutoring — built around your
+                level and your goals.
               </p>
-              <div className="row">
-                <div className="col-md-4">
-                  <img
-                    className="banner-img"
-                    src="/image/about.png"
-                    alt="About TUSU"
-                    width="100%"
-                  />
-                </div>
-                <div className="col-md-8">
-                  <p className="banner-text">
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout. The point of using Lorem Ipsum is that it has a
-                    more-or-less normal distribution of letters, as opposed to
-                    using 'Content here, content here', making it look like
-                    readable English. Many desktop publishing packages and web
-                    page editors now use Lorem Ipsum as their default model
-                    text, and a search for 'lorem ipsum' will uncover many web
-                    sites still in their infancy. Various versions have evolved
-                    over the years, sometimes by accident, sometimes on purpose
-                    (injected humour and the like).Various versions have evolved
-                    over the years, sometimes by accident, sometimes on purpose
-                    (injected humour and the like).
-                  </p>
-                  <button
-                    className="btn btn-brand "
-                    style={{ borderRadius: "50px", display: "none" }}
-                  >
-                    Read
+              <div className="row align-items-center g-5">
+                <div className="col-md-5">
+                  <div className="about-media">
                     <img
-                      src="/icons/arrow.png"
-                      style={{ marginLeft: "20px" }}
+                      className="banner-img"
+                      src="/image/about.png"
+                      alt="A Tusu language tutor guiding a student through a lesson"
+                      width="100%"
                     />
-                  </button>
+                  </div>
+                </div>
+                <div className="col-md-7">
+                  <p className="banner-text">
+                    At Tusu, we know the fastest way to learn a language is
+                    through active conversation and personalised feedback.
+                    Instead of crowded classrooms where you rarely get to speak,
+                    every Tusu lesson is a focused, one-on-one session with an
+                    educator dedicated entirely to you.
+                  </p>
+                  <p className="banner-text">
+                    Whether your goal is conversational confidence for travel,
+                    mastering complex grammar, or rigorous IELTS preparation, our
+                    tutors tailor each lesson to where you are today and where you
+                    want to be. Our instructors are carefully vetted native
+                    speakers and certified professionals who know how to build
+                    fluency, sharpen pronunciation and coach you through the exact
+                    skills the IELTS examiners look for.
+                  </p>
+                  <p className="banner-text">
+                    Say goodbye to crowded language classes — and start speaking
+                    from day one.
+                  </p>
                 </div>
               </div>
             </div>

@@ -121,7 +121,12 @@ const Header: React.FC<Props> = ({ title }) => {
                     </li>
                     <li className="nav-item">
                       <ActiveLink activeClassName="active" href={TUTORS_PAGE}>
-                        <a className="nav-link">Our Tutors</a>
+                        <a className="nav-link">Language Tutors</a>
+                      </ActiveLink>
+                    </li>
+                    <li className="nav-item">
+                      <ActiveLink activeClassName="active" href="/#ielts-prep">
+                        <a className="nav-link">IELTS Prep</a>
                       </ActiveLink>
                     </li>
                     <li className="nav-item">
@@ -131,7 +136,7 @@ const Header: React.FC<Props> = ({ title }) => {
                     </li>
                     <li className="nav-item">
                       <ActiveLink activeClassName="active" href="/signup/tutor">
-                        <a className="nav-link">Become a tutor</a>
+                        <a className="nav-link">Teach with Us</a>
                       </ActiveLink>
                     </li>
                   </span>

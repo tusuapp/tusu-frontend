@@ -15,6 +15,84 @@ import { useForm } from "react-hook-form";
 import router from "next/router";
 import "react-phone-input-2/lib/style.css";
 
+const WHY_TUSU = [
+  {
+    title: "Certified language experts",
+    text: "Learn from carefully vetted native speakers and certified professionals who know how to build your fluency and sharpen your pronunciation.",
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M12 15a5 5 0 100-10 5 5 0 000 10z"
+          stroke="currentColor"
+          strokeWidth="1.8"
+        />
+        <path
+          d="M8.5 14l-1 7 4.5-2.5L16.5 21l-1-7"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Targeted IELTS preparation",
+    text: "Specialised coaching for IELTS Reading, Writing, Listening and Speaking so you walk into the exam ready to hit your target band score.",
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M4 5.5A1.5 1.5 0 015.5 4H11v16H5.5A1.5 1.5 0 014 18.5v-13z"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M20 5.5A1.5 1.5 0 0018.5 4H13v16h5.5a1.5 1.5 0 001.5-1.5v-13z"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Flexible scheduling",
+    text: "Book lessons across time zones to fit your life. Morning, noon or night — your global tutor network is ready when you are.",
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="8.25" stroke="currentColor" strokeWidth="1.8" />
+        <path
+          d="M12 7.5V12l3 2"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+];
+
+const IELTS_SKILLS = ["Reading", "Writing", "Listening", "Speaking"];
+
+const TESTIMONIALS = [
+  {
+    quote:
+      "Tusu helped me jump from a 6.0 to a 7.5 on my IELTS Speaking test! My tutor knew exactly what the examiners look for and gave me the personalised practice I needed.",
+    name: "Ahmed K.",
+    role: "University Applicant",
+    avatar: "/image/tutors/1.png",
+  },
+  {
+    quote:
+      "I always felt too shy to speak, but the 1-on-1 environment on Tusu changed everything. My tutor is so encouraging, and I'm finally having real conversations.",
+    name: "Elena R.",
+    role: "Language Enthusiast",
+    avatar: "/image/tutors/8.png",
+  },
+];
+
 function Home() {
   const { user } = useSelector(selectAuth);
 
@@ -36,16 +114,24 @@ function Home() {
     <>
       <Seo
         titleAsIs
-        title="Tusu — Find Expert Online Tutors & Book 1-on-1 Classes"
-        description={SITE_DESCRIPTION}
+        title="Tusu — Expert Language Tutors & IELTS Preparation, 1-on-1 Online"
+        description="Learn a new language or prepare for the IELTS with certified, native-speaking tutors. Personalised 1-on-1 online lessons built around your level and goals."
         canonical="/"
         jsonLd={[
           {
             "@context": "https://schema.org",
-            "@type": "Organization",
+            "@type": ["Organization", "EducationalOrganization"],
             name: SITE_NAME,
             url: SITE_URL,
             logo: `${SITE_URL}/image/logo.svg`,
+            description:
+              "Online language tutoring and IELTS preparation with certified, native-speaking tutors through personalised 1-on-1 lessons.",
+            knowsAbout: [
+              "Language learning",
+              "IELTS preparation",
+              "English speaking",
+              "Online tutoring",
+            ],
           },
           {
             "@context": "https://schema.org",
@@ -66,74 +152,151 @@ function Home() {
         <section id="about" className="bg-white mt-5">
           <div className="container">
             <div className="about-us">
-              <h2 className="heading text-brand section-title text-center font-weight-bold">
-                About Tusu
-              </h2>
-              <p className="sub-heading text-center mb-5">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. <br />
-                Lorem Ipsum has been the industry's standard dummy text ever
-                since the 1500s
-              </p>
-              <div className="row">
-                <div className="col-md-4">
-                  <img
-                    className="banner-img"
-                    src="/image/about.png"
-                    alt="About TUSU"
-                    width="100%"
-                  />
+              <div className="row align-items-center g-5">
+                <div className="col-md-5">
+                  <div className="about-media">
+                    <img
+                      className="banner-img"
+                      src="/image/about.png"
+                      alt="A Tusu language tutor guiding a student through a lesson"
+                      width="100%"
+                    />
+                  </div>
                 </div>
-                <div className="col-md-8">
+                <div className="col-md-7">
+                  <span className="eyebrow">Our method</span>
+                  <h2 className="section-title text-brand font-weight-bold">
+                    Redefining language learning
+                  </h2>
                   <p className="banner-text">
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout. The point of using Lorem Ipsum is that it has a
-                    more-or-less normal distribution of letters, as opposed to
-                    using 'Content here, content here', making it look like
-                    readable English. Many desktop publishing packages and web
-                    page editors now use Lorem Ipsum as their default model
-                    text, and a search for 'lorem ipsum' will uncover many web
-                    sites still in their infancy. Various versions have evolved
-                    over the years, sometimes by accident, sometimes on purpose
-                    (injected humour and the like).Various versions have evolved
-                    over the years, sometimes by accident, sometimes on purpose
-                    (injected humour and the like).
+                    At Tusu, we know the fastest way to learn a language is
+                    through active conversation and personalised feedback. We
+                    connect motivated learners with world-class educators for
+                    dedicated, 1-on-1 tutoring.
+                  </p>
+                  <p className="banner-text">
+                    Whether your goal is conversational confidence for travel,
+                    mastering complex grammar, or rigorous IELTS preparation, our
+                    platform is tailored around your current level and goals. Say
+                    goodbye to crowded classes — and start speaking from day one.
                   </p>
                   <Link href={`/about`}>
-                    <button
-                      className="btn btn-brand "
-                      style={{ borderRadius: "50px" }}
-                    >
-                      Read
+                    <a className="btn btn-brand about-cta">
+                      Learn more about our method
                       <img
                         src="/icons/arrow.png"
-                        style={{ marginLeft: "20px" }}
+                        alt=""
+                        style={{ marginLeft: "16px" }}
                       />
-                    </button>
+                    </a>
                   </Link>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        {/* Out Tutors */}
+
+        {/* Why Choose Tusu */}
+        <section id="why-tusu" className="why-tusu">
+          <div className="container">
+            <div className="text-center section-head">
+              <span className="eyebrow">Why choose Tusu</span>
+              <h2 className="section-title text-brand font-weight-bold">
+                Built for real progress, not busywork
+              </h2>
+              <p className="sub-heading">
+                Everything about a Tusu lesson is designed to move you closer to
+                fluency — or your target band score.
+              </p>
+            </div>
+
+            <div className="row g-4">
+              {WHY_TUSU.map((feature) => (
+                <div className="col-md-4" key={feature.title}>
+                  <div className="feature-card h-100">
+                    <span className="feature-card__icon">{feature.icon}</span>
+                    <h3 className="feature-card__title">{feature.title}</h3>
+                    <p className="feature-card__text">{feature.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* IELTS Preparation band */}
+        <section id="ielts-prep" className="ielts-band">
+          <div className="container">
+            <div className="ielts-band__inner">
+              <div className="row align-items-center g-4">
+                <div className="col-lg-7">
+                  <span className="eyebrow eyebrow--light">IELTS preparation</span>
+                  <h2 className="ielts-band__title">
+                    Targeted coaching for every section of the exam
+                  </h2>
+                  <p className="ielts-band__text">
+                    Work with examiners and specialists who know exactly what the
+                    IELTS panel is looking for. Build the skills, timing and
+                    confidence to reach your target band across all four sections.
+                  </p>
+                  <div className="ielts-band__actions">
+                    <Link href="/our-tutors">
+                      <a className="btn ielts-band__cta">Find an IELTS tutor</a>
+                    </Link>
+                  </div>
+                </div>
+                <div className="col-lg-5">
+                  <div className="ielts-skills">
+                    {IELTS_SKILLS.map((skill) => (
+                      <div className="ielts-skill" key={skill}>
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M20 6L9 17l-5-5"
+                            stroke="#ffffff"
+                            strokeWidth="2.6"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        {skill}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* Our Tutors */}
         <section id="our-tutors">
           <div className="container">
             <div className="tutors">
-              <div className="d-flex justify-content-between align-items-center mb-5">
-                <h3
-                  className="text-brand"
-                  style={{ fontSize: "35px", fontWeight: 600 }}
-                >
-                  Our Tutors
-                </h3>
+              <div className="d-flex justify-content-between align-items-end mb-5 flex-wrap gap-3">
+                <div className="tutors__head">
+                  <span className="eyebrow">Meet your mentors</span>
+                  <h3
+                    className="text-brand"
+                    style={{ fontSize: "35px", fontWeight: 600 }}
+                  >
+                    Meet your future language mentors
+                  </h3>
+                  <p className="tutors__sub">
+                    Browse our highly-rated instructors and find the perfect
+                    match for your learning style and target language.
+                  </p>
+                </div>
                 <a
                   href="/our-tutors"
-                  className="text-decoration-none"
+                  className="text-decoration-none tutors__viewall"
                   style={{ color: "#222222", fontWeight: 500 }}
                 >
-                  View all
+                  View all instructors →
                 </a>
               </div>
               <div className="row justify-content-center">
@@ -194,76 +357,42 @@ function Home() {
 
       <div className="testimonials-clean">
         <section id="testimonials" className="mt-1-5">
-          <div
-            className="container-fluid"
-            style={{ backgroundColor: "#E7E7E7" }}
-          >
+          <div className="container-fluid testimonials-bg">
             <div className="container">
-              <div className="intro">
-                <h2 className="text-center text-brand">Testimonials</h2>
-                <p
-                  className="text-center"
-                  style={{
-                    color: "#515259",
-                    fontSize: "15px",
-                    fontWeight: 500,
-                  }}
-                >
-                  Our customers love us! Read what they have to say below.
-                  Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque
-                  ut laoreet vitae.
+              <div className="intro text-center section-head">
+                <span className="eyebrow">Success stories</span>
+                <h2 className="text-center text-brand">
+                  Success stories from our learners
+                </h2>
+                <p className="sub-heading">
+                  Real results from students who achieved their language goals
+                  with Tusu.
                 </p>
               </div>
-              <div className="row people">
-                <div className="col-md-6 col-lg-6 item">
-                  <div className="box">
-                    <p className="description">
-                      Aenean tortor est, vulputate quis leo in, vehicula rhoncus
-                      lacus. Praesent aliquam in tellus eu gravida. Aliquam
-                      varius finibus est.
-                    </p>
+              <div className="row people justify-content-center g-4">
+                {TESTIMONIALS.map((review) => (
+                  <div className="col-md-6 col-lg-5 item" key={review.name}>
+                    <figure className="review-card h-100">
+                      <div className="review-card__stars" aria-hidden="true">
+                        ★★★★★
+                      </div>
+                      <blockquote className="review-card__quote">
+                        “{review.quote}”
+                      </blockquote>
+                      <figcaption className="review-card__author">
+                        <img
+                          className="review-card__avatar"
+                          src={review.avatar}
+                          alt={review.name}
+                        />
+                        <span>
+                          <strong>{review.name}</strong>
+                          <em>{review.role}</em>
+                        </span>
+                      </figcaption>
+                    </figure>
                   </div>
-                  <div className="d-flex justify-content-end mt-5">
-                    <div>
-                      <h5 className="name text-uppercase">Ben Johnson</h5>
-
-                      <p className="title">CEO of Company Inc.</p>
-                    </div>
-                    <div
-                      className="rounded-circle ms-4"
-                      style={{ height: "75px", width: "75px" }}
-                    >
-                      <img src="/image/tutors/1.png" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-md-6 col-lg-6 item">
-                  <div className="box">
-                    <p className="description">
-                      Aliquam varius finibus est, et interdum justo suscipit.
-                      Vulputate quis leo in, vehicula rhoncus lacus. Praesent
-                      aliquam in tellus eu.
-                    </p>
-                  </div>
-
-                  <div className="d-flex justify-content-end mt-5">
-                    <div>
-                      <h5 className="fw-bold text-uppercase">Emily Clark</h5>
-
-                      <p className="title">Owner of Creative Ltd.</p>
-                    </div>
-                    <div
-                      className="rounded-circle ms-4"
-                      style={{ height: "75px", width: "75px" }}
-                    >
-                      <img
-                        style={{ overflow: "hidden" }}
-                        src="/image/tutors/8.png"
-                      />
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -273,6 +402,16 @@ function Home() {
       {/* Start Contact Form */}
       <section id="contact-us" className="mb-55 pt-42">
         <div className="container">
+          <div className="text-center section-head">
+            <span className="eyebrow">Contact us</span>
+            <h2 className="section-title text-brand font-weight-bold">
+              Have questions about your language journey?
+            </h2>
+            <p className="sub-heading">
+              Drop us a message and our support team will help you find the
+              right path.
+            </p>
+          </div>
           <div className="row ">
             <div className="col-md-4 text-center d-flex align-items-center hc-img">
               <img src="/image/contact.png" width="100%" />
