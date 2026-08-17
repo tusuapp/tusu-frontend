@@ -9,8 +9,6 @@ import {
   setChatHistoryUsers,
 } from "./redux/reducer";
 import { fetch, v2api } from "../../api";
-// @ts-ignore
-import ReactNotifications from "react-browser-notifications";
 import { useRouter } from "next/router";
 import { selectAuth } from "../../features/auth/authSlice";
 
@@ -26,7 +24,6 @@ const Chat: React.FC<Props> = (props) => {
     body: "",
     from: "",
   });
-  const [ref, setRef] = useState();
   const router = useRouter();
 
   const { onlineUsers, isSocket, onlineUsersStatus } = useSelector(selectChat);
@@ -155,36 +152,51 @@ const Chat: React.FC<Props> = (props) => {
   }, [user, isSocket, onlineUsers]);
 
   useEffect(() => {
-    if (notification.title) {
-      // @ts-ignore
-      ref.show();
+    if (!notification.title) return;
+    if (typeof window === "undefined" || !("Notification" in window)) return;
+
+    let cancelled = false;
+    let timer: ReturnType<typeof setTimeout>;
+
+    const show = () => {
+      if (cancelled) return;
+      const browserNotification = new Notification(notification.title, {
+        body: notification.body,
+        icon: "/image/img_avatar.png",
+        tag: "abcdef",
+      });
+
+      browserNotification.onclick = (event) => {
+        event.preventDefault();
+        window.focus();
+        if (cuser && cuser.role && cuser.role.type) {
+          if (cuser.role.type === "tutor") {
+            router.push("/tutor/messages/" + notification.from);
+          } else {
+            router.push("/student/message/" + notification.from);
+          }
+        }
+        browserNotification.close();
+      };
+
+      timer = setTimeout(() => browserNotification.close(), 10000);
+    };
+
+    if (Notification.permission === "granted") {
+      show();
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") show();
+      });
     }
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, [notification]);
 
-  return (
-    <>
-      <ReactNotifications
-        onRef={(ref: any) => {
-          setRef(ref);
-        }} // Required
-        title={notification.title} // Required
-        body={notification.body}
-        icon="/image/img_avatar.png"
-        tag="abcdef"
-        timeout="10000"
-        onClick={(event: any) => {
-          if (cuser && cuser.role && cuser.role.type) {
-            if (cuser.role.type === "tutor") {
-              router.push("/tutor/messages/" + notification.from);
-            } else {
-              router.push("/student/message/" + notification.from);
-            }
-          }
-          //router.push("tutor/messages/" + notification.title)
-        }}
-      />
-    </>
-  );
+  return null;
 };
 
 export default Chat;

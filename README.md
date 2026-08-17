@@ -6,6 +6,15 @@ Demo live at: [https://next.tusustaging.ml/](https://next.tusustaging.ml//)
 
 Source code: [git@gitlab.com:centresource_nodejs/tusu-frontend.git](git@gitlab.com:centresource_nodejs/tusu-frontend.git)
   
+## Requirements
+
+Node **22.x** (LTS). The version is pinned in `.nvmrc` and enforced advisorily via
+`engines` in `package.json`:
+
+```bash
+nvm use
+```
+
 ## Installation
 
 The project is bootstrapped using create-next-app. The projects uses yarn as it's package manager. First
